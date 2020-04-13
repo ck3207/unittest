@@ -6,14 +6,14 @@ import decimal
 
 from HTMLTestRunner import HTMLTestRunner
 from get_configurations import get_configurations
-from interfaces import interfaces
+from business.interfaces import interfaces
 __author__ = "chenk"
 
 class GetTradeStyle(unittest.TestCase):
     TABLE_NAME = "interval_trade_style"
     INTERFACE_NAME = "general/get_trade_style"
-    COLUMNS = ["avg_hold_day","avg_hold_day_rank","drawdown","drawdown_rank","success_rate",
-               "success_rate_rank","avg_position","avg_position_rank"]
+    COLUMNS = ["avg_hold_day", "avg_hold_day_rank", "drawdown", "drawdown_rank", "success_rate",
+               "success_rate_rank", "avg_position", "avg_position_rank"]
     @classmethod
     def setUpClass(cls):
         database_info = get_configurations.get_target_section(section='database')
@@ -24,7 +24,7 @@ class GetTradeStyle(unittest.TestCase):
 
         cls.url_prefix = interfaces.get_url_prefix()
         cls.login_info = interfaces.request(url=cls.url_prefix+"user/login", data='{"user_token":"888888"}',
-                                            is_get=False)
+                                            is_get_method=False)
 
         print(cls.__class__.__name__, time.time())
         cls.data = {}
@@ -68,7 +68,7 @@ class GetTradeStyle(unittest.TestCase):
         url = self.url_prefix + GetTradeStyle.INTERFACE_NAME
         self.data.setdefault("interval", "1")
         data = str(self.data).replace("'", '"')
-        interface_result = interfaces.request(url=url, data=data, is_get=False)
+        interface_result = interfaces.request(url=url, data=data, is_get_method=False)
         sql_tmp = "select "
         for column in GetTradeStyle.COLUMNS:
             sql_tmp += column + ", "

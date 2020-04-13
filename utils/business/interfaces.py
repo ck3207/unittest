@@ -13,12 +13,12 @@ class Interfaces:
     def __init__(self):
         pass
 
-    def request(self, url, data, is_get=True, verify=False, headers={}):
+    def request(self, url, data, is_get_method=True, verify=False, headers={}):
         print("Will Reuqeuest Interface: {}".format(url))
         print("Augues as follows: \n{}".format(data))
         if not headers:
             headers = Interfaces.HEADERS
-        if is_get:
+        if is_get_method:
             r = requests.get(url=url, headers=headers, verify=verify, params=data)
         else:
             r = requests.post(url=url, headers=headers, verify=verify, data=data)
