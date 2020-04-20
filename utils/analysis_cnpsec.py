@@ -229,7 +229,7 @@ order by init_date, stock_code ;".format('count(1)', self.info["fund_account"], 
 
 class GetMonthAccountYield(unittest.TestCase):
     INTERFACE_NAME = "month_bill/get_month_account_yield"
-    COLUMNS = ["init_date", "income", "yield", "position", "accumulative_yield"]
+    COLUMNS = ["init_date", "income", "yield", "accumulative_yield", "position"]
 
     @classmethod
     def setUpClass(cls):
@@ -247,7 +247,8 @@ class GetMonthAccountYield(unittest.TestCase):
         url = self.url_prefix + GetMonthAccountYield.INTERFACE_NAME
         data = self.data.copy()
         interface_result = interfaces.request(url=url, data=data, is_get_method=False)
-        interface_result = interface_result.get("data_list").pop(0)
+        # 删除首条数据
+        interface_result.get("data_list").pop(0)
         # SQL
         columns = GetMonthAccountYield.COLUMNS.copy()
         columns.insert(columns.index("init_date"), "a.{0}".format(columns.pop(columns.index("init_date"))))
@@ -280,7 +281,7 @@ where fund_account = {0} and substr(init_date from 1 for 6) = {1}  ORDER BY init
         print("sql_result:\n", sql_result_dealed)
         _checking(self=self, class_name=GetMonthAccountYield, sql_result=sql_result_dealed,
                   interface_result=interface_result, is_fetchone=False,
-                  sql=sql, url=url, data=data, count=len(sql_result_dealed), is_timestamp=False)
+                  sql=sql, url=url, data=data, count=len(sql_result_dealed)+1, is_timestamp=False)
 
 
 class GetMonthIndexAcYield(unittest.TestCase):
@@ -338,8 +339,8 @@ order by init_date;".format(select_columns, self.info["interval"])
         # self.assertTrue(0, msg="SQL:\n{0}\nResponse:\n{1}".format(sql, sql_result_dealed))
         print("sql_result:\n", sql_result_dealed)
         _checking(self=self, class_name=GetMonthIndexAcYield, sql_result=sql_result_dealed,
-                  interface_result=interface_result, is_fetchone=False,
-                  sql=sql, url=url, data=data, count=len(sql_result_dealed), is_timestamp=False)
+                  interface_result=interface_result, is_fetchone=False, sql=sql, url=url, data=data,
+                  count=len(sql_result_dealed), is_timestamp=False, is_cumulative_rate=True)
 
 
 class GetCursor:
@@ -407,7 +408,12 @@ def _checking(self, class_name, sql_result, interface_result, is_fetchone=True, 
                     if params.get("is_timestamp") and column in ["init_date", "part_init_date"]:
                         interface_data /= 1000
                     if isinstance(sql_data[column_index], decimal.Decimal):
-                        self.assertAlmostEqual(sql_data[column_index], round(decimal.Decimal(interface_data), 4), msg=msg)
+                        # 累计收益率由于保留小数问题，存在一定误差
+                        if params.get("is_cumulative_rate"):
+                            self.assertTrue(abs(sql_data[column_index] - decimal.Decimal(interface_data)) <= 0.0015,
+                                            msg=msg)
+                        else:
+                            self.assertAlmostEqual(sql_data[column_index], round(decimal.Decimal(interface_data), 4), msg=msg)
                     else:
                         # self.assertEqual(sql_data[column_index], interface_data, msg="sql_data:{0},interface_data:{1},\n\
                         # column_index:{2}".format(sql_data, interface_result.get("data_list")[sql_index], column_index))
