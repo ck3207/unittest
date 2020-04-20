@@ -4,6 +4,9 @@ import logging
 import time, datetime
 import decimal
 import pymysql
+import sys
+import imp
+imp.reload(sys)
 
 from HTMLTestRunner import HTMLTestRunner
 from get_configurations import get_configurations
@@ -36,8 +39,8 @@ class GetMonthBillIncome(unittest.TestCase):
         sql_tmp = "select "
         for column in GetMonthBillIncome.COLUMNS:
             sql_tmp += column + ", "
-        sql = sql_tmp[:-2] + " from {0} where fund_account = {1} and interval_type = {2};"\
-            .format(GetMonthBillIncome.TABLE_NAME, self.info["fund_account"], "5")
+        sql = sql_tmp[:-2] + " from {0} where fund_account = {1} and init_month = {2};"\
+            .format(GetMonthBillIncome.TABLE_NAME, self.info["fund_account"], self.info["interval"])
         print("Will execute sql: \n", sql)
         cur.execute(sql)
         sql_result = cur.fetchone()
@@ -101,7 +104,7 @@ class ListMonthIntervalTradeAnalyze(unittest.TestCase):
         interface_result = interfaces.request(url=url, data=data, is_get_method=False)
         # SQL
         sql = "SELECT stock_count,profit_count,win_ratio from month_interval_trade_analyze \
-        where fund_account = {0} and interval_type = {1};".format(self.info["fund_account"], "5")
+        where fund_account = {0} and init_month = {1};".format(self.info["fund_account"], self.info["interval"])
         print("Will execute sql: \n", sql)
         cur.execute(sql)
         sql_result = cur.fetchone()
@@ -133,7 +136,7 @@ class ListMonthBankDetail(unittest.TestCase):
         interface_result = interfaces.request(url=url, data=data, is_get_method=False)
         # SQL
         sql = "SELECT unix_timestamp(part_init_date) as part_init_date, bank_name, occ_price, transfer_type \
-from month_bank_detail where fund_account = {0} and substr(part_init_date from 1 for 6) = {1} \
+from month_bank_detail where fund_account = {0} and init_month = {1} \
 order by part_init_date ;".format(self.info["fund_account"], self.info["interval"])
         print("Will execute sql: \n", sql)
         cur.execute(sql)
@@ -166,8 +169,8 @@ class ListMonthStockTradeStockCode(unittest.TestCase):
         interface_result = interfaces.request(url=url, data=data, is_get_method=False)
         # SQL
         sql = "SELECT stock_code, stock_name from month_stock_trade_detail \
-where fund_account = {0} and substr(init_date from 1 for 6) = {1} group by stock_code, stock_name \
-order by stock_code, stock_name ;".format(self.info["fund_account"], self.info["interval"])
+where fund_account = {0} and init_month = {1} group by stock_code, stock_name \
+order by stock_code, stock_name limit 3;".format(self.info["fund_account"], self.info["interval"])
         print("Will execute sql: \n", sql)
         cur.execute(sql)
         sql_result = cur.fetchall()
@@ -204,11 +207,11 @@ class GetMonthStockTradeDetail(unittest.TestCase):
         columns = GetMonthStockTradeDetail.COLUMNS.copy()
         columns.insert(columns.index("init_date"), "unix_timestamp({0})".format(columns.pop(columns.index("init_date"))))
         select_columns = sql_model.combine_select_columns(columns)
-        sql = "SELECT {0} from month_stock_trade_detail where fund_account = {1} and substr(init_date from 1 for 6) \
-= {2} order by init_date, stock_code limit {3};".format(select_columns, self.info["fund_account"],
+        sql = "SELECT {0} from month_stock_trade_detail where fund_account = {1} and init_month = {2} \
+order by init_date, stock_code limit {3};".format(select_columns, self.info["fund_account"],
                                                         self.info["interval"], self.info["page_size"])
-        sql_count = "SELECT {0} from month_stock_trade_detail where fund_account = {1} and substr(init_date from 1 for 6) \
-        = {2} order by init_date, stock_code ;".format('count(1)', self.info["fund_account"], self.info["interval"])
+        sql_count = "SELECT {0} from month_stock_trade_detail where fund_account = {1} and init_month = {2} \
+order by init_date, stock_code ;".format('count(1)', self.info["fund_account"], self.info["interval"])
         print("Will execute sql: \n", sql)
 
         try:
@@ -244,15 +247,20 @@ class GetMonthAccountYield(unittest.TestCase):
         url = self.url_prefix + GetMonthAccountYield.INTERFACE_NAME
         data = self.data.copy()
         interface_result = interfaces.request(url=url, data=data, is_get_method=False)
+        interface_result = interface_result.get("data_list").pop(0)
         # SQL
         columns = GetMonthAccountYield.COLUMNS.copy()
         columns.insert(columns.index("init_date"), "a.{0}".format(columns.pop(columns.index("init_date"))))
         columns.insert(columns.index("accumulative_yield"),
                        "0 as {0}".format(columns.pop(columns.index("accumulative_yield"))))
         select_columns = sql_model.combine_select_columns(columns)
-        sql = "SELECT {0} from daily_asset a INNER JOIN daily_index b on a.init_date = b.init_date where fund_account \
-= {1} and b.init_date >= (SELECT max(init_date) as init_date from daily_index where init_date < '{2}01') and \
-b.init_date <= '{2}31' ORDER BY init_date;".format(select_columns, self.info["fund_account"], self.info["interval"])
+#         sql = "SELECT {0} from daily_asset a INNER JOIN daily_index b on a.init_date = b.init_date where fund_account \
+# = {1} and b.init_date >= (SELECT max(init_date) as init_date from daily_index where init_date < '{2}01') and \
+# b.init_date <= '{2}31' ORDER BY init_date;".format(select_columns, self.info["fund_account"], self.info["interval"])
+        sql = "SELECT init_date, income, income / get_last_trading_day_asset(init_date, {0}) as day_yield,  \
+get_month_total_income(init_date, {0})/get_max_asset(init_date, {0}) as accumulative_yield from daily_asset \
+where fund_account = {0} and substr(init_date from 1 for 6) = {1}  ORDER BY init_date;"\
+            .format(self.info["fund_account"], self.info["interval"])
         print("Will execute sql: \n", sql)
 
         try:
@@ -261,10 +269,11 @@ b.init_date <= '{2}31' ORDER BY init_date;".format(select_columns, self.info["fu
             rate_index = {}
             rate_index.setdefault(GetMonthAccountYield.COLUMNS.index("yield"),
                                   GetMonthAccountYield.COLUMNS.index("accumulative_yield"))
-            sql_result_dealed = cumulative_rate.cal_cumulative_rate(data=sql_result,
-                                                                    rate_indexes=rate_index,
-                                                                    need_to_deal_first_data=True,
-                                                                    GetMonthAccountYield=True)
+            sql_result_dealed = sql_result
+            # sql_result_dealed = cumulative_rate.cal_cumulative_rate(data=sql_result,
+            #                                                         rate_indexes=rate_index,
+            #                                                         need_to_deal_first_data=True,
+            #                                                         GetMonthAccountYield=True)
         except pymysql.err.ProgrammingError:
             self.assertTrue(0, msg="SQL Execute Error:\n{}".format(sql))
         # self.assertTrue(0, msg="SQL:\n{0}\nResponse:\n{1}".format(sql, sql_result_dealed))
@@ -452,4 +461,3 @@ if __name__ == "__main__":
 
     # close database connection
     get_cursor.close_connection()
-
