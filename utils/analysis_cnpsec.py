@@ -287,7 +287,7 @@ where fund_account = {0} and substr(init_date from 1 for 6) = {1}  ORDER BY init
 class GetMonthIndexAcYield(unittest.TestCase):
     INTERFACE_NAME = "month_bill/get_month_index_ac_yield"
     COLUMNS = ["init_date", "hs_yield", "sh_yield", "sz_yield", "gem_yield", "ac_hs_yield", "ac_sh_yield",
-               "ac_sz_yield", "ac_gem_yield"]
+               "ac_sz_yield", "ac_gem_yield", "hs_income", "sh_income", "sz_income", "gem_income"]
 
     @classmethod
     def setUpClass(cls):
@@ -311,6 +311,10 @@ class GetMonthIndexAcYield(unittest.TestCase):
         columns.insert(columns.index("ac_sh_yield"), "0 as {0}".format(columns.pop(columns.index("ac_sh_yield"))))
         columns.insert(columns.index("ac_sz_yield"), "0 as {0}".format(columns.pop(columns.index("ac_sz_yield"))))
         columns.insert(columns.index("ac_gem_yield"), "0 as {0}".format(columns.pop(columns.index("ac_gem_yield"))))
+        columns.insert(columns.index("hs_income"), "0 as {0}".format(columns.pop(columns.index("hs_income"))))
+        columns.insert(columns.index("sh_income"), "0 as {0}".format(columns.pop(columns.index("sh_income"))))
+        columns.insert(columns.index("sz_income"), "0 as {0}".format(columns.pop(columns.index("sz_income"))))
+        columns.insert(columns.index("gem_income"), "0 as {0}".format(columns.pop(columns.index("gem_income"))))
 
         select_columns = sql_model.combine_select_columns(columns)
         sql = "SELECT {0} from daily_index where init_date BETWEEN '{1}01' and '{1}31' \
