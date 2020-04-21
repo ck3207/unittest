@@ -311,19 +311,39 @@ class GetMonthIndexAcYield(unittest.TestCase):
         columns.insert(columns.index("ac_sh_yield"), "0 as {0}".format(columns.pop(columns.index("ac_sh_yield"))))
         columns.insert(columns.index("ac_sz_yield"), "0 as {0}".format(columns.pop(columns.index("ac_sz_yield"))))
         columns.insert(columns.index("ac_gem_yield"), "0 as {0}".format(columns.pop(columns.index("ac_gem_yield"))))
-        columns.insert(columns.index("hs_income"), "0 as {0}".format(columns.pop(columns.index("hs_income"))))
-        columns.insert(columns.index("sh_income"), "0 as {0}".format(columns.pop(columns.index("sh_income"))))
-        columns.insert(columns.index("sz_income"), "0 as {0}".format(columns.pop(columns.index("sz_income"))))
-        columns.insert(columns.index("gem_income"), "0 as {0}".format(columns.pop(columns.index("gem_income"))))
+        columns.insert(columns.index("hs_income"), "hs_price as {0}".format(columns.pop(columns.index("hs_income"))))
+        columns.insert(columns.index("sh_income"), "sh_price as {0}".format(columns.pop(columns.index("sh_income"))))
+        columns.insert(columns.index("sz_income"), "sz_price as {0}".format(columns.pop(columns.index("sz_income"))))
+        columns.insert(columns.index("gem_income"), "gem_price as {0}".format(columns.pop(columns.index("gem_income"))))
 
         select_columns = sql_model.combine_select_columns(columns)
-        sql = "SELECT {0} from daily_index where init_date BETWEEN '{1}01' and '{1}31' \
+        # 当日数据获取
+        sql_today = "SELECT {0} from daily_index where init_date BETWEEN '{1}01' and '{1}31' \
 order by init_date;".format(select_columns, self.info["interval"])
-        print("Will execute sql: \n", sql)
+        # 上日数据获取
+        sql_last_day = "SELECT {0} from daily_index where init_date BETWEEN get_last_trading_day('{1}01') " \
+              "and get_last_trading_day('{1}31') order by init_date;".format(select_columns, self.info["interval"])
+        print("Will execute sql: \n", sql_today)
 
         try:
-            cur.execute(sql)
-            sql_result = cur.fetchall()
+            cur.execute(sql_today)
+            sql_result_today = cur.fetchall()
+
+            cur.execute(sql_last_day)
+            sql_result_last_day = cur.fetchall()
+
+            sql_result = []
+            # 指数值字段 分割点
+            split_index = GetMonthIndexAcYield.COLUMNS.index("hs_income")
+            # 计算当日的指数涨跌值： today.xx_price - last_day.xx_price
+            for i, each in enumerate(sql_result_today):
+                sql_result.insert(i, [])
+                for j, value in enumerate(each):
+                    if GetMonthIndexAcYield.COLUMNS[j] in ("hs_income", "sh_income", "sz_income", "gem_income"):
+                        sql_result[i].append(value - sql_result_last_day[i][j])
+                    else:
+                        sql_result[i].append(value)
+
             rate_index = {}
             rate_index.setdefault(GetMonthIndexAcYield.COLUMNS.index("hs_yield"),
                                   GetMonthIndexAcYield.COLUMNS.index("ac_hs_yield"))
@@ -339,11 +359,11 @@ order by init_date;".format(select_columns, self.info["interval"])
                                                                     GetMonthIndexAcYield=True)
 
         except pymysql.err.ProgrammingError:
-            self.assertTrue(0, msg="SQL Execute Error:\n{}".format(sql))
+            self.assertTrue(0, msg="SQL Execute Error:\n{}".format(sql_today))
         # self.assertTrue(0, msg="SQL:\n{0}\nResponse:\n{1}".format(sql, sql_result_dealed))
         print("sql_result:\n", sql_result_dealed)
         _checking(self=self, class_name=GetMonthIndexAcYield, sql_result=sql_result_dealed,
-                  interface_result=interface_result, is_fetchone=False, sql=sql, url=url, data=data,
+                  interface_result=interface_result, is_fetchone=False, sql=sql_today, url=url, data=data,
                   count=len(sql_result_dealed), is_timestamp=False, is_cumulative_rate=True)
 
 

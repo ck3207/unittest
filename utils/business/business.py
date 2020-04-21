@@ -4,8 +4,8 @@ class CumulativeRate:
 
     def cal_cumulative_rate(self, data=[], rate_indexes={0: 4}, need_to_deal_first_data=True, **class_name):
         """
-        
-        :param data: [[],[],[]]
+        根据日收益率计算累计收益率
+        :param data: [[yield, cumulative_rate],[yield, cumulative_rate],[yield, cumulative_rate]]
         :param rate_index: {yield.index: cumulative_rate.index}
         :param need_to_deal_first_data: if true then deal the first data special
         :return: 
