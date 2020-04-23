@@ -11,7 +11,7 @@ imp.reload(sys)
 from HTMLTestRunner import HTMLTestRunner
 from get_configurations import get_configurations
 from business.interfaces import interfaces
-from business.business import cumulative_rate
+from business.business import cumulative_rate, get_month_account_yield
 __author__ = "chenk"
 
 class GetMonthBillIncome(unittest.TestCase):
@@ -255,13 +255,14 @@ class GetMonthAccountYield(unittest.TestCase):
         columns.insert(columns.index("accumulative_yield"),
                        "0 as {0}".format(columns.pop(columns.index("accumulative_yield"))))
         select_columns = sql_model.combine_select_columns(columns)
-#         sql = "SELECT {0} from daily_asset a INNER JOIN daily_index b on a.init_date = b.init_date where fund_account \
-# = {1} and b.init_date >= (SELECT max(init_date) as init_date from daily_index where init_date < '{2}01') and \
-# b.init_date <= '{2}31' ORDER BY init_date;".format(select_columns, self.info["fund_account"], self.info["interval"])
-        sql = "SELECT init_date, income, income / get_last_trading_day_asset(init_date, {0}) as day_yield,  \
-get_month_total_income(init_date, {0})/get_max_asset(init_date, {0}) as accumulative_yield from daily_asset \
-where fund_account = {0} and substr(init_date from 1 for 6) = {1}  ORDER BY init_date;"\
-            .format(self.info["fund_account"], self.info["interval"])
+        sql = "SELECT b.init_date, a.asset, b.income, (abs(b.fund_in) - abs(b.fund_out)) as net_fund_in, b.position \
+from daily_asset a INNER JOIN daily_asset b on b.init_date BETWEEN '{1}01' and '{1}31' \
+and a.fund_account = b.fund_account and a.init_date = get_last_trading_day(b.init_date) \
+where b.fund_account = {0} ORDER BY b.init_date ;".format(self.info["fund_account"], self.info["interval"])
+        # sql = "SELECT init_date, income, income / get_last_trading_day_asset(init_date, {0}) as day_yield,  \
+# get_month_total_income(init_date, {0})/get_max_asset(init_date, {0}) as accumulative_yield from daily_asset \
+# where fund_account = {0} and substr(init_date from 1 for 6) = {1}  ORDER BY init_date;"\
+            # .format(self.info["fund_account"], self.info["interval"])
         print("Will execute sql: \n", sql)
 
         try:
@@ -270,7 +271,7 @@ where fund_account = {0} and substr(init_date from 1 for 6) = {1}  ORDER BY init
             rate_index = {}
             rate_index.setdefault(GetMonthAccountYield.COLUMNS.index("yield"),
                                   GetMonthAccountYield.COLUMNS.index("accumulative_yield"))
-            sql_result_dealed = sql_result
+            sql_result_dealed = get_month_account_yield(sql_result)
             # sql_result_dealed = cumulative_rate.cal_cumulative_rate(data=sql_result,
             #                                                         rate_indexes=rate_index,
             #                                                         need_to_deal_first_data=True,
@@ -280,8 +281,8 @@ where fund_account = {0} and substr(init_date from 1 for 6) = {1}  ORDER BY init
         # self.assertTrue(0, msg="SQL:\n{0}\nResponse:\n{1}".format(sql, sql_result_dealed))
         print("sql_result:\n", sql_result_dealed)
         _checking(self=self, class_name=GetMonthAccountYield, sql_result=sql_result_dealed,
-                  interface_result=interface_result, is_fetchone=False,
-                  sql=sql, url=url, data=data, count=len(sql_result_dealed)+1, is_timestamp=False)
+                  interface_result=interface_result, is_fetchone=False, sql=sql, url=url, data=data, 
+                  count=len(sql_result_dealed)+1, is_timestamp=False, is_cumulative_rate=True)
 
 
 class GetMonthIndexAcYield(unittest.TestCase):

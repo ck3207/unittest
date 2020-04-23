@@ -189,9 +189,9 @@ function showOutput(id, name) {
 
 <div class='heading'>
 <h1>测试报告</h1>
-<p class='attribute'><strong>Start Time:</strong> 2020-04-21 23:45:38</p>
-<p class='attribute'><strong>Duration:</strong> 0:00:00.780940</p>
-<p class='attribute'><strong>Status:</strong> Pass 4 Failure 4</p>
+<p class='attribute'><strong>Start Time:</strong> 2020-04-23 13:46:44</p>
+<p class='attribute'><strong>Duration:</strong> 0:00:00.882000</p>
+<p class='attribute'><strong>Status:</strong> Pass 5 Failure 3</p>
 
 <p class='description'>单元测试报告：</p>
 </div>
@@ -345,9 +345,9 @@ pt3.1:
         <pre>
         
 ft4.1: Traceback (most recent call last):
-  File ".\analysis_cnpsec.py", line 146, in test_normal
+  File "analysis_cnpsec.py", line 146, in test_normal
     is_fetchone=False, sql=sql, url=url, data=data, is_timestamp=True)
-  File ".\analysis_cnpsec.py", line 440, in _checking
+  File "analysis_cnpsec.py", line 441, in _checking
     self.assertAlmostEqual(sql_data[column_index], round(decimal.Decimal(interface_data), 4), msg=msg)
 AssertionError: Decimal('37311.4000') != Decimal('47352.3800') within 7 places : 
 SQL is
@@ -363,9 +363,9 @@ Interface response is
 Current is checking column occ_price
 
 Traceback (most recent call last):
-  File ".\analysis_cnpsec.py", line 146, in test_normal
+  File "analysis_cnpsec.py", line 146, in test_normal
     is_fetchone=False, sql=sql, url=url, data=data, is_timestamp=True)
-  File ".\analysis_cnpsec.py", line 440, in _checking
+  File "analysis_cnpsec.py", line 441, in _checking
     self.assertAlmostEqual(sql_data[column_index], round(decimal.Decimal(interface_data), 4), msg=msg)
 AssertionError: Decimal('37311.4000') != Decimal('47352.3800') within 7 places : 
 SQL is
@@ -414,9 +414,9 @@ Current is checking column occ_price
         <pre>
         
 ft5.1: Traceback (most recent call last):
-  File ".\analysis_cnpsec.py", line 180, in test_normal
+  File "analysis_cnpsec.py", line 180, in test_normal
     sql=sql, url=url, data=data, count=len(sql_result))
-  File ".\analysis_cnpsec.py", line 424, in _checking
+  File "analysis_cnpsec.py", line 425, in _checking
     self.assertEqual(params.get("count"), interface_result.get("count"), msg=msg_model)
 AssertionError: 3 != None : 
 SQL is
@@ -430,9 +430,9 @@ Interface response is
     SQL result is
 (('000001', '平安银行'), ('002415', '海康威视'), ('600000', '浦发银行'))
 Traceback (most recent call last):
-  File ".\analysis_cnpsec.py", line 180, in test_normal
+  File "analysis_cnpsec.py", line 180, in test_normal
     sql=sql, url=url, data=data, count=len(sql_result))
-  File ".\analysis_cnpsec.py", line 424, in _checking
+  File "analysis_cnpsec.py", line 425, in _checking
     self.assertEqual(params.get("count"), interface_result.get("count"), msg=msg_model)
 AssertionError: 3 != None : 
 SQL is
@@ -487,67 +487,31 @@ pt6.1:
     </td>
 </tr>
 
-<tr class='failClass'>
+<tr class='passClass'>
     <td>GetMonthAccountYield</td>
     <td>1</td>
-    <td>0</td>
     <td>1</td>
+    <td>0</td>
     <td>0</td>
     <td><a href="javascript:showClassDetail('c7',1)">Detail</a></td>
 </tr>
 
-<tr id='ft7.1' class='none'>
-    <td class='failCase'><div class='testcase'>test_normal</div></td>
+<tr id='pt7.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_normal</div></td>
     <td colspan='5' align='center'>
 
     <!--css div popup start-->
-    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft7.1')" >
-        fail</a>
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt7.1')" >
+        pass</a>
 
-    <div id='div_ft7.1' class="popup_window">
+    <div id='div_pt7.1' class="popup_window">
         <div style='text-align: right; color:red;cursor:pointer'>
-        <a onfocus='this.blur();' onclick="document.getElementById('div_ft7.1').style.display = 'none' " >
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt7.1').style.display = 'none' " >
            [x]</a>
         </div>
         <pre>
         
-ft7.1: Traceback (most recent call last):
-  File ".\analysis_cnpsec.py", line 284, in test_normal
-    sql=sql, url=url, data=data, count=len(sql_result_dealed)+1, is_timestamp=False)
-  File ".\analysis_cnpsec.py", line 440, in _checking
-    self.assertAlmostEqual(sql_data[column_index], round(decimal.Decimal(interface_data), 4), msg=msg)
-AssertionError: Decimal('28558.473626') != Decimal('9470.1642') within 7 places : 
-SQL is
- SELECT init_date, income, income / get_last_trading_day_asset(init_date, 88888) as day_yield,  get_month_total_income(init_date, 88888)/get_max_asset(init_date, 88888) as accumulative_yield from daily_asset where fund_account = 88888 and substr(init_date from 1 for 6) = 201905  ORDER BY init_date;
- Interface is
- http://10.20.18.174:8096/cnpsec/month_bill/get_month_account_yield
- params is
- {'interval': '201905', 'fund_account': '88888'}
-Interface response is
- {'error_no': '0', 'error_info': '执行成功', 'data_list': [{'init_date': 20190502, 'income': 704603800.0, 'yield': 9470.164238, 'accumulative_yield': 9470.164238, 'position': 0.5078}, {'init_date': 20190503, 'income': 641083600.0, 'yield': 45444.135458, 'accumulative_yield': 18086.590919, 'position': 0.9319}, {'init_date': 20190504, 'income': 606111000.0, 'yield': 5590.245314, 'accumulative_yield': 26232.971504, 'position': 0.2887}, {'init_date': 20190505, 'income': 42566600.0, 'yield': 619.853888, 'accumulative_yield': 26805.084077, 'position': 0.4512}, {'init_date': 20190508, 'income': -377479300.0, 'yield': -3216.77625, 'accumulative_yield': 21731.60737, 'position': 0.9094}, {'init_date': 20190509, 'income': -1057658900.0, 'yield': -8862.381153, 'accumulative_yield': 7516.237696, 'position': 0.3957}, {'init_date': 20190510, 'income': -628159400.0, 'yield': -10171.71588, 'accumulative_yield': -926.482434, 'position': 0.1611}, {'init_date': 20190511, 'income': 392182100.0, 'yield': 15099.368932, 'accumulative_yield': 4344.60594, 'position': 0.7164}, {'init_date': 20190512, 'income': 435996700.0, 'yield': 3481.951217, 'accumulative_yield': 10204.580519, 'position': 0.1511}, {'init_date': 20190513, 'income': -836374800.0, 'yield': -6808.360371, 'accumulative_yield': -773.308899, 'position': 0.1388}, {'init_date': 20190514, 'income': 345415400.0, 'yield': 3247.084194, 'accumulative_yield': 2689.904521, 'position': 0.1049}, {'init_date': 20190515, 'income': 59834600.0, 'yield': 9041.750849, 'accumulative_yield': 3289.81984, 'position': 0.2097}, {'init_date': 20190516, 'income': 150882200.0, 'yield': 2761.674852, 'accumulative_yield': 4802.599119, 'position': 0.7358}, {'init_date': 20190517, 'income': -851994100.0, 'yield': -17916.673852, 'accumulative_yield': -3739.687649, 'position': 0.5639}, {'init_date': 20190518, 'income': 416311200.0, 'yield': 6262.20876, 'accumulative_yield': 434.343198, 'position': 0.8572}, {'init_date': 20190519, 'income': -345684000.0, 'yield': -4737.903806, 'accumulative_yield': -3031.563266, 'position': 0.5847}, {'init_date': 20190520, 'income': -841276400.0, 'yield': -16896.408433, 'accumulative_yield': -11466.391935, 'position': 0.0531}, {'init_date': 20190521, 'income': -175534100.0, 'yield': -2892.761525, 'accumulative_yield': -13226.336774, 'position': 0.4348}, {'init_date': 20190522, 'income': 1170180000.0, 'yield': 9879.54633, 'accumulative_yield': -1493.845751, 'position': 0.4434}, {'init_date': 20190523, 'income': 119380500.0, 'yield': 1024.056916, 'accumulative_yield': -296.909686, 'position': 0.4904}, {'init_date': 20190524, 'income': -849600900.0, 'yield': -11854.201016, 'accumulative_yield': -8815.201686, 'position': 0.862}, {'init_date': 20190525, 'income': 878111500.0, 'yield': 64601.412811, 'accumulative_yield': -11.055921, 'position': 0.3079}, {'init_date': 20190526, 'income': 956756500.0, 'yield': 13469.154895, 'accumulative_yield': 9581.602514, 'position': 0.4439}, {'init_date': 20190527, 'income': -635551900.0, 'yield': -43998.99894, 'accumulative_yield': 3209.414507, 'position': 0.2435}, {'init_date': 20190528, 'income': 184448300.0, 'yield': 2823.021189, 'accumulative_yield': 5058.735145, 'position': 0.2388}, {'init_date': 20190529, 'income': 809543200.0, 'yield': 5483.849553, 'accumulative_yield': 13175.399528, 'position': 0.2243}, {'init_date': 20190530, 'income': 691880600.0, 'yield': 9871.787299, 'accumulative_yield': 20112.351901, 'position': 0.8895}, {'init_date': 20190531, 'income': -1184007300.0, 'yield': -9667.563605, 'accumulative_yield': 8241.225221, 'position': 0.9327}], 'count': 29}
-    SQL result is
-((20190502, Decimal('704603800.00'), Decimal('28558.473626'), -34.27315335644008), (20190503, Decimal('641083600.00'), Decimal('45444.135458'), 178.37628187203714), (20190504, Decimal('606111000.00'), Decimal('5824.310988'), 671.0565242978561), (20190505, Decimal('42566600.00'), Decimal('619.853888'), 705.6569899010918), (20190508, Decimal('-377479300.00'), Decimal('-3216.778443'), 398.82112479597345), (20190509, Decimal('-1057658900.00'), Decimal('-28721.476662'), -46.090192744132814), (20190510, Decimal('-628159400.00'), Decimal('-37244.212603'), -9.715037488863889), (20190511, Decimal('392182100.00'), Decimal('15099.368932'), -65.27172110626289), (20190512, Decimal('435996700.00'), Decimal('4739.041509'), -29.83151958329811), (20190513, Decimal('-836374800.00'), Decimal('-10843.743611'), -9.781659069183698), (20190514, Decimal('345415400.00'), Decimal('3247.084194'), -69.73939061900519), (20190515, Decimal('59834600.00'), Decimal('9041.750849'), -64.87570637083087), (20190516, Decimal('150882200.00'), Decimal('4847.857630'), -52.61117415251758), (20190517, Decimal('-851994100.00'), Decimal('-17916.673852'), -12.186587570474513), (20190518, Decimal('416311200.00'), Decimal('8481.874886'), -8.80258357773168), (20190519, Decimal('-345684000.00'), Decimal('-4737.903806'), -11.612492603021218), (20190520, Decimal('-841276400.00'), Decimal('-16896.408433'), -18.450845043861648), (20190521, Decimal('-175534100.00'), Decimal('-2892.761525'), -19.877681608021902), (20190522, Decimal('1170180000.00'), Decimal('9879.547164'), -10.36581717919872), (20190523, Decimal('119380500.00'), Decimal('1024.057267'), -9.395431105677629), (20190524, Decimal('-849600900.00'), Decimal('-26502.051131'), -16.301453709544216), (20190525, Decimal('878111500.00'), Decimal('64601.412811'), -9.163678070477763), (20190526, Decimal('956756500.00'), Decimal('13469.154895'), -13.866433323145554), (20190527, Decimal('-635551900.00'), Decimal('-43998.998940'), -65.5275752866126), (20190528, Decimal('184448300.00'), Decimal('3685.131989'), -50.53460648072884), (20190529, Decimal('809543200.00'), Decimal('13966.536618'), 152.69494696935212), (20190530, Decimal('691880600.00'), Decimal('12673.488696'), 715.0934214034427), (20190531, Decimal('-1184007300.00'), Decimal('-9667.567552'), -24.7332535651812))
-Current is checking column yield
-
-Traceback (most recent call last):
-  File ".\analysis_cnpsec.py", line 284, in test_normal
-    sql=sql, url=url, data=data, count=len(sql_result_dealed)+1, is_timestamp=False)
-  File ".\analysis_cnpsec.py", line 440, in _checking
-    self.assertAlmostEqual(sql_data[column_index], round(decimal.Decimal(interface_data), 4), msg=msg)
-AssertionError: Decimal('28558.473626') != Decimal('9470.1642') within 7 places : 
-SQL is
- SELECT init_date, income, income / get_last_trading_day_asset(init_date, 88888) as day_yield,  get_month_total_income(init_date, 88888)/get_max_asset(init_date, 88888) as accumulative_yield from daily_asset where fund_account = 88888 and substr(init_date from 1 for 6) = 201905  ORDER BY init_date;
- Interface is
- http://10.20.18.174:8096/cnpsec/month_bill/get_month_account_yield
- params is
- {'interval': '201905', 'fund_account': '88888'}
-Interface response is
- {'error_no': '0', 'error_info': '执行成功', 'data_list': [{'init_date': 20190502, 'income': 704603800.0, 'yield': 9470.164238, 'accumulative_yield': 9470.164238, 'position': 0.5078}, {'init_date': 20190503, 'income': 641083600.0, 'yield': 45444.135458, 'accumulative_yield': 18086.590919, 'position': 0.9319}, {'init_date': 20190504, 'income': 606111000.0, 'yield': 5590.245314, 'accumulative_yield': 26232.971504, 'position': 0.2887}, {'init_date': 20190505, 'income': 42566600.0, 'yield': 619.853888, 'accumulative_yield': 26805.084077, 'position': 0.4512}, {'init_date': 20190508, 'income': -377479300.0, 'yield': -3216.77625, 'accumulative_yield': 21731.60737, 'position': 0.9094}, {'init_date': 20190509, 'income': -1057658900.0, 'yield': -8862.381153, 'accumulative_yield': 7516.237696, 'position': 0.3957}, {'init_date': 20190510, 'income': -628159400.0, 'yield': -10171.71588, 'accumulative_yield': -926.482434, 'position': 0.1611}, {'init_date': 20190511, 'income': 392182100.0, 'yield': 15099.368932, 'accumulative_yield': 4344.60594, 'position': 0.7164}, {'init_date': 20190512, 'income': 435996700.0, 'yield': 3481.951217, 'accumulative_yield': 10204.580519, 'position': 0.1511}, {'init_date': 20190513, 'income': -836374800.0, 'yield': -6808.360371, 'accumulative_yield': -773.308899, 'position': 0.1388}, {'init_date': 20190514, 'income': 345415400.0, 'yield': 3247.084194, 'accumulative_yield': 2689.904521, 'position': 0.1049}, {'init_date': 20190515, 'income': 59834600.0, 'yield': 9041.750849, 'accumulative_yield': 3289.81984, 'position': 0.2097}, {'init_date': 20190516, 'income': 150882200.0, 'yield': 2761.674852, 'accumulative_yield': 4802.599119, 'position': 0.7358}, {'init_date': 20190517, 'income': -851994100.0, 'yield': -17916.673852, 'accumulative_yield': -3739.687649, 'position': 0.5639}, {'init_date': 20190518, 'income': 416311200.0, 'yield': 6262.20876, 'accumulative_yield': 434.343198, 'position': 0.8572}, {'init_date': 20190519, 'income': -345684000.0, 'yield': -4737.903806, 'accumulative_yield': -3031.563266, 'position': 0.5847}, {'init_date': 20190520, 'income': -841276400.0, 'yield': -16896.408433, 'accumulative_yield': -11466.391935, 'position': 0.0531}, {'init_date': 20190521, 'income': -175534100.0, 'yield': -2892.761525, 'accumulative_yield': -13226.336774, 'position': 0.4348}, {'init_date': 20190522, 'income': 1170180000.0, 'yield': 9879.54633, 'accumulative_yield': -1493.845751, 'position': 0.4434}, {'init_date': 20190523, 'income': 119380500.0, 'yield': 1024.056916, 'accumulative_yield': -296.909686, 'position': 0.4904}, {'init_date': 20190524, 'income': -849600900.0, 'yield': -11854.201016, 'accumulative_yield': -8815.201686, 'position': 0.862}, {'init_date': 20190525, 'income': 878111500.0, 'yield': 64601.412811, 'accumulative_yield': -11.055921, 'position': 0.3079}, {'init_date': 20190526, 'income': 956756500.0, 'yield': 13469.154895, 'accumulative_yield': 9581.602514, 'position': 0.4439}, {'init_date': 20190527, 'income': -635551900.0, 'yield': -43998.99894, 'accumulative_yield': 3209.414507, 'position': 0.2435}, {'init_date': 20190528, 'income': 184448300.0, 'yield': 2823.021189, 'accumulative_yield': 5058.735145, 'position': 0.2388}, {'init_date': 20190529, 'income': 809543200.0, 'yield': 5483.849553, 'accumulative_yield': 13175.399528, 'position': 0.2243}, {'init_date': 20190530, 'income': 691880600.0, 'yield': 9871.787299, 'accumulative_yield': 20112.351901, 'position': 0.8895}, {'init_date': 20190531, 'income': -1184007300.0, 'yield': -9667.563605, 'accumulative_yield': 8241.225221, 'position': 0.9327}], 'count': 29}
-    SQL result is
-((20190502, Decimal('704603800.00'), Decimal('28558.473626'), -34.27315335644008), (20190503, Decimal('641083600.00'), Decimal('45444.135458'), 178.37628187203714), (20190504, Decimal('606111000.00'), Decimal('5824.310988'), 671.0565242978561), (20190505, Decimal('42566600.00'), Decimal('619.853888'), 705.6569899010918), (20190508, Decimal('-377479300.00'), Decimal('-3216.778443'), 398.82112479597345), (20190509, Decimal('-1057658900.00'), Decimal('-28721.476662'), -46.090192744132814), (20190510, Decimal('-628159400.00'), Decimal('-37244.212603'), -9.715037488863889), (20190511, Decimal('392182100.00'), Decimal('15099.368932'), -65.27172110626289), (20190512, Decimal('435996700.00'), Decimal('4739.041509'), -29.83151958329811), (20190513, Decimal('-836374800.00'), Decimal('-10843.743611'), -9.781659069183698), (20190514, Decimal('345415400.00'), Decimal('3247.084194'), -69.73939061900519), (20190515, Decimal('59834600.00'), Decimal('9041.750849'), -64.87570637083087), (20190516, Decimal('150882200.00'), Decimal('4847.857630'), -52.61117415251758), (20190517, Decimal('-851994100.00'), Decimal('-17916.673852'), -12.186587570474513), (20190518, Decimal('416311200.00'), Decimal('8481.874886'), -8.80258357773168), (20190519, Decimal('-345684000.00'), Decimal('-4737.903806'), -11.612492603021218), (20190520, Decimal('-841276400.00'), Decimal('-16896.408433'), -18.450845043861648), (20190521, Decimal('-175534100.00'), Decimal('-2892.761525'), -19.877681608021902), (20190522, Decimal('1170180000.00'), Decimal('9879.547164'), -10.36581717919872), (20190523, Decimal('119380500.00'), Decimal('1024.057267'), -9.395431105677629), (20190524, Decimal('-849600900.00'), Decimal('-26502.051131'), -16.301453709544216), (20190525, Decimal('878111500.00'), Decimal('64601.412811'), -9.163678070477763), (20190526, Decimal('956756500.00'), Decimal('13469.154895'), -13.866433323145554), (20190527, Decimal('-635551900.00'), Decimal('-43998.998940'), -65.5275752866126), (20190528, Decimal('184448300.00'), Decimal('3685.131989'), -50.53460648072884), (20190529, Decimal('809543200.00'), Decimal('13966.536618'), 152.69494696935212), (20190530, Decimal('691880600.00'), Decimal('12673.488696'), 715.0934214034427), (20190531, Decimal('-1184007300.00'), Decimal('-9667.567552'), -24.7332535651812))
-Current is checking column yield
-
-
+pt7.1: 
 
         </pre>
     </div>
@@ -581,9 +545,9 @@ Current is checking column yield
         <pre>
         
 ft8.1: Traceback (most recent call last):
-  File ".\analysis_cnpsec.py", line 367, in test_normal
+  File "analysis_cnpsec.py", line 368, in test_normal
     count=len(sql_result_dealed), is_timestamp=False, is_cumulative_rate=True)
-  File ".\analysis_cnpsec.py", line 438, in _checking
+  File "analysis_cnpsec.py", line 439, in _checking
     msg=msg)
 AssertionError: False is not true : 
 SQL is
@@ -599,9 +563,9 @@ Interface response is
 Current is checking column hs_income
 
 Traceback (most recent call last):
-  File ".\analysis_cnpsec.py", line 367, in test_normal
+  File "analysis_cnpsec.py", line 368, in test_normal
     count=len(sql_result_dealed), is_timestamp=False, is_cumulative_rate=True)
-  File ".\analysis_cnpsec.py", line 438, in _checking
+  File "analysis_cnpsec.py", line 439, in _checking
     msg=msg)
 AssertionError: False is not true : 
 SQL is
@@ -628,8 +592,8 @@ Current is checking column hs_income
 <tr id='total_row'>
     <td>Total</td>
     <td>8</td>
-    <td>4</td>
-    <td>4</td>
+    <td>5</td>
+    <td>3</td>
     <td>0</td>
     <td>&nbsp;</td>
 </tr>
