@@ -2,6 +2,11 @@
 import configparser
 import pymysql
 import decimal
+
+from thrift.transport import TSocket,TTransport
+from thrift.protocol import TBinaryProtocol
+from hbase import Hbase
+
 __author__ = "chenk"
 
 class GetConfigurations:
@@ -30,6 +35,19 @@ class GetConfigurations:
             else:
                 return ""
 
+    def connect_to_hbase(self, hbase_info={}):
+
+        # thrift默认端口是9090
+        socket = TSocket.TSocket('', 9090)
+        socket.setTimeout(5000)
+
+        transport = TTransport.TBufferedTransport(socket)
+        protocol = TBinaryProtocol.TBinaryProtocol(transport)
+
+        client = Hbase.Client(protocol)
+        socket.open()
+
+        print(client.getTableNames())  # 获取当前所有的表名
 
 
 def test_normal(cur):
@@ -43,6 +61,7 @@ def test_normal(cur):
             print("*"*10)
 
 get_configurations = GetConfigurations()
+get_configurations.connect_to_hbase()
 # conn = get_configurations.connect_to_mysql(get_configurations.get_target_section(section="database"))
 # test_normal(conn.cursor())
 # print(type("jkl"), isinstance("asdjkl", str))
