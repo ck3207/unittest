@@ -128,6 +128,8 @@ class ListMonthBankDetail(unittest.TestCase):
         cls.data = {}
         cls.data.setdefault("interval", cls.info.get("interval"))
         cls.data.setdefault("fund_account", cls.info.get("fund_account"))
+        cls.data.setdefault("page_no", "1")
+        cls.data.setdefault("page_size", cls.info.get("page_size"))
 
     def test_normal(self):
         """"""
@@ -137,7 +139,8 @@ class ListMonthBankDetail(unittest.TestCase):
         # SQL
         sql = "SELECT unix_timestamp(part_init_date) as part_init_date, bank_name, occ_price, transfer_type \
 from month_bank_detail where fund_account = {0} and init_month = {1} \
-order by part_init_date ;".format(self.info["fund_account"], self.info["interval"])
+order by part_init_date desc, serial_no desc limit {2};".format(self.info["fund_account"], self.info["interval"],
+                                                                self.info["page_size"])
         print("Will execute sql: \n", sql)
         cur.execute(sql)
         sql_result = cur.fetchall()
@@ -170,7 +173,7 @@ class ListMonthStockTradeStockCode(unittest.TestCase):
         # SQL
         sql = "SELECT stock_code, stock_name from month_stock_trade_detail \
 where fund_account = {0} and init_month = {1} group by stock_code, stock_name \
-order by stock_code, stock_name limit 3;".format(self.info["fund_account"], self.info["interval"])
+order by stock_code, stock_name limit 5;".format(self.info["fund_account"], self.info["interval"])
         print("Will execute sql: \n", sql)
         cur.execute(sql)
         sql_result = cur.fetchall()
@@ -195,6 +198,7 @@ class GetMonthStockTradeDetail(unittest.TestCase):
         cls.data = {}
         cls.data.setdefault("interval", cls.info.get("interval"))
         cls.data.setdefault("fund_account", cls.info.get("fund_account"))
+        cls.data.setdefault("page_size", cls.info.get("page_size"))
 
     def test_normal(self):
         """"""
@@ -211,7 +215,8 @@ class GetMonthStockTradeDetail(unittest.TestCase):
 order by init_date, stock_code limit {3};".format(select_columns, self.info["fund_account"],
                                                         self.info["interval"], self.info["page_size"])
         sql_count = "SELECT {0} from month_stock_trade_detail where fund_account = {1} and init_month = {2} \
-order by init_date, stock_code ;".format('count(1)', self.info["fund_account"], self.info["interval"])
+order by init_date desc, serial_no desc limit {3};".format('count(1)', self.info["fund_account"],
+                                                           self.info["interval"], self.info["page_size"])
         print("Will execute sql: \n", sql)
 
         try:

@@ -3,9 +3,9 @@ import configparser
 import pymysql
 import decimal
 
-from thrift.transport import TSocket,TTransport
-from thrift.protocol import TBinaryProtocol
-from hbase import Hbase
+# from thrift.transport import TSocket,TTransport
+# from thrift.protocol import TBinaryProtocol
+# from hbase import Hbase
 
 __author__ = "chenk"
 
@@ -61,8 +61,10 @@ def test_normal(cur):
             print("*"*10)
 
 get_configurations = GetConfigurations()
-get_configurations.connect_to_hbase()
-# conn = get_configurations.connect_to_mysql(get_configurations.get_target_section(section="database"))
-# test_normal(conn.cursor())
-# print(type("jkl"), isinstance("asdjkl", str))
-# print(get_configurations.get_target_section(section='database'))
+if __name__ == "__main__":
+    pass
+    # get_configurations.connect_to_hbase()
+    # conn = get_configurations.connect_to_mysql(get_configurations.get_target_section(section="database"))
+    # test_normal(conn.cursor())
+    # print(type("jkl"), isinstance("asdjkl", str))
+    # print(get_configurations.get_target_section(section='database'))
