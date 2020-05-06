@@ -117,6 +117,7 @@ class ListMonthBankDetail(unittest.TestCase):
     TABLE_NAME = "month_bank_detail"
     INTERFACE_NAME = "month_bill/list_month_bank_detail"
     COLUMNS = ["part_init_date", "bank_name", "occ_price", "transfer_type"]
+    NOT_REQUIRED_COLUMNS = ["transfer_type"]
 
     @classmethod
     def setUpClass(cls):
@@ -148,11 +149,25 @@ order by part_init_date desc, serial_no desc limit {2};".format(self.info["fund_
         _checking(self=self, class_name=ListMonthBankDetail, sql_result=sql_result, interface_result=interface_result,
                   is_fetchone=False, sql=sql, url=url, data=data, is_timestamp=True)
 
+        if len(sql_result) > 0:
+            for column in ListMonthBankDetail.NOT_REQUIRED_COLUMNS:
+                column_value = sql_result[0][ListMonthBankDetail.COLUMNS.index(column)]
+                sql = sql_model.get_sql_of_not_required_column(sql=sql, split_text="order by",
+                                                               column="and {0} = '{1}' ".format(column, column_value))
+                data.setdefault(column, column_value)
+                interface_result = interfaces.request(url=url, data=data, is_get_method=False)
+
+                cur.execute(sql)
+                sql_result = cur.fetchall()
+                _checking(self=self, class_name=ListMonthBankDetail, sql_result=sql_result,
+                          interface_result=interface_result, is_fetchone=False,
+                          sql=sql, url=url, data=data, is_timestamp=True)
 
 class ListMonthStockTradeStockCode(unittest.TestCase):
     TABLE_NAME = "month_stock_trade_detail"
     INTERFACE_NAME = "month_bill/list_month_stock_trade_stock_code"
     COLUMNS = ["stock_code", "stock_name"]
+    NOT_REQUIRED_COLUMNS = ["stock_code"]
 
     @classmethod
     def setUpClass(cls):
@@ -182,6 +197,19 @@ order by stock_code, stock_name limit 5;".format(self.info["fund_account"], self
                   interface_result=interface_result, is_fetchone=False,
                   sql=sql, url=url, data=data, count=len(sql_result))
 
+        if len(sql_result) > 0:
+            for column in ListMonthStockTradeStockCode.NOT_REQUIRED_COLUMNS:
+                column_value = sql_result[0][ListMonthStockTradeStockCode.COLUMNS.index(column)]
+                sql = sql_model.get_sql_of_not_required_column(sql=sql, split_text="group by",
+                                                               column="and {0} = '{1}' ".format(column, column_value))
+                data.setdefault(column, column_value)
+                interface_result = interfaces.request(url=url, data=data, is_get_method=False)
+
+                cur.execute(sql)
+                sql_result = cur.fetchall()
+                _checking(self=self, class_name=ListMonthStockTradeStockCode, sql_result=sql_result,
+                          interface_result=interface_result, is_fetchone=False,
+                          sql=sql, url=url, data=data, count=len(sql_result))
 
 class GetMonthStockTradeDetail(unittest.TestCase):
     TABLE_NAME = "month_stock_trade_detail"
@@ -470,6 +498,13 @@ class SQLModel:
         for column in columns_list:
             sql += column + ", "
         return sql[:-2]
+
+    def get_sql_of_not_required_column(self, sql, split_text, column):
+        """return a sql which has been reset."""
+        a, b = sql.split(split_text)
+        sql = a + "{0}".format(column) + split_text + b
+        print("Not Required Column Sql: \n{}".format(sql))
+        return sql
 
 
 if __name__ == "__main__":

@@ -3,9 +3,9 @@ import configparser
 import pymysql
 import decimal
 
-# from thrift.transport import TSocket,TTransport
-# from thrift.protocol import TBinaryProtocol
-# from hbase import Hbase
+from thrift.transport import TSocket, TTransport
+from thrift.protocol import TBinaryProtocol
+from hbase import Hbase
 
 __author__ = "chenk"
 
