@@ -38,7 +38,7 @@ class GetConfigurations:
     def connect_to_hbase(self, hbase_info={}):
 
         # thrift默认端口是9090
-        socket = TSocket.TSocket('', 9090)
+        socket = TSocket.TSocket(hbase_info["host"], hbase_info["port"])
         socket.setTimeout(5000)
 
         transport = TTransport.TBufferedTransport(socket)
@@ -47,7 +47,8 @@ class GetConfigurations:
         client = Hbase.Client(protocol)
         socket.open()
 
-        print(client.getTableNames())  # 获取当前所有的表名
+        return client
+        # print(client.getTableNames())  # 获取当前所有的表名
 
 
 def test_normal(cur):
@@ -61,9 +62,9 @@ def test_normal(cur):
             print("*"*10)
 
 get_configurations = GetConfigurations()
+get_configurations.connect_to_hbase()
 if __name__ == "__main__":
     pass
-    # get_configurations.connect_to_hbase()
     # conn = get_configurations.connect_to_mysql(get_configurations.get_target_section(section="database"))
     # test_normal(conn.cursor())
     # print(type("jkl"), isinstance("asdjkl", str))
