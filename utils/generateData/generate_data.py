@@ -14,6 +14,8 @@ class CaifuAnalysis:
     BOND_INFO = {"国轩转债": "128068", "振德转债": "113555", "博特转债": "113571", "希望转债": "127015",
                  "华夏转债": "128077", "精测转债": "123025", "新泉转债": "113509", "唐人转债": "128092",
                  "环境转债": "113028", "中宠转债": "128054", "至纯转债": "113556"}
+    BUSINESS_FLAG = {"证券卖出":"4001", "证券买入": "4002", "红股入账": "4016", "股息入账": "4015"}
+
     def __init__(self):
         self.start_fund_account = 88888
         self.fund_account = 20
@@ -28,10 +30,13 @@ class CaifuAnalysis:
         sql_model = "('{0}','{1}',{2},{3},{4},{5}),"
         
         for init_date_num in range(self.init_date_num):
-            start_init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') + datetime.timedelta(days=init_date_num)).strftime('%Y%m%d')
+            start_init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
+                               datetime.timedelta(days=init_date_num)).strftime('%Y%m%d')
 
             for interval_type in self.interval_types:
-                sql += sql_model.format(",".join([interval_type, start_init_date]), start_init_date, self.get_random_num(1, 4, 0), self.get_random_num(1, 4, 0), self.get_random_num(1, 4, 0), self.get_random_num(1, 4, 0))
+                sql += sql_model.format(",".join([interval_type, start_init_date]), start_init_date,
+                                        self.get_random_num(1, 4, 0), self.get_random_num(1, 4, 0),
+                                        self.get_random_num(1, 4, 0), self.get_random_num(1, 4, 0))
         self.f.write(sql[:-1]+";\n\n")
         return
     
@@ -40,10 +45,14 @@ class CaifuAnalysis:
         sql_model = "('{0}','{1}',{2},{3},{4},{5},{6},{7},{8},{9}),"
         base_price = 3000
         for init_date_num in range(self.init_date_num):
-            start_init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') + datetime.timedelta(days=init_date_num)).strftime('%Y%m%d')
+            start_init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
+                               datetime.timedelta(days=init_date_num)).strftime('%Y%m%d')
 
-            sql += sql_model.format(start_init_date, start_init_date, self.get_random_num(300, 2, 0, base_price), self.get_random_num(1, 4, 0), self.get_random_num(300, 2, 0, base_price), self.get_random_num(1, 4, 0), self.get_random_num(300, 2, 0, base_price), self.get_random_num(1, 4, 0),
-            self.get_random_num(300, 2, 0, base_price), self.get_random_num(1, 4, 0))
+            sql += sql_model.format(start_init_date, start_init_date, self.get_random_num(300, 2, 0, base_price),
+                                    self.get_random_num(1, 4, 0), self.get_random_num(300, 2, 0, base_price),
+                                    self.get_random_num(1, 4, 0), self.get_random_num(300, 2, 0, base_price),
+                                    self.get_random_num(1, 4, 0), self.get_random_num(300, 2, 0, base_price),
+                                    self.get_random_num(1, 4, 0))
         self.f.write(sql[:-1]+";\n\n")
         return
         
@@ -52,10 +61,18 @@ class CaifuAnalysis:
         sql_model = "('{0}','{1}',{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12}),"
         base_price = 3000
         for init_date_num in range(self.init_date_num):
-            start_init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') + datetime.timedelta(days=init_date_num)).strftime('%Y%m%d')
+            start_init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
+                               datetime.timedelta(days=init_date_num)).strftime('%Y%m%d')
             for fund_account_num in range(self.fund_account):
                 fund_account = "".join(reversed(str(self.start_fund_account + fund_account_num)))
-                sql += sql_model.format(",".join([fund_account, str(self.init_date_special_deal_num-int(start_init_date))]), start_init_date, self.get_random_num(123456, 2, 1), self.get_random_num(123456, 2, 1), self.get_random_num(123456, 2, 1), self.get_random_num(123456, 2, 1), self.get_random_num(1, 4, 0), self.get_random_num(123456, 2, 1), self.get_random_num(123456, 2, 1), self.get_random_num(123456, 2, 1), self.get_random_num(123456, 2, 1), self.get_random_num(123456, 2, 1), self.get_random_num(123456, 2, 1))
+                sql += sql_model.format(",".join([fund_account,
+                                                  str(self.init_date_special_deal_num-int(start_init_date))]),
+                                        start_init_date, self.get_random_num(123456, 2, 1),
+                                        self.get_random_num(123456, 2, 1), self.get_random_num(123456, 2, 1),
+                                        self.get_random_num(123456, 2, 1), self.get_random_num(1, 4, 0),
+                                        self.get_random_num(123456, 2, 1), self.get_random_num(123456, 2, 1),
+                                        self.get_random_num(123456, 2, 1), self.get_random_num(123456, 2, 1),
+                                        self.get_random_num(123456, 2, 1), self.get_random_num(123456, 2, 1))
         self.f.write(sql[:-1]+";\n\n")
         return
 
@@ -65,7 +82,8 @@ class CaifuAnalysis:
         base_price = 3000
         asset_prop = "0"
         for init_date_num in range(self.init_date_num):
-            start_init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') + datetime.timedelta(days=init_date_num)).strftime('%Y%m%d')
+            start_init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
+                               datetime.timedelta(days=init_date_num)).strftime('%Y%m%d')
             for fund_account_num in range(self.fund_account):
                 fund_account = "".join(reversed(str(self.start_fund_account + fund_account_num)))
                 for interval_type in self.interval_types:
@@ -259,6 +277,92 @@ class CaifuAnalysis:
         self.f.write(sql[:-2]+";\n\n")
         return
 
+    def bond_page_user_interval_data(self):
+        sql = "insert into bond_page_user_interval_data values"
+        sql_model = """('{0}',{1},{2},{3},{4},{5},'{6}','{7}',{8},'{9}','{10}',{11},{12},{13},{14},{15},{16},"{17}"),\n"""
+        for init_date_delay in range(0, self.init_date_num, 10):
+            init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
+                          datetime.timedelta(days=init_date_delay)).strftime('%Y%m%d')
+            for fund_account_num in range(self.fund_account):
+                fund_account = "".join(reversed(str(self.start_fund_account + fund_account_num)))
+
+                for interval_type in self.interval_types:
+                    json_content = self.__get_stock_code_info_list(bond_page_user_interval_data=1, init_date=init_date)
+                    sql += sql_model.format(",".join([fund_account, interval_type, "0",
+                                                      str(self.init_date_special_deal_num-int(init_date))]),
+                                            self.get_random_num(123456, 2, 1), self.get_random_num(100, 2, 1),
+                                            self.get_random_num(100, 2, 1), self.get_random_num(1, 4, 1),
+                                            "128068", "国轩转债", self.get_random_num(123456, 2, 1),
+                                            "113028", "环境转债", -self.get_random_num(123456, 2, 1),
+                                            self.get_random_num(12345678, 2, 1), self.get_random_num(100, 2, 1),
+                                            self.get_random_num(100, 2, 1), self.get_random_num(100, 2, 1),
+                                            self.get_random_num(100, 2, 1), self.get_random_num(100, 2, 1),
+                                            json_content)
+
+        self.f.write("use wt_hbase_chenk;\n")
+        self.f.write(sql[:-2]+";\n\n")
+        return
+
+    def cfb_page_user_daily_data(self):
+        sql = "insert into cfb_page_user_daily_data values"
+        sql_model = """('{0}','{1}',{2},{3}),\n"""
+        for init_date_delay in range(self.init_date_num):
+            init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
+                          datetime.timedelta(days=init_date_delay)).strftime('%Y%m%d')
+            for fund_account_num in range(self.fund_account):
+                fund_account = "".join(reversed(str(self.start_fund_account + fund_account_num)))
+
+                sql += sql_model.format(",".join([fund_account, str(self.init_date_special_deal_num-int(init_date))]),
+                                        init_date, self.get_random_num(12345678, 2, 1),
+                                        self.get_random_num(123456, 2, 1))
+
+        self.f.write("use wt_hbase_chenk;\n")
+        self.f.write(sql[:-2]+";\n\n")
+        return
+
+    def new_stock_page_data(self):
+        sql = "insert into new_stock_page_data values"
+        sql_model = """('{0}',"{1}","{2}"),\n"""
+        for init_date_delay in range(0, self.init_date_num, 20):
+            init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
+                          datetime.timedelta(days=init_date_delay)).strftime('%Y%m%d')
+            for fund_account_num in range(self.fund_account):
+                fund_account = "".join(reversed(str(self.start_fund_account + fund_account_num)))
+
+                for interval_type in self.interval_types:
+                    stock_content = self.__get_stock_code_info_list(new_stock_page_data=1, stock_content=1)
+                    bond_content = self.__get_stock_code_info_list(new_stock_page_data=1, bond_content=1)
+                    sql += sql_model.format(",".join([fund_account, interval_type, "0",
+                                                      str(self.init_date_special_deal_num-int(init_date))]),
+                                            stock_content, bond_content)
+
+        self.f.write("use wt_hbase_chenk;\n")
+        self.f.write(sql[:-2]+";\n\n")
+        return
+
+    def stock_detail_page_data(self):
+        sql = "insert into stock_detail_page_data values"
+        sql_model = """('{0}',"{1}"),\n"""
+        yield_init_date = self.yield_init_date(start=0, end=self.init_date_num, step=10)
+
+        while True:
+            try:
+                init_date = yield_init_date.__next__()
+            except StopIteration:
+                self.f.write("use wt_hbase_chenk;\n")
+                self.f.write(sql[:-2] + ";\n\n")
+                return
+            for fund_account_num in range(self.fund_account):
+                fund_account = "".join(reversed(str(self.start_fund_account + fund_account_num)))
+
+                for stock_name, stock_code in CaifuAnalysis.STOCK_INFO.items():
+                    exchange_type = "1"
+                    if stock_code.startswith("6"):
+                        exchange_type = "0"
+                    json_content = self.__get_stock_code_info_list(stock_detail_page_data=1, init_date=init_date)
+                    sql += sql_model.format(",".join([fund_account, str(self.init_date_special_deal_num-int(init_date)),
+                                                      stock_code, stock_name, exchange_type]), json_content)
+
     def get_random_num(self, base_num, decimal_num, is_gt_0, add_num=0):
         is_gt = random.choice([1, -1])
         if not isinstance(base_num, int) or not isinstance(decimal_num, int):
@@ -327,17 +431,60 @@ class CaifuAnalysis:
                                "end_date": kwargs.get("init_date"),
                                "hold_status": random.choice([0, 1])}
                 stock_hold_data.append(element)
-        elif kwargs.get("bond_page_user_daily_data"):
+        elif kwargs.get("bond_page_user_daily_data") or kwargs.get("bond_page_user_interval_data"):
+
             for stock_name, stock_code in CaifuAnalysis.BOND_INFO.items():
                 exchange_type = "1"
                 if stock_code.startswith("11"):
                     exchange_type = "0"
-                element = {"stock_code": stock_code, "stock_name": stock_name, "exchange_type": exchange_type,
-                           "single_bond_day_income": self.get_random_num(123456, 2, 1),
-                           "bond_market_value": self.get_random_num(100, 2, 1),
-                           "bond_nums": self.get_random_num(100, 2, 1)}
+                if kwargs.get("bond_page_user_daily_data"):
+                    element = {"stock_code": stock_code, "stock_name": stock_name, "exchange_type": exchange_type,
+                               "single_bond_day_income": self.get_random_num(123456, 2, 1),
+                               "bond_market_value": self.get_random_num(123456, 2, 1),
+                               "bond_nums": self.get_random_num(100, 2, 1)}
+                elif kwargs.get("bond_page_user_interval_data"):
+                    element = {"stock_code": stock_code, "stock_name": stock_name, "exchange_type": exchange_type,
+                               "cumu_income": self.get_random_num(123456, 2, 1),
+                               "hold_days": self.get_random_num(100, 2, 1),
+                               "bond_market_value": self.get_random_num(123456, 2, 1),
+                               "end_date": kwargs.get("init_date")}
                 stock_hold_data.append(element)
+        elif kwargs.get("new_stock_page_data"):
+            if kwargs.get("stock_content"):
+                for stock_name, stock_code in CaifuAnalysis.STOCK_INFO.items():
+                    element = {"stock_code": stock_code, "stock_name": stock_name,
+                               "init_date": kwargs.get("init_date"),
+                               "business_amount": self.get_random_num(1000, 2, 1),
+                               "first_up_rate": self.get_random_num(10, 4, 1),
+                               "total_up_rate": self.get_random_num(20, 4, 1)}
+            elif kwargs.get("bond_content"):
+                for stock_name, stock_code in CaifuAnalysis.BOND_INFO.items():
+                    element = {"stock_code": stock_code, "stock_name": stock_name,
+                               "init_date": kwargs.get("init_date"),
+                               "business_amount": self.get_random_num(1000, 2, 1),
+                               "first_up_rate": self.get_random_num(10, 4, 1),
+                               "total_up_rate": self.get_random_num(20, 4, 1)}
+            stock_hold_data.append(element)
+        elif kwargs.get("stock_detail_page_data"):
+            business_name = random.choice(list(CaifuAnalysis.BUSINESS_FLAG.keys()))
+            element = {"init_date": kwargs.get("init_date"),
+                       "business_time": "{0}:{1}:{1}".format(random.randint(9, 11), random.randint(0, 60)),
+                       "serial_no": 10000 + random.randint(1000, 9999),
+                       "business_flag": CaifuAnalysis.BUSINESS_FLAG.get(business_name),
+                       "business_amount": self.get_random_num(123000, 2, 1),
+                       "business_price": self.get_random_num(100, 4, 1),
+                       "business_name": business_name,
+                       "business_balance": self.get_random_num(123456, 2, 0)}
+            stock_hold_data.append(element)
+
         return "{}".format(stock_hold_data)
+
+    def yield_init_date(self, start=0, end=0, step=10):
+        for init_date_delay in range(start, end, step):
+            init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
+                          datetime.timedelta(days=init_date_delay)).strftime('%Y%m%d')
+            print(init_date)
+            yield init_date
             
 if __name__ == "__main__":
     caifu_analysis = CaifuAnalysis()
@@ -354,5 +501,9 @@ if __name__ == "__main__":
     # caifu_analysis.stock_page_user_interval_trade_distribution()
     # caifu_analysis.financial_page_user_daily_data()
     # caifu_analysis.financial_page_user_interval_data()
-    caifu_analysis.bond_page_user_daily_data()
+    # caifu_analysis.bond_page_user_daily_data()
+    # caifu_analysis.bond_page_user_interval_data()
+    # caifu_analysis.cfb_page_user_daily_data()
+    # caifu_analysis.new_stock_page_data()
+    caifu_analysis.stock_detail_page_data()
     caifu_analysis.close_file()
