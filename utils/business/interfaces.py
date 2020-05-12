@@ -39,3 +39,4 @@ if __name__ == "__main__":
     data = '{"fund_account": "88888", "init_date": "20200326"}'
     result = interfaces.request(url=url, data=data, is_get_method=False)
     print(result)
+

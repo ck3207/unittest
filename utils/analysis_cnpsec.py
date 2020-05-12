@@ -527,7 +527,7 @@ if __name__ == "__main__":
     tests.addTest(unittest.makeSuite(testCaseClass=ListMonthStockTradeStockCode, prefix='test'))
     tests.addTest(unittest.makeSuite(testCaseClass=GetMonthStockTradeDetail, prefix='test'))
     tests.addTest(unittest.makeSuite(testCaseClass=GetMonthAccountYield, prefix='test'))
-    tests.addTest(unittest.makeSuite(testCaseClass=GetMonthIndexAcYield, prefix='test'))
+    # tests.addTest(unittest.makeSuite(testCaseClass=GetMonthIndexAcYield, prefix='test'))
 
     # write unittest result to a file
     with open(r"result_cnpsec.html", "wb") as f:
