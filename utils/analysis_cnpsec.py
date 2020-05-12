@@ -214,7 +214,7 @@ order by stock_code, stock_name limit 5;".format(self.info["fund_account"], self
 class GetMonthStockTradeDetail(unittest.TestCase):
     TABLE_NAME = "month_stock_trade_detail"
     INTERFACE_NAME = "month_bill/get_month_stock_trade_detail"
-    COLUMNS = ["init_date", "stock_code", "stock_name", "trade_num", "trade_price", "trade_state", "transaction_amount"]
+    COLUMNS = ["init_date", "stock_code", "stock_name", "trade_num", "trade_price", "trade_state", "transaction_amount", "business_name"]
 
     @classmethod
     def setUpClass(cls):
@@ -238,9 +238,12 @@ class GetMonthStockTradeDetail(unittest.TestCase):
         # SQL
         columns = GetMonthStockTradeDetail.COLUMNS.copy()
         columns.insert(columns.index("init_date"), "unix_timestamp({0})".format(columns.pop(columns.index("init_date"))))
+        columns.insert(columns.index("trade_state"), "IFNULL(b.business_name,a.business_flag) as {0}".format(columns.pop(columns.index("trade_state"))))
+        columns.insert(columns.index("business_name"), "IFNULL(b.business_name,a.business_flag) as {0}".format(columns.pop(columns.index("business_name"))))
         select_columns = sql_model.combine_select_columns(columns)
-        sql = "SELECT {0} from month_stock_trade_detail where fund_account = {1} and init_month = {2} \
-order by init_date, stock_code limit {3};".format(select_columns, self.info["fund_account"],
+        sql = "SELECT {0} from month_stock_trade_detail a left join businflag b \
+on a.business_flag = b.business_flag where fund_account = {1} and init_month = {2} \
+order by init_date desc, serial_no desc limit {3};".format(select_columns, self.info["fund_account"],
                                                         self.info["interval"], self.info["page_size"])
         sql_count = "SELECT {0} from month_stock_trade_detail where fund_account = {1} and init_month = {2} \
 order by init_date desc, serial_no desc limit {3};".format('count(1)', self.info["fund_account"],
@@ -524,7 +527,7 @@ if __name__ == "__main__":
     tests.addTest(unittest.makeSuite(testCaseClass=ListMonthStockTradeStockCode, prefix='test'))
     tests.addTest(unittest.makeSuite(testCaseClass=GetMonthStockTradeDetail, prefix='test'))
     tests.addTest(unittest.makeSuite(testCaseClass=GetMonthAccountYield, prefix='test'))
-    tests.addTest(unittest.makeSuite(testCaseClass=GetMonthIndexAcYield, prefix='test'))
+    # tests.addTest(unittest.makeSuite(testCaseClass=GetMonthIndexAcYield, prefix='test'))
 
     # write unittest result to a file
     with open(r"result_cnpsec.html", "wb") as f:
