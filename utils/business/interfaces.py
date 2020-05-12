@@ -41,7 +41,7 @@ if __name__ == "__main__":
         "customer_avatar": "123",
         "password": "e10adc3949ba59abbe56e057f20f883e"
     }
-    for mobile in range(19990000402, 19999999999):
+    for mobile in range(19990006208, 19999999999):
         data["mobile"] = str(mobile)
         data["customer_name"] = str(mobile)[:3]+"*****"+str(mobile)[-4:]
         result = interfaces.request(url=url, data=str(data), is_get_method=False, verify=False)
