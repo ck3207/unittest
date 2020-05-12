@@ -1,4 +1,5 @@
-
+import decimal
+import json
 
 class CumulativeRate:
 
@@ -77,5 +78,28 @@ def get_month_account_yield(data):
                 
     return data_dealed
     
-    
+
+class HbaseResultDeal:
+    """处理hbase业务数据处理"""
+    def deal(self, hbase_result, is_json_content=False, list_name=""):
+        """hbase_result is the result from hbase."""
+        if not isinstance(hbase_result, list):
+            return
+        hbase_dict = {}
+        # 判断是否要展开 json_content数据
+        if is_json_content:
+            json_content_list = []
+        for each_row in hbase_result:
+            row_key = each_row.row
+            for column, value in each_row.columns.items():
+                hbase_dict.setdefault(column.split(":")[1], value.value)
+                if is_json_content and column.split(":")[1] == "json_content":
+                    for each_one in value.value:
+                        json_content_list.append(each_one)
+        if is_json_content:
+            hbase_dict.setdefault(list_name, json_content_list)
+        return hbase_dict
+
+
 cumulative_rate = CumulativeRate()
+hbase_result_deal = HbaseResultDeal()

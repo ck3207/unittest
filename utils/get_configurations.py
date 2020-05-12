@@ -64,10 +64,12 @@ def test_normal(cur):
 get_configurations = GetConfigurations()
 hbase_client = get_configurations.connect_to_hbase(get_configurations.get_target_section(section="database_chasing"))
 if __name__ == "__main__":
-    init_date = str(999999999 - 20200326)
-    print(hbase_client.send_getRowWithColumns("chenk_zhfx:bond_page_user_daily_data", "88888,{0}".format(init_date), "tag_base:init_date"))
-    # print(hbase_client.isTableEnabled("chenk_zhfx:bond_page_user_daily_data"))
+    init_date = str(99999999 - 20200326)
+    # print(hbase_client.send_getRowWithColumns("chenk_zhfx:bond_page_user_daily_data", "88888,{0}".format(init_date), "tag_base:init_date"))
+    print(hbase_client.isTableEnabled("chenk_zhfx:bond_page_user_daily_data"))
     print(hbase_client.getTableNames())
+    print(hbase_client.get("chenk_zhfx:stock_page_user_interval_trade_distribution", "00988,1,79799569", "tag_base:json_content"))
+
     # conn = get_configurations.connect_to_mysql(get_configurations.get_target_section(section="database"))
     # test_normal(conn.cursor())
     # print(type("jkl"), isinstance("asdjkl", str))

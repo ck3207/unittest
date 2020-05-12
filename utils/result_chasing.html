@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>测试报告</title>
+    <meta name="generator" content="HTMLTestRunner 0.8.2"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    
+<style type="text/css" media="screen">
+body        { font-family: verdana, arial, helvetica, sans-serif; font-size: 80%; }
+table       { font-size: 100%; }
+pre         { }
+
+/* -- heading ---------------------------------------------------------------------- */
+h1 {
+	font-size: 16pt;
+	color: gray;
+}
+.heading {
+    margin-top: 0ex;
+    margin-bottom: 1ex;
+}
+
+.heading .attribute {
+    margin-top: 1ex;
+    margin-bottom: 0;
+}
+
+.heading .description {
+    margin-top: 4ex;
+    margin-bottom: 6ex;
+}
+
+/* -- css div popup ------------------------------------------------------------------------ */
+a.popup_link {
+}
+
+a.popup_link:hover {
+    color: red;
+}
+
+.popup_window {
+    display: none;
+    position: relative;
+    left: 0px;
+    top: 0px;
+    /*border: solid #627173 1px; */
+    padding: 10px;
+    background-color: #E6E6D6;
+    font-family: "Lucida Console", "Courier New", Courier, monospace;
+    text-align: left;
+    font-size: 8pt;
+    width: 500px;
+}
+
+}
+/* -- report ------------------------------------------------------------------------ */
+#show_detail_line {
+    margin-top: 3ex;
+    margin-bottom: 1ex;
+}
+#result_table {
+    width: 80%;
+    border-collapse: collapse;
+    border: 1px solid #777;
+}
+#header_row {
+    font-weight: bold;
+    color: white;
+    background-color: #777;
+}
+#result_table td {
+    border: 1px solid #777;
+    padding: 2px;
+}
+#total_row  { font-weight: bold; }
+.passClass  { background-color: #6c6; }
+.failClass  { background-color: #c60; }
+.errorClass { background-color: #c00; }
+.passCase   { color: #6c6; }
+.failCase   { color: #c60; font-weight: bold; }
+.errorCase  { color: #c00; font-weight: bold; }
+.hiddenRow  { display: none; }
+.testcase   { margin-left: 2em; }
+
+
+/* -- ending ---------------------------------------------------------------------- */
+#ending {
+}
+
+</style>
+
+</head>
+<body>
+<script language="javascript" type="text/javascript"><!--
+output_list = Array();
+
+/* level - 0:Summary; 1:Failed; 2:All */
+function showCase(level) {
+    trs = document.getElementsByTagName("tr");
+    for (var i = 0; i < trs.length; i++) {
+        tr = trs[i];
+        id = tr.id;
+        if (id.substr(0,2) == 'ft') {
+            if (level < 1) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+        if (id.substr(0,2) == 'pt') {
+            if (level > 1) {
+                tr.className = '';
+            }
+            else {
+                tr.className = 'hiddenRow';
+            }
+        }
+    }
+}
+
+
+function showClassDetail(cid, count) {
+    var id_list = Array(count);
+    var toHide = 1;
+    for (var i = 0; i < count; i++) {
+        tid0 = 't' + cid.substr(1) + '.' + (i+1);
+        tid = 'f' + tid0;
+        tr = document.getElementById(tid);
+        if (!tr) {
+            tid = 'p' + tid0;
+            tr = document.getElementById(tid);
+        }
+        id_list[i] = tid;
+        if (tr.className) {
+            toHide = 0;
+        }
+    }
+    for (var i = 0; i < count; i++) {
+        tid = id_list[i];
+        if (toHide) {
+            document.getElementById('div_'+tid).style.display = 'none'
+            document.getElementById(tid).className = 'hiddenRow';
+        }
+        else {
+            document.getElementById(tid).className = '';
+        }
+    }
+}
+
+
+function showTestDetail(div_id){
+    var details_div = document.getElementById(div_id)
+    var displayState = details_div.style.display
+    // alert(displayState)
+    if (displayState != 'block' ) {
+        displayState = 'block'
+        details_div.style.display = 'block'
+    }
+    else {
+        details_div.style.display = 'none'
+    }
+}
+
+
+function html_escape(s) {
+    s = s.replace(/&/g,'&amp;');
+    s = s.replace(/</g,'&lt;');
+    s = s.replace(/>/g,'&gt;');
+    return s;
+}
+
+/* obsoleted by detail in <div>
+function showOutput(id, name) {
+    var w = window.open("", //url
+                    name,
+                    "resizable,scrollbars,status,width=800,height=450");
+    d = w.document;
+    d.write("<pre>");
+    d.write(html_escape(output_list[id]));
+    d.write("\n");
+    d.write("<a href='javascript:window.close()'>close</a>\n");
+    d.write("</pre>\n");
+    d.close();
+}
+*/
+--></script>
+
+<div class='heading'>
+<h1>测试报告</h1>
+<p class='attribute'><strong>Start Time:</strong> 2020-05-12 20:36:22</p>
+<p class='attribute'><strong>Duration:</strong> 0:00:00.187000</p>
+<p class='attribute'><strong>Status:</strong> Failure 1</p>
+
+<p class='description'>单元测试报告：</p>
+</div>
+
+
+
+<p id='show_detail_line'>Show
+<a href='javascript:showCase(0)'>Summary</a>
+<a href='javascript:showCase(1)'>Failed</a>
+<a href='javascript:showCase(2)'>All</a>
+</p>
+<table id='result_table'>
+<colgroup>
+<col align='left' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+</colgroup>
+<tr id='header_row'>
+    <td>Test Group/Test case</td>
+    <td>Count</td>
+    <td>Pass</td>
+    <td>Fail</td>
+    <td>Error</td>
+    <td>View</td>
+</tr>
+
+<tr class='failClass'>
+    <td>GetPageUserDailyData</td>
+    <td>1</td>
+    <td>0</td>
+    <td>1</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c1',1)">Detail</a></td>
+</tr>
+
+<tr id='ft1.1' class='none'>
+    <td class='failCase'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft1.1')" >
+        fail</a>
+
+    <div id='div_ft1.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft1.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft1.1: Traceback (most recent call last):
+  File "analysis_fortune.py", line 41, in test_normal
+    sql=hbase_command, url=url, data=data)
+  File "analysis_fortune.py", line 69, in checking
+    self.assertEqual(sql_result.get(column), interface_result.get(column), msg=msg_model)
+AssertionError: Lists differ: ['[', '{', "'", 's', 't', 'o', 'c', 'k', '[8593 chars] ']'] != [{'init_date': None, 'stock_code': '128068[1835 chars] 97}]
+
+First differing element 0:
+'['
+{'init_date': None, 'stock_code': '128068[125 chars]: 43}
+
+First list contains 1717 additional elements.
+First extra element 11:
+'d'
+
+Diff is 16003 characters long. Set self.maxDiff to None to see it. : 
+SQL is
+ get "chenk_zhfx:bond_page_user_daily_data", "88888,79799673" 
+ Interface is
+ http://10.20.18.174:9007/chasing/general/get_bond_page_user_daily_data
+ params is
+ {"init_date": "20200326", "fund_account": "88888", "fund_account_reversed": "88888"}
+Interface response is
+ {'error_no': '0', 'error_info': '执行成功', 'init_date': '20200326', 'bond_asset': 5184227.29, 'bond_daily_income': 121562.21, 'json_content': "[{'stock_code': '128068', 'stock_name': '国轩转债', 'exchange_type': '1', 'single_bond_day_income': 110442.76, 'bond_market_value': 118489.47, 'bond_nums': 43.05}, {'stock_code': '113555', 'stock_name': '振德转债', 'exchange_type': '0', 'single_bond_day_income': 122573.89, 'bond_market_value': 67019.45, 'bond_nums': 33.32}, {'stock_code': '113571', 'stock_name': '博特转债', 'exchange_type': '0', 'single_bond_day_income': 36832.67, 'bond_market_value': 17808.37, 'bond_nums': 39.86}, {'stock_code': '127015', 'stock_name': '希望转债', 'exchange_type': '1', 'single_bond_day_income': 67472.93, 'bond_market_value': 28527.4, 'bond_nums': 50.97}, {'stock_code': '128077', 'stock_name': '华夏转债', 'exchange_type': '1', 'single_bond_day_income': 79136.19, 'bond_market_value': 55897.17, 'bond_nums': 46.15}, {'stock_code': '123025', 'stock_name': '精测转债', 'exchange_type': '1', 'single_bond_day_income': 68484.35, 'bond_market_value': 81125.26, 'bond_nums': 72.03}, {'stock_code': '113509', 'stock_name': '新泉转债', 'exchange_type': '0', 'single_bond_day_income': 90864.87, 'bond_market_value': 116294.63, 'bond_nums': 34.13}, {'stock_code': '128092', 'stock_name': '唐人转债', 'exchange_type': '1', 'single_bond_day_income': 8369.74, 'bond_market_value': 49839.46, 'bond_nums': 3.95}, {'stock_code': '113028', 'stock_name': '环境转债', 'exchange_type': '0', 'single_bond_day_income': 119558.81, 'bond_market_value': 92659.58, 'bond_nums': 54.57}, {'stock_code': '128054', 'stock_name': '中宠转债', 'exchange_type': '1', 'single_bond_day_income': 18977.81, 'bond_market_value': 8107.8, 'bond_nums': 46.65}, {'stock_code': '113556', 'stock_name': '至纯转债', 'exchange_type': '0', 'single_bond_day_income': 117914.76, 'bond_market_value': 46519.43, 'bond_nums': 97.16}]", 'bond_hold_data_list': [{'init_date': None, 'stock_code': '128068', 'stock_name': '国轩转债', 'exchange_type': 1, 'bond_market_value': 118489.47, 'single_bond_day_income': 110442.76, 'bond_nums': 43}, {'init_date': None, 'stock_code': '113555', 'stock_name': '振德转债', 'exchange_type': 0, 'bond_market_value': 67019.45, 'single_bond_day_income': 122573.89, 'bond_nums': 33}, {'init_date': None, 'stock_code': '113571', 'stock_name': '博特转债', 'exchange_type': 0, 'bond_market_value': 17808.37, 'single_bond_day_income': 36832.67, 'bond_nums': 39}, {'init_date': None, 'stock_code': '127015', 'stock_name': '希望转债', 'exchange_type': 1, 'bond_market_value': 28527.4, 'single_bond_day_income': 67472.93, 'bond_nums': 50}, {'init_date': None, 'stock_code': '128077', 'stock_name': '华夏转债', 'exchange_type': 1, 'bond_market_value': 55897.17, 'single_bond_day_income': 79136.19, 'bond_nums': 46}, {'init_date': None, 'stock_code': '123025', 'stock_name': '精测转债', 'exchange_type': 1, 'bond_market_value': 81125.26, 'single_bond_day_income': 68484.35, 'bond_nums': 72}, {'init_date': None, 'stock_code': '113509', 'stock_name': '新泉转债', 'exchange_type': 0, 'bond_market_value': 116294.63, 'single_bond_day_income': 90864.87, 'bond_nums': 34}, {'init_date': None, 'stock_code': '128092', 'stock_name': '唐人转债', 'exchange_type': 1, 'bond_market_value': 49839.46, 'single_bond_day_income': 8369.74, 'bond_nums': 3}, {'init_date': None, 'stock_code': '113028', 'stock_name': '环境转债', 'exchange_type': 0, 'bond_market_value': 92659.58, 'single_bond_day_income': 119558.81, 'bond_nums': 54}, {'init_date': None, 'stock_code': '128054', 'stock_name': '中宠转债', 'exchange_type': 1, 'bond_market_value': 8107.8, 'single_bond_day_income': 18977.81, 'bond_nums': 46}, {'init_date': None, 'stock_code': '113556', 'stock_name': '至纯转债', 'exchange_type': 0, 'bond_market_value': 46519.43, 'single_bond_day_income': 117914.76, 'bond_nums': 97}]}
+    Hbase result is
+[TRowResult(row='88888,79799673', columns={'tag_base:bond_asset': TCell(value='5184227.29', timestamp=1588907679880), 'tag_base:bond_daily_income': TCell(value='121562.21', timestamp=1588907679880), 'tag_base:init_date': TCell(value='20200326', timestamp=1588907679880), 'tag_base:json_content': TCell(value="[{'stock_code': '128068', 'stock_name': '国轩转债', 'exchange_type': '1', 'single_bond_day_income': 110442.76, 'bond_market_value': 118489.47, 'bond_nums': 43.05}, {'stock_code': '113555', 'stock_name': '振德转债', 'exchange_type': '0', 'single_bond_day_income': 122573.89, 'bond_market_value': 67019.45, 'bond_nums': 33.32}, {'stock_code': '113571', 'stock_name': '博特转债', 'exchange_type': '0', 'single_bond_day_income': 36832.67, 'bond_market_value': 17808.37, 'bond_nums': 39.86}, {'stock_code': '127015', 'stock_name': '希望转债', 'exchange_type': '1', 'single_bond_day_income': 67472.93, 'bond_market_value': 28527.4, 'bond_nums': 50.97}, {'stock_code': '128077', 'stock_name': '华夏转债', 'exchange_type': '1', 'single_bond_day_income': 79136.19, 'bond_market_value': 55897.17, 'bond_nums': 46.15}, {'stock_code': '123025', 'stock_name': '精测转债', 'exchange_type': '1', 'single_bond_day_income': 68484.35, 'bond_market_value': 81125.26, 'bond_nums': 72.03}, {'stock_code': '113509', 'stock_name': '新泉转债', 'exchange_type': '0', 'single_bond_day_income': 90864.87, 'bond_market_value': 116294.63, 'bond_nums': 34.13}, {'stock_code': '128092', 'stock_name': '唐人转债', 'exchange_type': '1', 'single_bond_day_income': 8369.74, 'bond_market_value': 49839.46, 'bond_nums': 3.95}, {'stock_code': '113028', 'stock_name': '环境转债', 'exchange_type': '0', 'single_bond_day_income': 119558.81, 'bond_market_value': 92659.58, 'bond_nums': 54.57}, {'stock_code': '128054', 'stock_name': '中宠转债', 'exchange_type': '1', 'single_bond_day_income': 18977.81, 'bond_market_value': 8107.8, 'bond_nums': 46.65}, {'stock_code': '113556', 'stock_name': '至纯转债', 'exchange_type': '0', 'single_bond_day_income': 117914.76, 'bond_market_value': 46519.43, 'bond_nums': 97.16}]", timestamp=1588907679880)})]
+Traceback (most recent call last):
+  File "analysis_fortune.py", line 41, in test_normal
+    sql=hbase_command, url=url, data=data)
+  File "analysis_fortune.py", line 69, in checking
+    self.assertEqual(sql_result.get(column), interface_result.get(column), msg=msg_model)
+AssertionError: Lists differ: ['[', '{', "'", 's', 't', 'o', 'c', 'k', '[8593 chars] ']'] != [{'init_date': None, 'stock_code': '128068[1835 chars] 97}]
+
+First differing element 0:
+'['
+{'init_date': None, 'stock_code': '128068[125 chars]: 43}
+
+First list contains 1717 additional elements.
+First extra element 11:
+'d'
+
+Diff is 16003 characters long. Set self.maxDiff to None to see it. : 
+SQL is
+ get "chenk_zhfx:bond_page_user_daily_data", "88888,79799673" 
+ Interface is
+ http://10.20.18.174:9007/chasing/general/get_bond_page_user_daily_data
+ params is
+ {"init_date": "20200326", "fund_account": "88888", "fund_account_reversed": "88888"}
+Interface response is
+ {'error_no': '0', 'error_info': '执行成功', 'init_date': '20200326', 'bond_asset': 5184227.29, 'bond_daily_income': 121562.21, 'json_content': "[{'stock_code': '128068', 'stock_name': '国轩转债', 'exchange_type': '1', 'single_bond_day_income': 110442.76, 'bond_market_value': 118489.47, 'bond_nums': 43.05}, {'stock_code': '113555', 'stock_name': '振德转债', 'exchange_type': '0', 'single_bond_day_income': 122573.89, 'bond_market_value': 67019.45, 'bond_nums': 33.32}, {'stock_code': '113571', 'stock_name': '博特转债', 'exchange_type': '0', 'single_bond_day_income': 36832.67, 'bond_market_value': 17808.37, 'bond_nums': 39.86}, {'stock_code': '127015', 'stock_name': '希望转债', 'exchange_type': '1', 'single_bond_day_income': 67472.93, 'bond_market_value': 28527.4, 'bond_nums': 50.97}, {'stock_code': '128077', 'stock_name': '华夏转债', 'exchange_type': '1', 'single_bond_day_income': 79136.19, 'bond_market_value': 55897.17, 'bond_nums': 46.15}, {'stock_code': '123025', 'stock_name': '精测转债', 'exchange_type': '1', 'single_bond_day_income': 68484.35, 'bond_market_value': 81125.26, 'bond_nums': 72.03}, {'stock_code': '113509', 'stock_name': '新泉转债', 'exchange_type': '0', 'single_bond_day_income': 90864.87, 'bond_market_value': 116294.63, 'bond_nums': 34.13}, {'stock_code': '128092', 'stock_name': '唐人转债', 'exchange_type': '1', 'single_bond_day_income': 8369.74, 'bond_market_value': 49839.46, 'bond_nums': 3.95}, {'stock_code': '113028', 'stock_name': '环境转债', 'exchange_type': '0', 'single_bond_day_income': 119558.81, 'bond_market_value': 92659.58, 'bond_nums': 54.57}, {'stock_code': '128054', 'stock_name': '中宠转债', 'exchange_type': '1', 'single_bond_day_income': 18977.81, 'bond_market_value': 8107.8, 'bond_nums': 46.65}, {'stock_code': '113556', 'stock_name': '至纯转债', 'exchange_type': '0', 'single_bond_day_income': 117914.76, 'bond_market_value': 46519.43, 'bond_nums': 97.16}]", 'bond_hold_data_list': [{'init_date': None, 'stock_code': '128068', 'stock_name': '国轩转债', 'exchange_type': 1, 'bond_market_value': 118489.47, 'single_bond_day_income': 110442.76, 'bond_nums': 43}, {'init_date': None, 'stock_code': '113555', 'stock_name': '振德转债', 'exchange_type': 0, 'bond_market_value': 67019.45, 'single_bond_day_income': 122573.89, 'bond_nums': 33}, {'init_date': None, 'stock_code': '113571', 'stock_name': '博特转债', 'exchange_type': 0, 'bond_market_value': 17808.37, 'single_bond_day_income': 36832.67, 'bond_nums': 39}, {'init_date': None, 'stock_code': '127015', 'stock_name': '希望转债', 'exchange_type': 1, 'bond_market_value': 28527.4, 'single_bond_day_income': 67472.93, 'bond_nums': 50}, {'init_date': None, 'stock_code': '128077', 'stock_name': '华夏转债', 'exchange_type': 1, 'bond_market_value': 55897.17, 'single_bond_day_income': 79136.19, 'bond_nums': 46}, {'init_date': None, 'stock_code': '123025', 'stock_name': '精测转债', 'exchange_type': 1, 'bond_market_value': 81125.26, 'single_bond_day_income': 68484.35, 'bond_nums': 72}, {'init_date': None, 'stock_code': '113509', 'stock_name': '新泉转债', 'exchange_type': 0, 'bond_market_value': 116294.63, 'single_bond_day_income': 90864.87, 'bond_nums': 34}, {'init_date': None, 'stock_code': '128092', 'stock_name': '唐人转债', 'exchange_type': 1, 'bond_market_value': 49839.46, 'single_bond_day_income': 8369.74, 'bond_nums': 3}, {'init_date': None, 'stock_code': '113028', 'stock_name': '环境转债', 'exchange_type': 0, 'bond_market_value': 92659.58, 'single_bond_day_income': 119558.81, 'bond_nums': 54}, {'init_date': None, 'stock_code': '128054', 'stock_name': '中宠转债', 'exchange_type': 1, 'bond_market_value': 8107.8, 'single_bond_day_income': 18977.81, 'bond_nums': 46}, {'init_date': None, 'stock_code': '113556', 'stock_name': '至纯转债', 'exchange_type': 0, 'bond_market_value': 46519.43, 'single_bond_day_income': 117914.76, 'bond_nums': 97}]}
+    Hbase result is
+[TRowResult(row='88888,79799673', columns={'tag_base:bond_asset': TCell(value='5184227.29', timestamp=1588907679880), 'tag_base:bond_daily_income': TCell(value='121562.21', timestamp=1588907679880), 'tag_base:init_date': TCell(value='20200326', timestamp=1588907679880), 'tag_base:json_content': TCell(value="[{'stock_code': '128068', 'stock_name': '国轩转债', 'exchange_type': '1', 'single_bond_day_income': 110442.76, 'bond_market_value': 118489.47, 'bond_nums': 43.05}, {'stock_code': '113555', 'stock_name': '振德转债', 'exchange_type': '0', 'single_bond_day_income': 122573.89, 'bond_market_value': 67019.45, 'bond_nums': 33.32}, {'stock_code': '113571', 'stock_name': '博特转债', 'exchange_type': '0', 'single_bond_day_income': 36832.67, 'bond_market_value': 17808.37, 'bond_nums': 39.86}, {'stock_code': '127015', 'stock_name': '希望转债', 'exchange_type': '1', 'single_bond_day_income': 67472.93, 'bond_market_value': 28527.4, 'bond_nums': 50.97}, {'stock_code': '128077', 'stock_name': '华夏转债', 'exchange_type': '1', 'single_bond_day_income': 79136.19, 'bond_market_value': 55897.17, 'bond_nums': 46.15}, {'stock_code': '123025', 'stock_name': '精测转债', 'exchange_type': '1', 'single_bond_day_income': 68484.35, 'bond_market_value': 81125.26, 'bond_nums': 72.03}, {'stock_code': '113509', 'stock_name': '新泉转债', 'exchange_type': '0', 'single_bond_day_income': 90864.87, 'bond_market_value': 116294.63, 'bond_nums': 34.13}, {'stock_code': '128092', 'stock_name': '唐人转债', 'exchange_type': '1', 'single_bond_day_income': 8369.74, 'bond_market_value': 49839.46, 'bond_nums': 3.95}, {'stock_code': '113028', 'stock_name': '环境转债', 'exchange_type': '0', 'single_bond_day_income': 119558.81, 'bond_market_value': 92659.58, 'bond_nums': 54.57}, {'stock_code': '128054', 'stock_name': '中宠转债', 'exchange_type': '1', 'single_bond_day_income': 18977.81, 'bond_market_value': 8107.8, 'bond_nums': 46.65}, {'stock_code': '113556', 'stock_name': '至纯转债', 'exchange_type': '0', 'single_bond_day_income': 117914.76, 'bond_market_value': 46519.43, 'bond_nums': 97.16}]", timestamp=1588907679880)})]
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='total_row'>
+    <td>Total</td>
+    <td>1</td>
+    <td>0</td>
+    <td>1</td>
+    <td>0</td>
+    <td>&nbsp;</td>
+</tr>
+</table>
+
+<div id='ending'>&nbsp;</div>
+
+</body>
+</html>
