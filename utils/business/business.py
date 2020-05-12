@@ -94,8 +94,8 @@ class HbaseResultDeal:
             for column, value in each_row.columns.items():
                 hbase_dict.setdefault(column.split(":")[1], value.value)
                 if is_json_content and column.split(":")[1] == "json_content":
-                    for each_one in value.value:
-                        json_content_list.append(each_one)
+                    for each_info in eval(value.value.replace("[", "").replace("]", "")):
+                        json_content_list.append(each_info)
         if is_json_content:
             hbase_dict.setdefault(list_name, json_content_list)
         return hbase_dict

@@ -66,7 +66,8 @@ def checking(self, class_name, sql_result, interface_result, is_fetchone=True, *
                 if not column.endswith("_list"):
                     self.assertEqual(str(sql_result.get(column)), str(interface_result.get(column)), msg=msg_model)
                 else:
-                    self.assertEqual(sql_result.get(column), interface_result.get(column), msg=msg_model)
+                    for i, info in enumerate(sql_result.get(column)):
+                        self.assertEqual(info, interface_result.get(column)[i], msg=msg_model)
         except TypeError:
             self.assertTrue(0, msg="sql is\n {0}\n interface is\n {1}\n params is {2}\n\
                             Current is checking column {3}".format(params.get("sql"), params.get("url"),

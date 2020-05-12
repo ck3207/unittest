@@ -189,8 +189,8 @@ function showOutput(id, name) {
 
 <div class='heading'>
 <h1>测试报告</h1>
-<p class='attribute'><strong>Start Time:</strong> 2020-05-12 20:36:22</p>
-<p class='attribute'><strong>Duration:</strong> 0:00:00.187000</p>
+<p class='attribute'><strong>Start Time:</strong> 2020-05-13 00:18:38</p>
+<p class='attribute'><strong>Duration:</strong> 0:00:00.072805</p>
 <p class='attribute'><strong>Status:</strong> Failure 1</p>
 
 <p class='description'>单元测试报告：</p>
@@ -246,21 +246,24 @@ function showOutput(id, name) {
         <pre>
         
 ft1.1: Traceback (most recent call last):
-  File "analysis_fortune.py", line 41, in test_normal
+  File ".\analysis_fortune.py", line 41, in test_normal
     sql=hbase_command, url=url, data=data)
-  File "analysis_fortune.py", line 69, in checking
-    self.assertEqual(sql_result.get(column), interface_result.get(column), msg=msg_model)
-AssertionError: Lists differ: ['[', '{', "'", 's', 't', 'o', 'c', 'k', '[8593 chars] ']'] != [{'init_date': None, 'stock_code': '128068[1835 chars] 97}]
+  File ".\analysis_fortune.py", line 70, in checking
+    self.assertEqual(info, interface_result.get(column)[i], msg=msg_model)
+AssertionError: {'stock_code': '128068', 'stock_name': '国轩转[109 chars]3.05} != {'init_date': None, 'stock_code': '128068',[123 chars]: 43}
+  {'bond_market_value': 118489.47,
+-  'bond_nums': 43.05,
+?                 ---
 
-First differing element 0:
-'['
-{'init_date': None, 'stock_code': '128068[125 chars]: 43}
++  'bond_nums': 43,
+-  'exchange_type': '1',
+?                   - -
 
-First list contains 1717 additional elements.
-First extra element 11:
-'d'
-
-Diff is 16003 characters long. Set self.maxDiff to None to see it. : 
++  'exchange_type': 1,
++  'init_date': None,
+   'single_bond_day_income': 110442.76,
+   'stock_code': '128068',
+   'stock_name': '国轩转债'} : 
 SQL is
  get "chenk_zhfx:bond_page_user_daily_data", "88888,79799673" 
  Interface is
@@ -272,21 +275,24 @@ Interface response is
     Hbase result is
 [TRowResult(row='88888,79799673', columns={'tag_base:bond_asset': TCell(value='5184227.29', timestamp=1588907679880), 'tag_base:bond_daily_income': TCell(value='121562.21', timestamp=1588907679880), 'tag_base:init_date': TCell(value='20200326', timestamp=1588907679880), 'tag_base:json_content': TCell(value="[{'stock_code': '128068', 'stock_name': '国轩转债', 'exchange_type': '1', 'single_bond_day_income': 110442.76, 'bond_market_value': 118489.47, 'bond_nums': 43.05}, {'stock_code': '113555', 'stock_name': '振德转债', 'exchange_type': '0', 'single_bond_day_income': 122573.89, 'bond_market_value': 67019.45, 'bond_nums': 33.32}, {'stock_code': '113571', 'stock_name': '博特转债', 'exchange_type': '0', 'single_bond_day_income': 36832.67, 'bond_market_value': 17808.37, 'bond_nums': 39.86}, {'stock_code': '127015', 'stock_name': '希望转债', 'exchange_type': '1', 'single_bond_day_income': 67472.93, 'bond_market_value': 28527.4, 'bond_nums': 50.97}, {'stock_code': '128077', 'stock_name': '华夏转债', 'exchange_type': '1', 'single_bond_day_income': 79136.19, 'bond_market_value': 55897.17, 'bond_nums': 46.15}, {'stock_code': '123025', 'stock_name': '精测转债', 'exchange_type': '1', 'single_bond_day_income': 68484.35, 'bond_market_value': 81125.26, 'bond_nums': 72.03}, {'stock_code': '113509', 'stock_name': '新泉转债', 'exchange_type': '0', 'single_bond_day_income': 90864.87, 'bond_market_value': 116294.63, 'bond_nums': 34.13}, {'stock_code': '128092', 'stock_name': '唐人转债', 'exchange_type': '1', 'single_bond_day_income': 8369.74, 'bond_market_value': 49839.46, 'bond_nums': 3.95}, {'stock_code': '113028', 'stock_name': '环境转债', 'exchange_type': '0', 'single_bond_day_income': 119558.81, 'bond_market_value': 92659.58, 'bond_nums': 54.57}, {'stock_code': '128054', 'stock_name': '中宠转债', 'exchange_type': '1', 'single_bond_day_income': 18977.81, 'bond_market_value': 8107.8, 'bond_nums': 46.65}, {'stock_code': '113556', 'stock_name': '至纯转债', 'exchange_type': '0', 'single_bond_day_income': 117914.76, 'bond_market_value': 46519.43, 'bond_nums': 97.16}]", timestamp=1588907679880)})]
 Traceback (most recent call last):
-  File "analysis_fortune.py", line 41, in test_normal
+  File ".\analysis_fortune.py", line 41, in test_normal
     sql=hbase_command, url=url, data=data)
-  File "analysis_fortune.py", line 69, in checking
-    self.assertEqual(sql_result.get(column), interface_result.get(column), msg=msg_model)
-AssertionError: Lists differ: ['[', '{', "'", 's', 't', 'o', 'c', 'k', '[8593 chars] ']'] != [{'init_date': None, 'stock_code': '128068[1835 chars] 97}]
+  File ".\analysis_fortune.py", line 70, in checking
+    self.assertEqual(info, interface_result.get(column)[i], msg=msg_model)
+AssertionError: {'stock_code': '128068', 'stock_name': '国轩转[109 chars]3.05} != {'init_date': None, 'stock_code': '128068',[123 chars]: 43}
+  {'bond_market_value': 118489.47,
+-  'bond_nums': 43.05,
+?                 ---
 
-First differing element 0:
-'['
-{'init_date': None, 'stock_code': '128068[125 chars]: 43}
++  'bond_nums': 43,
+-  'exchange_type': '1',
+?                   - -
 
-First list contains 1717 additional elements.
-First extra element 11:
-'d'
-
-Diff is 16003 characters long. Set self.maxDiff to None to see it. : 
++  'exchange_type': 1,
++  'init_date': None,
+   'single_bond_day_income': 110442.76,
+   'stock_code': '128068',
+   'stock_name': '国轩转债'} : 
 SQL is
  get "chenk_zhfx:bond_page_user_daily_data", "88888,79799673" 
  Interface is
