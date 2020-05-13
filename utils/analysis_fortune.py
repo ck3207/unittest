@@ -130,7 +130,7 @@ class GetBondPageUserDailyData(unittest.TestCase):
 
         checking(self=self, class_name=GetBondPageUserDailyData, sql_result=hbase_result_origin,
                  interface_result=interface_result, is_hbase_result=True, is_json_content=True,
-                 sql=hbase_command, url=url, data=data, list_name="bond_hold_data_list",
+                 sql=hbase_command, url=url, data=data, list_name=["bond_hold_data", "bond_hold_data_list"],
                  table_columns=GetBondPageUserDailyData.COLUMNS, special_column=["init_date"],
                  deal_column=["bond_nums", int])
 
@@ -164,7 +164,7 @@ class GetFinancialPageUserDailyData(unittest.TestCase):
 
         checking(self=self, class_name=GetFinancialPageUserDailyData, sql_result=hbase_result_origin,
                  interface_result=interface_result, is_hbase_result=True, is_json_content=True,
-                 sql=hbase_command, url=url, data=data, list_name="financial_hold_data_list",
+                 sql=hbase_command, url=url, data=data, list_name=["financial_hold_data", "financial_hold_data_list"],
                  table_columns=GetFinancialPageUserDailyData.COLUMNS)
 
 
@@ -200,7 +200,42 @@ class GetFinancialPageUserIntervalData(unittest.TestCase):
         checking(self=self, class_name=GetFinancialPageUserIntervalData, sql_result=hbase_result_origin,
                  interface_result=interface_result, is_hbase_result=True, is_json_content=True,
                  sql=hbase_command, url=url, data=data, table_columns=GetFinancialPageUserIntervalData.COLUMNS,
-                 list_name="financial_trade_data_list", deal_column=["hold_days", int])
+                 list_name=["financial_trade_data", "financial_trade_data_list"], deal_column=["hold_days", int])
+
+
+class GetStockPageUserDailyData(unittest.TestCase):
+    TABLE_NAME = "".join([get_configurations.get_target_section(section='database_chasing').get("database_prefix"),
+                          "stock_page_user_daily_data"])
+    INTERFACE_NAME = "general/get_stock_page_user_daily_data"
+    COLUMNS = ["init_date", "stock_asset", "stock_daily_income", "stock_daily_income_ratio",
+               "stock_hs_asset", "stock_hk_asset", "infund_asset", "stock_day_position",
+               "stock_hold_data", "stock_hold_data_list"]
+
+    @classmethod
+    def setUpClass(cls):
+        urls_prefix = get_configurations.get_target_section(section='url_prefix')
+        cls.info = get_configurations.get_target_section(section='chasing_info')
+        print("here is info:\n", cls.info)
+        cls.url_prefix = urls_prefix.get("analysis_chasing_prefix")
+        cls.data = get_basic_paramaters(init_date=cls.info.get("init_date"), fund_account=cls.info.get("fund_account"))
+
+    def test_normal(self):
+        """"""
+        url = self.url_prefix + GetStockPageUserDailyData.INTERFACE_NAME
+        data = str(self.data.copy()).replace("'", '"')
+        interface_result = interfaces.request(url=url, data=data, is_get_method=False)
+        row_key = ",".join([self.data.get("fund_account_reversed"), init_date_to_cal_date(self.info.get("init_date"))])
+        if self.data.get("interval"):
+            row_key = ",".join([self.data.get("fund_account_reversed"), self.data.get("fund_account_reversed"),
+                                init_date_to_cal_date(self.info.get("init_date"))])
+        hbase_result_origin = hbase_client.getRow(tableName=GetStockPageUserDailyData.TABLE_NAME, row=row_key)
+        hbase_command = """get "{0}", "{1}" """.format(GetStockPageUserDailyData.TABLE_NAME, row_key)
+
+        checking(self=self, class_name=GetStockPageUserDailyData, sql_result=hbase_result_origin,
+                 interface_result=interface_result, is_hbase_result=True, is_json_content=True,
+                 sql=hbase_command, url=url, data=data, list_name=["stock_hold_data", "stock_hold_data_list"],
+                 table_columns=GetStockPageUserDailyData.COLUMNS, special_column=["stock_market_value", "cost_price"],
+                 deal_column=["hold_amount", int])
 
 
 def checking(self, class_name, sql_result, interface_result, is_fetchone=True, **params):
@@ -236,11 +271,17 @@ def checking(self, class_name, sql_result, interface_result, is_fetchone=True, *
                     for i, info in enumerate(sql_result.get(column)):
                         for k, v in info.items():
                             deal_column = params.get("deal_column", [False])
+                            # 需要过滤的字段，即无需验证字段
+                            if k in params.get("special_column", []):
+                                continue
+                            # 需要验证的字段 且 不需要特殊处理的字段
                             if k not in params.get("special_column", []) and k != deal_column[0]:
                                 self.assertEqual(str(v), str(interface_result.get(column)[i].get(k)), msg=msg_model)
+                            # 需要特殊处理的字段
                             elif deal_column and k == deal_column[0]:
                                 self.assertEqual(str(deal_column[1](v)), str(interface_result.get(column)[i].get(k)),
                                                  msg=msg_model)
+                            # 其他
                             else:
                                 self.assertEqual(str(v), str(interface_result.get(column)[i].get(k)), msg=msg_model)
         except TypeError:
@@ -313,7 +354,7 @@ if __name__ == "__main__":
     tests.addTest(unittest.makeSuite(testCaseClass=GetFinancialPageUserIntervalData, prefix='test'))
     tests.addTest(unittest.makeSuite(testCaseClass=GetBondPageUserDailyData, prefix='test'))
     tests.addTest(unittest.makeSuite(testCaseClass=GetFinancialPageUserDailyData, prefix='test'))
-    # tests.addTest(unittest.makeSuite(testCaseClass=GetFinancialPageUserIntervalData, prefix='test'))
+    tests.addTest(unittest.makeSuite(testCaseClass=GetStockPageUserDailyData, prefix='test'))
     # tests.addTest(unittest.makeSuite(testCaseClass=ListMonthIntervalTradeAnalyze, prefix='test'))
     # tests.addTest(unittest.makeSuite(testCaseClass=ListMonthBankDetail, prefix='test'))
     # tests.addTest(unittest.makeSuite(testCaseClass=ListMonthStockTradeStockCode, prefix='test'))

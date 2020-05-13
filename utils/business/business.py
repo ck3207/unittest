@@ -81,7 +81,7 @@ def get_month_account_yield(data):
 
 class HbaseResultDeal:
     """处理hbase业务数据处理"""
-    def deal(self, hbase_result, is_json_content=False, list_name=""):
+    def deal(self, hbase_result, is_json_content=False, list_name=["list_name_old", "list_name_new"]):
         """hbase_result is the result from hbase."""
         if not isinstance(hbase_result, list):
             return
@@ -93,11 +93,12 @@ class HbaseResultDeal:
             row_key = each_row.row
             for column, value in each_row.columns.items():
                 hbase_dict.setdefault(column.split(":")[1], value.value)
-                if is_json_content and column.split(":")[1] == "json_content":
+                if is_json_content and column.split(":")[1] == list_name[0]:
+                    # str -->  list, '[{0},{1}]' --> [{0}, {1}]
                     for each_info in eval(value.value.replace("[", "").replace("]", "")):
                         json_content_list.append(each_info)
         if is_json_content:
-            hbase_dict.setdefault(list_name, json_content_list)
+            hbase_dict.setdefault(list_name[1], json_content_list)
         return hbase_dict
 
 

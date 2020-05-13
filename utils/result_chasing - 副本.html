@@ -189,9 +189,9 @@ function showOutput(id, name) {
 
 <div class='heading'>
 <h1>测试报告</h1>
-<p class='attribute'><strong>Start Time:</strong> 2020-05-14 00:09:14</p>
-<p class='attribute'><strong>Duration:</strong> 0:00:00.633768</p>
-<p class='attribute'><strong>Status:</strong> Pass 5 Error 2</p>
+<p class='attribute'><strong>Start Time:</strong> 2020-05-13 22:54:53</p>
+<p class='attribute'><strong>Duration:</strong> 0:00:00.602390</p>
+<p class='attribute'><strong>Status:</strong> Pass 5 Failure 1 Error 1</p>
 
 <p class='description'>单元测试报告：</p>
 </div>
@@ -221,22 +221,22 @@ function showOutput(id, name) {
     <td>View</td>
 </tr>
 
-<tr class='errorClass'>
+<tr class='failClass'>
     <td>GetPageUserDailyData</td>
     <td>1</td>
     <td>0</td>
-    <td>0</td>
     <td>1</td>
+    <td>0</td>
     <td><a href="javascript:showClassDetail('c1',1)">Detail</a></td>
 </tr>
 
 <tr id='ft1.1' class='none'>
-    <td class='errorCase'><div class='testcase'>test_normal</div></td>
+    <td class='failCase'><div class='testcase'>test_normal</div></td>
     <td colspan='5' align='center'>
 
     <!--css div popup start-->
     <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft1.1')" >
-        error</a>
+        fail</a>
 
     <div id='div_ft1.1' class="popup_window">
         <div style='text-align: right; color:red;cursor:pointer'>
@@ -246,21 +246,41 @@ function showOutput(id, name) {
         <pre>
         
 ft1.1: Traceback (most recent call last):
-  File ".\analysis_fortune.py", line 41, in test_normal
-    sql=hbase_command, url=url, data=data, table_columns=GetPageUserDailyData.COLUMNS)
-  File ".\analysis_fortune.py", line 265, in checking
-    list_name=params.get("list_name"))
-  File "E:\scripts\git\unittests\utils\business\business.py", line 96, in deal
-    if is_json_content and column.split(":")[1] == list_name[0]:
-TypeError: 'NoneType' object is not subscriptable
+  File ".\analysis_fortune.py", line 270, in checking
+    for i, info in enumerate(sql_result.get(column)):
+TypeError: 'NoneType' object is not iterable
+
+During handling of the above exception, another exception occurred:
+
 Traceback (most recent call last):
   File ".\analysis_fortune.py", line 41, in test_normal
     sql=hbase_command, url=url, data=data, table_columns=GetPageUserDailyData.COLUMNS)
-  File ".\analysis_fortune.py", line 265, in checking
-    list_name=params.get("list_name"))
-  File "E:\scripts\git\unittests\utils\business\business.py", line 96, in deal
-    if is_json_content and column.split(":")[1] == list_name[0]:
-TypeError: 'NoneType' object is not subscriptable
+  File ".\analysis_fortune.py", line 283, in checking
+    params.get("data"), column))
+AssertionError: 0 is not true : sql is
+ get "chenk_zhfx:bond_page_user_daily_data", "88888,79799673" 
+ interface is
+ http://10.20.18.174:9007/chasing/general/get_bond_page_user_daily_data
+ params is {"init_date": "20200326", "fund_account": "88888", "fund_account_reversed": "88888"}
+                            Current is checking column bond_hold_data_list
+Traceback (most recent call last):
+  File ".\analysis_fortune.py", line 270, in checking
+    for i, info in enumerate(sql_result.get(column)):
+TypeError: 'NoneType' object is not iterable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File ".\analysis_fortune.py", line 41, in test_normal
+    sql=hbase_command, url=url, data=data, table_columns=GetPageUserDailyData.COLUMNS)
+  File ".\analysis_fortune.py", line 283, in checking
+    params.get("data"), column))
+AssertionError: 0 is not true : sql is
+ get "chenk_zhfx:bond_page_user_daily_data", "88888,79799673" 
+ interface is
+ http://10.20.18.174:9007/chasing/general/get_bond_page_user_daily_data
+ params is {"init_date": "20200326", "fund_account": "88888", "fund_account_reversed": "88888"}
+                            Current is checking column bond_hold_data_list
 
 
         </pre>
@@ -309,21 +329,31 @@ TypeError: 'NoneType' object is not subscriptable
         <pre>
         
 ft3.1: Traceback (most recent call last):
-  File ".\analysis_fortune.py", line 102, in test_normal
-    sql=hbase_command, url=url, data=data)
-  File ".\analysis_fortune.py", line 265, in checking
-    list_name=params.get("list_name"))
-  File "E:\scripts\git\unittests\utils\business\business.py", line 96, in deal
-    if is_json_content and column.split(":")[1] == list_name[0]:
-TypeError: 'NoneType' object is not subscriptable
+  File ".\analysis_fortune.py", line 266, in checking
+    for column in params.get("table_columns"):
+TypeError: 'NoneType' object is not iterable
+
+During handling of the above exception, another exception occurred:
+
 Traceback (most recent call last):
   File ".\analysis_fortune.py", line 102, in test_normal
     sql=hbase_command, url=url, data=data)
-  File ".\analysis_fortune.py", line 265, in checking
-    list_name=params.get("list_name"))
-  File "E:\scripts\git\unittests\utils\business\business.py", line 96, in deal
-    if is_json_content and column.split(":")[1] == list_name[0]:
-TypeError: 'NoneType' object is not subscriptable
+  File ".\analysis_fortune.py", line 283, in checking
+    params.get("data"), column))
+UnboundLocalError: local variable 'column' referenced before assignment
+Traceback (most recent call last):
+  File ".\analysis_fortune.py", line 266, in checking
+    for column in params.get("table_columns"):
+TypeError: 'NoneType' object is not iterable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File ".\analysis_fortune.py", line 102, in test_normal
+    sql=hbase_command, url=url, data=data)
+  File ".\analysis_fortune.py", line 283, in checking
+    params.get("data"), column))
+UnboundLocalError: local variable 'column' referenced before assignment
 
 
         </pre>
@@ -393,8 +423,8 @@ TypeError: 'NoneType' object is not subscriptable
     <td>Total</td>
     <td>7</td>
     <td>5</td>
-    <td>0</td>
-    <td>2</td>
+    <td>1</td>
+    <td>1</td>
     <td>&nbsp;</td>
 </tr>
 </table>
