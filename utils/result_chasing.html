@@ -189,9 +189,9 @@ function showOutput(id, name) {
 
 <div class='heading'>
 <h1>测试报告</h1>
-<p class='attribute'><strong>Start Time:</strong> 2020-05-13 00:18:38</p>
-<p class='attribute'><strong>Duration:</strong> 0:00:00.072805</p>
-<p class='attribute'><strong>Status:</strong> Failure 1</p>
+<p class='attribute'><strong>Start Time:</strong> 2020-05-13 21:20:48</p>
+<p class='attribute'><strong>Duration:</strong> 0:00:00.162000</p>
+<p class='attribute'><strong>Status:</strong> Pass 4 Failure 1 Error 1</p>
 
 <p class='description'>单元测试报告：</p>
 </div>
@@ -246,63 +246,41 @@ function showOutput(id, name) {
         <pre>
         
 ft1.1: Traceback (most recent call last):
-  File ".\analysis_fortune.py", line 41, in test_normal
-    sql=hbase_command, url=url, data=data)
-  File ".\analysis_fortune.py", line 70, in checking
-    self.assertEqual(info, interface_result.get(column)[i], msg=msg_model)
-AssertionError: {'stock_code': '128068', 'stock_name': '国轩转[109 chars]3.05} != {'init_date': None, 'stock_code': '128068',[123 chars]: 43}
-  {'bond_market_value': 118489.47,
--  'bond_nums': 43.05,
-?                 ---
+  File "analysis_fortune.py", line 236, in checking
+    for i, info in enumerate(sql_result.get(column)):
+TypeError: 'NoneType' object is not iterable
 
-+  'bond_nums': 43,
--  'exchange_type': '1',
-?                   - -
+During handling of the above exception, another exception occurred:
 
-+  'exchange_type': 1,
-+  'init_date': None,
-   'single_bond_day_income': 110442.76,
-   'stock_code': '128068',
-   'stock_name': '国轩转债'} : 
-SQL is
- get "chenk_zhfx:bond_page_user_daily_data", "88888,79799673" 
- Interface is
- http://10.20.18.174:9007/chasing/general/get_bond_page_user_daily_data
- params is
- {"init_date": "20200326", "fund_account": "88888", "fund_account_reversed": "88888"}
-Interface response is
- {'error_no': '0', 'error_info': '执行成功', 'init_date': '20200326', 'bond_asset': 5184227.29, 'bond_daily_income': 121562.21, 'json_content': "[{'stock_code': '128068', 'stock_name': '国轩转债', 'exchange_type': '1', 'single_bond_day_income': 110442.76, 'bond_market_value': 118489.47, 'bond_nums': 43.05}, {'stock_code': '113555', 'stock_name': '振德转债', 'exchange_type': '0', 'single_bond_day_income': 122573.89, 'bond_market_value': 67019.45, 'bond_nums': 33.32}, {'stock_code': '113571', 'stock_name': '博特转债', 'exchange_type': '0', 'single_bond_day_income': 36832.67, 'bond_market_value': 17808.37, 'bond_nums': 39.86}, {'stock_code': '127015', 'stock_name': '希望转债', 'exchange_type': '1', 'single_bond_day_income': 67472.93, 'bond_market_value': 28527.4, 'bond_nums': 50.97}, {'stock_code': '128077', 'stock_name': '华夏转债', 'exchange_type': '1', 'single_bond_day_income': 79136.19, 'bond_market_value': 55897.17, 'bond_nums': 46.15}, {'stock_code': '123025', 'stock_name': '精测转债', 'exchange_type': '1', 'single_bond_day_income': 68484.35, 'bond_market_value': 81125.26, 'bond_nums': 72.03}, {'stock_code': '113509', 'stock_name': '新泉转债', 'exchange_type': '0', 'single_bond_day_income': 90864.87, 'bond_market_value': 116294.63, 'bond_nums': 34.13}, {'stock_code': '128092', 'stock_name': '唐人转债', 'exchange_type': '1', 'single_bond_day_income': 8369.74, 'bond_market_value': 49839.46, 'bond_nums': 3.95}, {'stock_code': '113028', 'stock_name': '环境转债', 'exchange_type': '0', 'single_bond_day_income': 119558.81, 'bond_market_value': 92659.58, 'bond_nums': 54.57}, {'stock_code': '128054', 'stock_name': '中宠转债', 'exchange_type': '1', 'single_bond_day_income': 18977.81, 'bond_market_value': 8107.8, 'bond_nums': 46.65}, {'stock_code': '113556', 'stock_name': '至纯转债', 'exchange_type': '0', 'single_bond_day_income': 117914.76, 'bond_market_value': 46519.43, 'bond_nums': 97.16}]", 'bond_hold_data_list': [{'init_date': None, 'stock_code': '128068', 'stock_name': '国轩转债', 'exchange_type': 1, 'bond_market_value': 118489.47, 'single_bond_day_income': 110442.76, 'bond_nums': 43}, {'init_date': None, 'stock_code': '113555', 'stock_name': '振德转债', 'exchange_type': 0, 'bond_market_value': 67019.45, 'single_bond_day_income': 122573.89, 'bond_nums': 33}, {'init_date': None, 'stock_code': '113571', 'stock_name': '博特转债', 'exchange_type': 0, 'bond_market_value': 17808.37, 'single_bond_day_income': 36832.67, 'bond_nums': 39}, {'init_date': None, 'stock_code': '127015', 'stock_name': '希望转债', 'exchange_type': 1, 'bond_market_value': 28527.4, 'single_bond_day_income': 67472.93, 'bond_nums': 50}, {'init_date': None, 'stock_code': '128077', 'stock_name': '华夏转债', 'exchange_type': 1, 'bond_market_value': 55897.17, 'single_bond_day_income': 79136.19, 'bond_nums': 46}, {'init_date': None, 'stock_code': '123025', 'stock_name': '精测转债', 'exchange_type': 1, 'bond_market_value': 81125.26, 'single_bond_day_income': 68484.35, 'bond_nums': 72}, {'init_date': None, 'stock_code': '113509', 'stock_name': '新泉转债', 'exchange_type': 0, 'bond_market_value': 116294.63, 'single_bond_day_income': 90864.87, 'bond_nums': 34}, {'init_date': None, 'stock_code': '128092', 'stock_name': '唐人转债', 'exchange_type': 1, 'bond_market_value': 49839.46, 'single_bond_day_income': 8369.74, 'bond_nums': 3}, {'init_date': None, 'stock_code': '113028', 'stock_name': '环境转债', 'exchange_type': 0, 'bond_market_value': 92659.58, 'single_bond_day_income': 119558.81, 'bond_nums': 54}, {'init_date': None, 'stock_code': '128054', 'stock_name': '中宠转债', 'exchange_type': 1, 'bond_market_value': 8107.8, 'single_bond_day_income': 18977.81, 'bond_nums': 46}, {'init_date': None, 'stock_code': '113556', 'stock_name': '至纯转债', 'exchange_type': 0, 'bond_market_value': 46519.43, 'single_bond_day_income': 117914.76, 'bond_nums': 97}]}
-    Hbase result is
-[TRowResult(row='88888,79799673', columns={'tag_base:bond_asset': TCell(value='5184227.29', timestamp=1588907679880), 'tag_base:bond_daily_income': TCell(value='121562.21', timestamp=1588907679880), 'tag_base:init_date': TCell(value='20200326', timestamp=1588907679880), 'tag_base:json_content': TCell(value="[{'stock_code': '128068', 'stock_name': '国轩转债', 'exchange_type': '1', 'single_bond_day_income': 110442.76, 'bond_market_value': 118489.47, 'bond_nums': 43.05}, {'stock_code': '113555', 'stock_name': '振德转债', 'exchange_type': '0', 'single_bond_day_income': 122573.89, 'bond_market_value': 67019.45, 'bond_nums': 33.32}, {'stock_code': '113571', 'stock_name': '博特转债', 'exchange_type': '0', 'single_bond_day_income': 36832.67, 'bond_market_value': 17808.37, 'bond_nums': 39.86}, {'stock_code': '127015', 'stock_name': '希望转债', 'exchange_type': '1', 'single_bond_day_income': 67472.93, 'bond_market_value': 28527.4, 'bond_nums': 50.97}, {'stock_code': '128077', 'stock_name': '华夏转债', 'exchange_type': '1', 'single_bond_day_income': 79136.19, 'bond_market_value': 55897.17, 'bond_nums': 46.15}, {'stock_code': '123025', 'stock_name': '精测转债', 'exchange_type': '1', 'single_bond_day_income': 68484.35, 'bond_market_value': 81125.26, 'bond_nums': 72.03}, {'stock_code': '113509', 'stock_name': '新泉转债', 'exchange_type': '0', 'single_bond_day_income': 90864.87, 'bond_market_value': 116294.63, 'bond_nums': 34.13}, {'stock_code': '128092', 'stock_name': '唐人转债', 'exchange_type': '1', 'single_bond_day_income': 8369.74, 'bond_market_value': 49839.46, 'bond_nums': 3.95}, {'stock_code': '113028', 'stock_name': '环境转债', 'exchange_type': '0', 'single_bond_day_income': 119558.81, 'bond_market_value': 92659.58, 'bond_nums': 54.57}, {'stock_code': '128054', 'stock_name': '中宠转债', 'exchange_type': '1', 'single_bond_day_income': 18977.81, 'bond_market_value': 8107.8, 'bond_nums': 46.65}, {'stock_code': '113556', 'stock_name': '至纯转债', 'exchange_type': '0', 'single_bond_day_income': 117914.76, 'bond_market_value': 46519.43, 'bond_nums': 97.16}]", timestamp=1588907679880)})]
 Traceback (most recent call last):
-  File ".\analysis_fortune.py", line 41, in test_normal
-    sql=hbase_command, url=url, data=data)
-  File ".\analysis_fortune.py", line 70, in checking
-    self.assertEqual(info, interface_result.get(column)[i], msg=msg_model)
-AssertionError: {'stock_code': '128068', 'stock_name': '国轩转[109 chars]3.05} != {'init_date': None, 'stock_code': '128068',[123 chars]: 43}
-  {'bond_market_value': 118489.47,
--  'bond_nums': 43.05,
-?                 ---
-
-+  'bond_nums': 43,
--  'exchange_type': '1',
-?                   - -
-
-+  'exchange_type': 1,
-+  'init_date': None,
-   'single_bond_day_income': 110442.76,
-   'stock_code': '128068',
-   'stock_name': '国轩转债'} : 
-SQL is
+  File "analysis_fortune.py", line 41, in test_normal
+    sql=hbase_command, url=url, data=data, table_columns=GetPageUserDailyData.COLUMNS)
+  File "analysis_fortune.py", line 249, in checking
+    params.get("data"), column))
+AssertionError: 0 is not true : sql is
  get "chenk_zhfx:bond_page_user_daily_data", "88888,79799673" 
- Interface is
+ interface is
  http://10.20.18.174:9007/chasing/general/get_bond_page_user_daily_data
- params is
- {"init_date": "20200326", "fund_account": "88888", "fund_account_reversed": "88888"}
-Interface response is
- {'error_no': '0', 'error_info': '执行成功', 'init_date': '20200326', 'bond_asset': 5184227.29, 'bond_daily_income': 121562.21, 'json_content': "[{'stock_code': '128068', 'stock_name': '国轩转债', 'exchange_type': '1', 'single_bond_day_income': 110442.76, 'bond_market_value': 118489.47, 'bond_nums': 43.05}, {'stock_code': '113555', 'stock_name': '振德转债', 'exchange_type': '0', 'single_bond_day_income': 122573.89, 'bond_market_value': 67019.45, 'bond_nums': 33.32}, {'stock_code': '113571', 'stock_name': '博特转债', 'exchange_type': '0', 'single_bond_day_income': 36832.67, 'bond_market_value': 17808.37, 'bond_nums': 39.86}, {'stock_code': '127015', 'stock_name': '希望转债', 'exchange_type': '1', 'single_bond_day_income': 67472.93, 'bond_market_value': 28527.4, 'bond_nums': 50.97}, {'stock_code': '128077', 'stock_name': '华夏转债', 'exchange_type': '1', 'single_bond_day_income': 79136.19, 'bond_market_value': 55897.17, 'bond_nums': 46.15}, {'stock_code': '123025', 'stock_name': '精测转债', 'exchange_type': '1', 'single_bond_day_income': 68484.35, 'bond_market_value': 81125.26, 'bond_nums': 72.03}, {'stock_code': '113509', 'stock_name': '新泉转债', 'exchange_type': '0', 'single_bond_day_income': 90864.87, 'bond_market_value': 116294.63, 'bond_nums': 34.13}, {'stock_code': '128092', 'stock_name': '唐人转债', 'exchange_type': '1', 'single_bond_day_income': 8369.74, 'bond_market_value': 49839.46, 'bond_nums': 3.95}, {'stock_code': '113028', 'stock_name': '环境转债', 'exchange_type': '0', 'single_bond_day_income': 119558.81, 'bond_market_value': 92659.58, 'bond_nums': 54.57}, {'stock_code': '128054', 'stock_name': '中宠转债', 'exchange_type': '1', 'single_bond_day_income': 18977.81, 'bond_market_value': 8107.8, 'bond_nums': 46.65}, {'stock_code': '113556', 'stock_name': '至纯转债', 'exchange_type': '0', 'single_bond_day_income': 117914.76, 'bond_market_value': 46519.43, 'bond_nums': 97.16}]", 'bond_hold_data_list': [{'init_date': None, 'stock_code': '128068', 'stock_name': '国轩转债', 'exchange_type': 1, 'bond_market_value': 118489.47, 'single_bond_day_income': 110442.76, 'bond_nums': 43}, {'init_date': None, 'stock_code': '113555', 'stock_name': '振德转债', 'exchange_type': 0, 'bond_market_value': 67019.45, 'single_bond_day_income': 122573.89, 'bond_nums': 33}, {'init_date': None, 'stock_code': '113571', 'stock_name': '博特转债', 'exchange_type': 0, 'bond_market_value': 17808.37, 'single_bond_day_income': 36832.67, 'bond_nums': 39}, {'init_date': None, 'stock_code': '127015', 'stock_name': '希望转债', 'exchange_type': 1, 'bond_market_value': 28527.4, 'single_bond_day_income': 67472.93, 'bond_nums': 50}, {'init_date': None, 'stock_code': '128077', 'stock_name': '华夏转债', 'exchange_type': 1, 'bond_market_value': 55897.17, 'single_bond_day_income': 79136.19, 'bond_nums': 46}, {'init_date': None, 'stock_code': '123025', 'stock_name': '精测转债', 'exchange_type': 1, 'bond_market_value': 81125.26, 'single_bond_day_income': 68484.35, 'bond_nums': 72}, {'init_date': None, 'stock_code': '113509', 'stock_name': '新泉转债', 'exchange_type': 0, 'bond_market_value': 116294.63, 'single_bond_day_income': 90864.87, 'bond_nums': 34}, {'init_date': None, 'stock_code': '128092', 'stock_name': '唐人转债', 'exchange_type': 1, 'bond_market_value': 49839.46, 'single_bond_day_income': 8369.74, 'bond_nums': 3}, {'init_date': None, 'stock_code': '113028', 'stock_name': '环境转债', 'exchange_type': 0, 'bond_market_value': 92659.58, 'single_bond_day_income': 119558.81, 'bond_nums': 54}, {'init_date': None, 'stock_code': '128054', 'stock_name': '中宠转债', 'exchange_type': 1, 'bond_market_value': 8107.8, 'single_bond_day_income': 18977.81, 'bond_nums': 46}, {'init_date': None, 'stock_code': '113556', 'stock_name': '至纯转债', 'exchange_type': 0, 'bond_market_value': 46519.43, 'single_bond_day_income': 117914.76, 'bond_nums': 97}]}
-    Hbase result is
-[TRowResult(row='88888,79799673', columns={'tag_base:bond_asset': TCell(value='5184227.29', timestamp=1588907679880), 'tag_base:bond_daily_income': TCell(value='121562.21', timestamp=1588907679880), 'tag_base:init_date': TCell(value='20200326', timestamp=1588907679880), 'tag_base:json_content': TCell(value="[{'stock_code': '128068', 'stock_name': '国轩转债', 'exchange_type': '1', 'single_bond_day_income': 110442.76, 'bond_market_value': 118489.47, 'bond_nums': 43.05}, {'stock_code': '113555', 'stock_name': '振德转债', 'exchange_type': '0', 'single_bond_day_income': 122573.89, 'bond_market_value': 67019.45, 'bond_nums': 33.32}, {'stock_code': '113571', 'stock_name': '博特转债', 'exchange_type': '0', 'single_bond_day_income': 36832.67, 'bond_market_value': 17808.37, 'bond_nums': 39.86}, {'stock_code': '127015', 'stock_name': '希望转债', 'exchange_type': '1', 'single_bond_day_income': 67472.93, 'bond_market_value': 28527.4, 'bond_nums': 50.97}, {'stock_code': '128077', 'stock_name': '华夏转债', 'exchange_type': '1', 'single_bond_day_income': 79136.19, 'bond_market_value': 55897.17, 'bond_nums': 46.15}, {'stock_code': '123025', 'stock_name': '精测转债', 'exchange_type': '1', 'single_bond_day_income': 68484.35, 'bond_market_value': 81125.26, 'bond_nums': 72.03}, {'stock_code': '113509', 'stock_name': '新泉转债', 'exchange_type': '0', 'single_bond_day_income': 90864.87, 'bond_market_value': 116294.63, 'bond_nums': 34.13}, {'stock_code': '128092', 'stock_name': '唐人转债', 'exchange_type': '1', 'single_bond_day_income': 8369.74, 'bond_market_value': 49839.46, 'bond_nums': 3.95}, {'stock_code': '113028', 'stock_name': '环境转债', 'exchange_type': '0', 'single_bond_day_income': 119558.81, 'bond_market_value': 92659.58, 'bond_nums': 54.57}, {'stock_code': '128054', 'stock_name': '中宠转债', 'exchange_type': '1', 'single_bond_day_income': 18977.81, 'bond_market_value': 8107.8, 'bond_nums': 46.65}, {'stock_code': '113556', 'stock_name': '至纯转债', 'exchange_type': '0', 'single_bond_day_income': 117914.76, 'bond_market_value': 46519.43, 'bond_nums': 97.16}]", timestamp=1588907679880)})]
+ params is {"init_date": "20200326", "fund_account": "88888", "fund_account_reversed": "88888"}
+                            Current is checking column bond_hold_data_list
+Traceback (most recent call last):
+  File "analysis_fortune.py", line 236, in checking
+    for i, info in enumerate(sql_result.get(column)):
+TypeError: 'NoneType' object is not iterable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "analysis_fortune.py", line 41, in test_normal
+    sql=hbase_command, url=url, data=data, table_columns=GetPageUserDailyData.COLUMNS)
+  File "analysis_fortune.py", line 249, in checking
+    params.get("data"), column))
+AssertionError: 0 is not true : sql is
+ get "chenk_zhfx:bond_page_user_daily_data", "88888,79799673" 
+ interface is
+ http://10.20.18.174:9007/chasing/general/get_bond_page_user_daily_data
+ params is {"init_date": "20200326", "fund_account": "88888", "fund_account_reversed": "88888"}
+                            Current is checking column bond_hold_data_list
 
 
         </pre>
@@ -312,12 +290,127 @@ Interface response is
     </td>
 </tr>
 
+<tr class='passClass'>
+    <td>GetHomePageUserIntervalData</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c2',1)">Detail</a></td>
+</tr>
+
+<tr id='pt2.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr class='errorClass'>
+    <td>GetHomePageUserCurveData</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td>1</td>
+    <td><a href="javascript:showClassDetail('c3',1)">Detail</a></td>
+</tr>
+
+<tr id='ft3.1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft3.1')" >
+        error</a>
+
+    <div id='div_ft3.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft3.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft3.1: Traceback (most recent call last):
+  File "analysis_fortune.py", line 232, in checking
+    for column in params.get("table_columns"):
+TypeError: 'NoneType' object is not iterable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "analysis_fortune.py", line 102, in test_normal
+    sql=hbase_command, url=url, data=data)
+  File "analysis_fortune.py", line 249, in checking
+    params.get("data"), column))
+UnboundLocalError: local variable 'column' referenced before assignment
+Traceback (most recent call last):
+  File "analysis_fortune.py", line 232, in checking
+    for column in params.get("table_columns"):
+TypeError: 'NoneType' object is not iterable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "analysis_fortune.py", line 102, in test_normal
+    sql=hbase_command, url=url, data=data)
+  File "analysis_fortune.py", line 249, in checking
+    params.get("data"), column))
+UnboundLocalError: local variable 'column' referenced before assignment
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>GetFinancialPageUserIntervalData</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c4',1)">Detail</a></td>
+</tr>
+
+<tr id='pt4.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr class='passClass'>
+    <td>GetBondPageUserDailyData</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c5',1)">Detail</a></td>
+</tr>
+
+<tr id='pt5.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr class='passClass'>
+    <td>GetFinancialPageUserDailyData</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c6',1)">Detail</a></td>
+</tr>
+
+<tr id='pt6.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
 <tr id='total_row'>
     <td>Total</td>
+    <td>6</td>
+    <td>4</td>
     <td>1</td>
-    <td>0</td>
     <td>1</td>
-    <td>0</td>
     <td>&nbsp;</td>
 </tr>
 </table>

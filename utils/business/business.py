@@ -101,5 +101,15 @@ class HbaseResultDeal:
         return hbase_dict
 
 
+class SpecialDate:
+    def get_init_date(self, hbase_objh, interval_type):
+        """获取期初日期: 给予 cal_record 表的最新数据
+        近一月：-30， """
+        pass
+
+    def get_init_month(self, hbase_obj, interval_type):
+        """获取期初月份"""
+        pass
+
 cumulative_rate = CumulativeRate()
 hbase_result_deal = HbaseResultDeal()

@@ -441,7 +441,7 @@ class CaifuAnalysis:
                     element = {"stock_code": stock_code, "stock_name": stock_name, "exchange_type": exchange_type,
                                "single_bond_day_income": self.get_random_num(123456, 2, 1),
                                "bond_market_value": self.get_random_num(123456, 2, 1),
-                               "bond_nums": self.get_random_num(100, 2, 1)}
+                               "bond_nums": self.get_random_num(100, 0, 1)}
                 elif kwargs.get("bond_page_user_interval_data"):
                     element = {"stock_code": stock_code, "stock_name": stock_name, "exchange_type": exchange_type,
                                "cumu_income": self.get_random_num(123456, 2, 1),
