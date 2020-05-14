@@ -189,9 +189,9 @@ function showOutput(id, name) {
 
 <div class='heading'>
 <h1>测试报告</h1>
-<p class='attribute'><strong>Start Time:</strong> 2020-05-14 18:15:21</p>
-<p class='attribute'><strong>Duration:</strong> 0:00:00.400000</p>
-<p class='attribute'><strong>Status:</strong> Pass 8 Error 3</p>
+<p class='attribute'><strong>Start Time:</strong> 2020-05-14 23:16:15</p>
+<p class='attribute'><strong>Duration:</strong> 0:00:00.949620</p>
+<p class='attribute'><strong>Status:</strong> Pass 10 Error 1</p>
 
 <p class='description'>单元测试报告：</p>
 </div>
@@ -274,19 +274,19 @@ function showOutput(id, name) {
         <pre>
         
 ft3.1: Traceback (most recent call last):
-  File "analysis_fortune.py", line 103, in test_normal
+  File ".\analysis_fortune.py", line 103, in test_normal
     sql=hbase_command, url=url, data=data)
-  File "analysis_fortune.py", line 395, in checking
+  File ".\analysis_fortune.py", line 396, in checking
     list_name=params.get("list_name"))
-  File "D:\scripts\git\unittests\utils\business\business.py", line 98, in deal
+  File "E:\scripts\git\unittests\utils\business\business.py", line 98, in deal
     if is_json_content and column.split(":")[1] in list_name:
 TypeError: argument of type 'NoneType' is not iterable
 Traceback (most recent call last):
-  File "analysis_fortune.py", line 103, in test_normal
+  File ".\analysis_fortune.py", line 103, in test_normal
     sql=hbase_command, url=url, data=data)
-  File "analysis_fortune.py", line 395, in checking
+  File ".\analysis_fortune.py", line 396, in checking
     list_name=params.get("list_name"))
-  File "D:\scripts\git\unittests\utils\business\business.py", line 98, in deal
+  File "E:\scripts\git\unittests\utils\business\business.py", line 98, in deal
     if is_json_content and column.split(":")[1] in list_name:
 TypeError: argument of type 'NoneType' is not iterable
 
@@ -382,110 +382,40 @@ TypeError: argument of type 'NoneType' is not iterable
     <td colspan='5' align='center'>pass</td>
 </tr>
 
-<tr class='errorClass'>
+<tr class='passClass'>
     <td>GetStockDetailPageData</td>
     <td>1</td>
-    <td>0</td>
-    <td>0</td>
     <td>1</td>
+    <td>0</td>
+    <td>0</td>
     <td><a href="javascript:showClassDetail('c10',1)">Detail</a></td>
 </tr>
 
-<tr id='ft10.1' class='none'>
-    <td class='errorCase'><div class='testcase'>test_normal</div></td>
-    <td colspan='5' align='center'>
-
-    <!--css div popup start-->
-    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft10.1')" >
-        error</a>
-
-    <div id='div_ft10.1' class="popup_window">
-        <div style='text-align: right; color:red;cursor:pointer'>
-        <a onfocus='this.blur();' onclick="document.getElementById('div_ft10.1').style.display = 'none' " >
-           [x]</a>
-        </div>
-        <pre>
-        
-ft10.1: Traceback (most recent call last):
-  File "analysis_fortune.py", line 335, in test_normal
-    list_name=["json_content", "stock_data_list"])
-  File "analysis_fortune.py", line 395, in checking
-    list_name=params.get("list_name"))
-  File "D:\scripts\git\unittests\utils\business\business.py", line 104, in deal
-    raise Exception("{0}: is not a dict. The type is {1}. ".format(each_info, type(each_info)))
-Exception: init_date: is not a dict. The type is &lt;class 'str'&gt;. 
-Traceback (most recent call last):
-  File "analysis_fortune.py", line 335, in test_normal
-    list_name=["json_content", "stock_data_list"])
-  File "analysis_fortune.py", line 395, in checking
-    list_name=params.get("list_name"))
-  File "D:\scripts\git\unittests\utils\business\business.py", line 104, in deal
-    raise Exception("{0}: is not a dict. The type is {1}. ".format(each_info, type(each_info)))
-Exception: init_date: is not a dict. The type is &lt;class 'str'&gt;. 
-
-
-        </pre>
-    </div>
-    <!--css div popup end-->
-
-    </td>
+<tr id='pt10.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>pass</td>
 </tr>
 
-<tr class='errorClass'>
+<tr class='passClass'>
     <td>GetNewStockPageUserIntervalData</td>
     <td>1</td>
-    <td>0</td>
-    <td>0</td>
     <td>1</td>
+    <td>0</td>
+    <td>0</td>
     <td><a href="javascript:showClassDetail('c11',1)">Detail</a></td>
 </tr>
 
-<tr id='ft11.1' class='none'>
-    <td class='errorCase'><div class='testcase'>test_normal</div></td>
-    <td colspan='5' align='center'>
-
-    <!--css div popup start-->
-    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft11.1')" >
-        error</a>
-
-    <div id='div_ft11.1' class="popup_window">
-        <div style='text-align: right; color:red;cursor:pointer'>
-        <a onfocus='this.blur();' onclick="document.getElementById('div_ft11.1').style.display = 'none' " >
-           [x]</a>
-        </div>
-        <pre>
-        
-ft11.1: Traceback (most recent call last):
-  File "analysis_fortune.py", line 366, in test_normal
-    list_name=["stock_content", "stock_data_list", "bond_content", "bond_data_list"])
-  File "analysis_fortune.py", line 395, in checking
-    list_name=params.get("list_name"))
-  File "D:\scripts\git\unittests\utils\business\business.py", line 104, in deal
-    raise Exception("{0}: is not a dict. The type is {1}. ".format(each_info, type(each_info)))
-Exception: stock_name: is not a dict. The type is &lt;class 'str'&gt;. 
-Traceback (most recent call last):
-  File "analysis_fortune.py", line 366, in test_normal
-    list_name=["stock_content", "stock_data_list", "bond_content", "bond_data_list"])
-  File "analysis_fortune.py", line 395, in checking
-    list_name=params.get("list_name"))
-  File "D:\scripts\git\unittests\utils\business\business.py", line 104, in deal
-    raise Exception("{0}: is not a dict. The type is {1}. ".format(each_info, type(each_info)))
-Exception: stock_name: is not a dict. The type is &lt;class 'str'&gt;. 
-
-
-        </pre>
-    </div>
-    <!--css div popup end-->
-
-    </td>
+<tr id='pt11.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>pass</td>
 </tr>
 
 <tr id='total_row'>
     <td>Total</td>
     <td>11</td>
-    <td>8</td>
+    <td>10</td>
     <td>0</td>
-    <td>3</td>
+    <td>1</td>
     <td>&nbsp;</td>
 </tr>
 </table>

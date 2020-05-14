@@ -320,7 +320,7 @@ class GetStockDetailPageData(unittest.TestCase):
 
     def test_normal(self):
         """"""
-        url = self.url_prefix + GetStockPageUserIntervalData.INTERFACE_NAME
+        url = self.url_prefix + GetStockDetailPageData.INTERFACE_NAME
         data = str(self.data.copy()).replace("'", '"')
         interface_result = interfaces.request(url=url, data=data, is_get_method=False)
         row_key = ",".join([self.data.get("fund_account_reversed"), init_date_to_cal_date(self.info.get("init_date")),
@@ -332,7 +332,7 @@ class GetStockDetailPageData(unittest.TestCase):
         checking(self=self, class_name=GetStockDetailPageData, sql_result=hbase_result_origin,
                  interface_result=interface_result, is_hbase_result=True, is_json_content=True,
                  sql=hbase_command, url=url, data=data, table_columns=GetStockDetailPageData.COLUMNS,
-                 list_name=["json_content", "stock_data_list"])
+                 list_name=["json_content", "stock_data_list"], deal_column=["business_amount", int])
 
 
 class GetNewStockPageUserIntervalData(unittest.TestCase):
@@ -363,7 +363,8 @@ class GetNewStockPageUserIntervalData(unittest.TestCase):
         checking(self=self, class_name=GetNewStockPageUserIntervalData, sql_result=hbase_result_origin,
                  interface_result=interface_result, is_hbase_result=True, is_json_content=True,
                  sql=hbase_command, url=url, data=data, table_columns=GetNewStockPageUserIntervalData.COLUMNS,
-                 list_name=["stock_content", "stock_data_list", "bond_content", "bond_data_list"])
+                 list_name=["stock_content", "stock_data_list", "bond_content", "bond_data_list"],
+                 deal_column=["business_amount", int])
 
 
 def checking(self, class_name, sql_result, interface_result, is_fetchone=True, **params):
@@ -389,7 +390,7 @@ def checking(self, class_name, sql_result, interface_result, is_fetchone=True, *
     Hbase result is\n{4}".format(params.get("sql"), params.get("url"), params.get("data"), interface_result, sql_result)
     # SQL 执行结果为一条数据时，对比每一条记录里面的字段值
     if params.get("is_hbase_result"):
-        if "get_new_stock_page_user_interval_data" in params.get("url"):
+        if "get_stock_detail_page_data" in params.get("url"):
             a = []
         sql_result = hbase_result_deal.deal(sql_result, is_json_content=params.get("is_json_content"),
                                             list_name=params.get("list_name"))

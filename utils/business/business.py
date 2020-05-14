@@ -97,11 +97,16 @@ class HbaseResultDeal:
                 json_content_list = []
                 if is_json_content and column.split(":")[1] in list_name:
                     # str -->  list, '[{0},{1}]' --> [{0}, {1}]
-                    for each_info in eval(value.value.replace("[", "").replace("]", "")):
-                        if isinstance(each_info, dict):
-                            json_content_list.append(each_info)
-                        else:
-                            raise Exception("{0}: is not a dict. The type is {1}. ".format(each_info, type(each_info)))
+                    data = eval(value.value.replace("[", "").replace("]", ""))
+                    if isinstance(data, dict):
+                        json_content_list.append(data)
+                    else:
+                        for each_info in data:
+                            if isinstance(each_info, dict):
+                                json_content_list.append(each_info)
+                            else:
+                                raise Exception("{0}: is not a dict. The type is {1}. ".format(each_info,
+                                                                                               type(each_info)))
                     hbase_dict.setdefault(list_name[list_name.index(column.split(":")[1])+1], json_content_list)
         return hbase_dict
 
