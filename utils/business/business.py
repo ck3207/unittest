@@ -1,5 +1,6 @@
 import decimal
 import json
+import datetime
 
 class CumulativeRate:
 
@@ -87,30 +88,69 @@ class HbaseResultDeal:
             return
         hbase_dict = {}
         # 判断是否要展开 json_content数据
-        if is_json_content:
-            json_content_list = []
-        for each_row in hbase_result:
+        # if is_json_content:
+        #     # json_content_list = []
+        for i, each_row in enumerate(hbase_result):
             row_key = each_row.row
             for column, value in each_row.columns.items():
                 hbase_dict.setdefault(column.split(":")[1], value.value)
-                if is_json_content and column.split(":")[1] == list_name[0]:
+                json_content_list = []
+                if is_json_content and column.split(":")[1] in list_name:
                     # str -->  list, '[{0},{1}]' --> [{0}, {1}]
                     for each_info in eval(value.value.replace("[", "").replace("]", "")):
-                        json_content_list.append(each_info)
-        if is_json_content:
-            hbase_dict.setdefault(list_name[1], json_content_list)
+                        if isinstance(each_info, dict):
+                            json_content_list.append(each_info)
+                        else:
+                            raise Exception("{0}: is not a dict. The type is {1}. ".format(each_info, type(each_info)))
+                    hbase_dict.setdefault(list_name[list_name.index(column.split(":")[1])+1], json_content_list)
         return hbase_dict
 
 
 class SpecialDate:
-    def get_init_date(self, hbase_objh, interval_type):
+    """根据 cal_init_date， 计算近x月/年的初始日期
+    cal_init_date 为当前最新的交易日，
+    interval_type 为时间周期：
+                        期初日期
+        近一月 --> cal_init_date-30day  --> interval_type = 1
+        近三月 --> cal_init_date-90day  --> interval_type = 2
+        近半年 --> cal_init_date-180day  --> interval_type = 3
+        近一年 --> cal_init_date-365day  --> interval_type = 4
+        近两年 --> cal_init_date-730day  --> interval_type = 5
+        今年 --> concat(substr(cal_init_date, from 1 for 6), '01')  --> interval_type = 9
+        """
+    def get_date(self, init_date, delay):
+        """
+        根据 init_date 往前或往后 推 delay 天， 返回处理后的日期
+        :param init_date: 日期
+        :param delay: 往前或往后N天
+        """
+        if not isinstance(init_date, str):
+            init_date = str(init_date)
+        if not isinstance(delay, int):
+            delay = int(delay)
+        return (datetime.datetime.strptime(init_date, '%Y%m%d') + datetime.timedelta(days=delay)).strftime('%Y%m%d')
+
+    def get_init_date(self, cal_init_date, interval_type):
         """获取期初日期: 给予 cal_record 表的最新数据
         近一月：-30， """
-        pass
+        interval_type = int(interval_type)
+        if interval_type == 1:
+            init_date = self.get_date(cal_init_date, -30)
+        elif interval_type == 2:
+            init_date = self.get_date(cal_init_date, -90)
+        elif interval_type == 3:
+            init_date = self.get_date(cal_init_date, -180)
+        elif interval_type == 4:
+            init_date = self.get_date(cal_init_date, -365)
+        elif interval_type == 5:
+            init_date = self.get_date(cal_init_date, -730)
+        elif interval_type == 3:
+            init_date = "".join(str(cal_init_date)[:6], "01")
 
-    def get_init_month(self, hbase_obj, interval_type):
+    def get_init_month(self, cal_init_date):
         """获取期初月份"""
         pass
+
 
 cumulative_rate = CumulativeRate()
 hbase_result_deal = HbaseResultDeal()

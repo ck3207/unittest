@@ -330,8 +330,10 @@ class CaifuAnalysis:
                 fund_account = "".join(reversed(str(self.start_fund_account + fund_account_num)))
 
                 for interval_type in self.interval_types:
-                    stock_content = self.__get_stock_code_info_list(new_stock_page_data=1, stock_content=1)
-                    bond_content = self.__get_stock_code_info_list(new_stock_page_data=1, bond_content=1)
+                    stock_content = self.__get_stock_code_info_list(new_stock_page_data=1, stock_content=1,
+                                                                    init_date=init_date)
+                    bond_content = self.__get_stock_code_info_list(new_stock_page_data=1, bond_content=1,
+                                                                   init_date=init_date)
                     sql += sql_model.format(",".join([fund_account, interval_type, "0",
                                                       str(self.init_date_special_deal_num-int(init_date))]),
                                             stock_content, bond_content)
@@ -356,12 +358,12 @@ class CaifuAnalysis:
                 fund_account = "".join(reversed(str(self.start_fund_account + fund_account_num)))
 
                 for stock_name, stock_code in CaifuAnalysis.STOCK_INFO.items():
-                    exchange_type = "1"
+                    exchange_type = "2"
                     if stock_code.startswith("6"):
-                        exchange_type = "0"
+                        exchange_type = "1"
                     json_content = self.__get_stock_code_info_list(stock_detail_page_data=1, init_date=init_date)
                     sql += sql_model.format(",".join([fund_account, str(self.init_date_special_deal_num-int(init_date)),
-                                                      stock_code, stock_name, exchange_type]), json_content)
+                                                      stock_code, exchange_type]), json_content)
 
     def get_random_num(self, base_num, decimal_num, is_gt_0, add_num=0):
         is_gt = random.choice([1, -1])
@@ -452,14 +454,14 @@ class CaifuAnalysis:
         elif kwargs.get("new_stock_page_data"):
             if kwargs.get("stock_content"):
                 for stock_name, stock_code in CaifuAnalysis.STOCK_INFO.items():
-                    element = {"stock_code": stock_code, "stock_name": stock_name,
+                    element = {"stock_name": stock_name, "stock_code": stock_code,
                                "init_date": kwargs.get("init_date"),
                                "business_amount": self.get_random_num(1000, 2, 1),
                                "first_up_rate": self.get_random_num(10, 4, 1),
                                "total_up_rate": self.get_random_num(20, 4, 1)}
             elif kwargs.get("bond_content"):
                 for stock_name, stock_code in CaifuAnalysis.BOND_INFO.items():
-                    element = {"stock_code": stock_code, "stock_name": stock_name,
+                    element = {"stock_name": stock_name, "stock_code": stock_code,
                                "init_date": kwargs.get("init_date"),
                                "business_amount": self.get_random_num(1000, 2, 1),
                                "first_up_rate": self.get_random_num(10, 4, 1),
@@ -483,7 +485,7 @@ class CaifuAnalysis:
         for init_date_delay in range(start, end, step):
             init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
                           datetime.timedelta(days=init_date_delay)).strftime('%Y%m%d')
-            print(init_date)
+            # print(init_date)
             yield init_date
             
 if __name__ == "__main__":
@@ -501,9 +503,9 @@ if __name__ == "__main__":
     # caifu_analysis.stock_page_user_interval_trade_distribution()
     # caifu_analysis.financial_page_user_daily_data()
     # caifu_analysis.financial_page_user_interval_data()
-    caifu_analysis.bond_page_user_daily_data()
+    # caifu_analysis.bond_page_user_daily_data()
     # caifu_analysis.bond_page_user_interval_data()
     # caifu_analysis.cfb_page_user_daily_data()
-    # caifu_analysis.new_stock_page_data()
+    caifu_analysis.new_stock_page_data()
     # caifu_analysis.stock_detail_page_data()
     caifu_analysis.close_file()
