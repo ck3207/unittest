@@ -351,18 +351,18 @@ class GetNewStockPageUserIntervalData(unittest.TestCase):
 
     def test_normal(self):
         """"""
-        url = self.url_prefix + GetStockPageUserIntervalData.INTERFACE_NAME
+        url = self.url_prefix + GetNewStockPageUserIntervalData.INTERFACE_NAME
         data = str(self.data.copy()).replace("'", '"')
         interface_result = interfaces.request(url=url, data=data, is_get_method=False)
         row_key = ",".join([self.data.get("fund_account_reversed"), self.info.get("interval"),
                             self.info.get("asset_prop"), init_date_to_cal_date(self.info.get("init_date"))])
 
-        hbase_result_origin = hbase_client.getRow(tableName=GetStockDetailPageData.TABLE_NAME, row=row_key)
-        hbase_command = """get "{0}", "{1}" """.format(GetStockDetailPageData.TABLE_NAME, row_key)
+        hbase_result_origin = hbase_client.getRow(tableName=GetNewStockPageUserIntervalData.TABLE_NAME, row=row_key)
+        hbase_command = """get "{0}", "{1}" """.format(GetNewStockPageUserIntervalData.TABLE_NAME, row_key)
 
-        checking(self=self, class_name=GetStockDetailPageData, sql_result=hbase_result_origin,
+        checking(self=self, class_name=GetNewStockPageUserIntervalData, sql_result=hbase_result_origin,
                  interface_result=interface_result, is_hbase_result=True, is_json_content=True,
-                 sql=hbase_command, url=url, data=data, table_columns=GetStockDetailPageData.COLUMNS,
+                 sql=hbase_command, url=url, data=data, table_columns=GetNewStockPageUserIntervalData.COLUMNS,
                  list_name=["stock_content", "stock_data_list", "bond_content", "bond_data_list"])
 
 
@@ -389,7 +389,7 @@ def checking(self, class_name, sql_result, interface_result, is_fetchone=True, *
     Hbase result is\n{4}".format(params.get("sql"), params.get("url"), params.get("data"), interface_result, sql_result)
     # SQL 执行结果为一条数据时，对比每一条记录里面的字段值
     if params.get("is_hbase_result"):
-        if "get_bond_page_user_daily_data" in params.get("url"):
+        if "get_new_stock_page_user_interval_data" in params.get("url"):
             a = []
         sql_result = hbase_result_deal.deal(sql_result, is_json_content=params.get("is_json_content"),
                                             list_name=params.get("list_name"))
@@ -400,6 +400,15 @@ def checking(self, class_name, sql_result, interface_result, is_fetchone=True, *
                     if column not in params.get("special_column", []):
                         self.assertEqual(str(sql_result.get(column)), str(interface_result.get(column)), msg=msg_model)
                 else:
+                    # 处理接口输出字段与hbase查询出的输出字段不一致的情况
+                    if not sql_result.get(column, False):
+                        origin_column = column
+                        if params.get("list_name").index(column) / 2 == 0:
+                            tmp = params.get("list_name").index(column) + 1
+                        else:
+                            tmp = params.get("list_name").index(column) - 1
+                        column = params.get("list_name")[tmp]
+                        self.assertTrue(0, msg="{0}-{1}-{2}".format(origin_column, column, sql_result))
                     for i, info in enumerate(sql_result.get(column)):
                         for k, v in info.items():
                             deal_column = params.get("deal_column", [False])
@@ -497,7 +506,7 @@ if __name__ == "__main__":
     tests.addTest(unittest.makeSuite(testCaseClass=GetStockPageUserDailyData, prefix='test'))
     tests.addTest(unittest.makeSuite(testCaseClass=GetStockPageUserIntervalData, prefix='test'))
     tests.addTest(unittest.makeSuite(testCaseClass=GetStockDetailPageData, prefix='test'))
-    # tests.addTest(unittest.makeSuite(testCaseClass=ListMonthBankDetail, prefix='test'))
+    tests.addTest(unittest.makeSuite(testCaseClass=GetNewStockPageUserIntervalData, prefix='test'))
     # tests.addTest(unittest.makeSuite(testCaseClass=ListMonthStockTradeStockCode, prefix='test'))
     # tests.addTest(unittest.makeSuite(testCaseClass=GetMonthStockTradeDetail, prefix='test'))
     # tests.addTest(unittest.makeSuite(testCaseClass=GetMonthAccountYield, prefix='test'))
