@@ -85,7 +85,7 @@ class HbaseResultDeal:
     def deal(self, hbase_result, is_json_content=False, list_name=["list_name_old", "list_name_new"]):
         """hbase_result is the result from hbase."""
         if not isinstance(hbase_result, list):
-            return
+            return hbase_result
         hbase_dict = {}
         # 判断是否要展开 json_content数据
         # if is_json_content:
@@ -108,6 +108,32 @@ class HbaseResultDeal:
                                 raise Exception("{0}: is not a dict. The type is {1}. ".format(each_info,
                                                                                                type(each_info)))
                     hbase_dict.setdefault(list_name[list_name.index(column.split(":")[1])+1], json_content_list)
+        return hbase_dict
+
+    def hbase_result_to_dict(self, hbase_result, **columns):
+        """hbase 获取的数据 hbase data，转化成一个字典项"""
+        if not hbase_result:
+            return {}
+        hbase_dict = {}
+        if "ac_daily_income_ratio" in columns.keys():
+            aaaa = "ac_daily_income_ratio"
+        for column, value in columns.items():
+            # 处理hbase 获取出来的column
+            if ":" in column:
+                column = column.split(":")[1]
+            if column != value:
+                hbase_dict.setdefault(column, value)
+            else:
+                # 若 hbase 返回的数据为 list， 即使只有一条数据
+                a = hbase_result[0]
+                b = a.columns
+                c = b.get(":".join(["tag_base", column]))
+                if not c:
+                    continue
+                d = c.value
+                # tmp = hbase_result[0].columns.get(column).value
+                hbase_dict.setdefault(column, d)
+
         return hbase_dict
 
 
@@ -136,8 +162,7 @@ class SpecialDate:
         return (datetime.datetime.strptime(init_date, '%Y%m%d') + datetime.timedelta(days=delay)).strftime('%Y%m%d')
 
     def get_init_date(self, cal_init_date, interval_type):
-        """获取期初日期: 给予 cal_record 表的最新数据
-        近一月：-30， """
+        """获取期初日期: 根据 传入的 interval_type值，返回不同的期初日期"""
         interval_type = int(interval_type)
         if interval_type == 1:
             init_date = self.get_date(cal_init_date, -30)
@@ -149,13 +174,32 @@ class SpecialDate:
             init_date = self.get_date(cal_init_date, -365)
         elif interval_type == 5:
             init_date = self.get_date(cal_init_date, -730)
-        elif interval_type == 3:
+        elif interval_type == 9:
             init_date = "".join(str(cal_init_date)[:6], "01")
+        return init_date
 
     def get_init_month(self, cal_init_date):
         """获取期初月份"""
-        pass
+        months = []
+        init_month = self.get_date(cal_init_date, -365)[:6]
+        for i in range(12):
+            year = int(init_month[:4])
+            month = int(init_month[-2:]) + i
+            if month > 12:
+                year += 1
+                month -= 12
+            months.append("".join([str(year), str(month).rjust(2, "0")]))
+        return months
+
+    def yield_init_date(self, start=0, end=0, step=10):
+        """根据日期的期初期末时间，以及日期的增减步长，返回一个日期生成的迭代器"""
+        for init_date_delay in range(start, end, step):
+            init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
+                         datetime.timedelta(days=init_date_delay)).strftime('%Y%m%d')
+            # print(init_date)
+            yield init_date
 
 
 cumulative_rate = CumulativeRate()
 hbase_result_deal = HbaseResultDeal()
+special_date = SpecialDate()

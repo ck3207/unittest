@@ -189,9 +189,9 @@ function showOutput(id, name) {
 
 <div class='heading'>
 <h1>测试报告</h1>
-<p class='attribute'><strong>Start Time:</strong> 2020-05-14 23:16:15</p>
-<p class='attribute'><strong>Duration:</strong> 0:00:00.949620</p>
-<p class='attribute'><strong>Status:</strong> Pass 10 Error 1</p>
+<p class='attribute'><strong>Start Time:</strong> 2020-05-15 20:10:22</p>
+<p class='attribute'><strong>Duration:</strong> 0:00:00.911000</p>
+<p class='attribute'><strong>Status:</strong> Pass 13</p>
 
 <p class='description'>单元测试报告：</p>
 </div>
@@ -249,57 +249,22 @@ function showOutput(id, name) {
     <td colspan='5' align='center'>pass</td>
 </tr>
 
-<tr class='errorClass'>
+<tr class='passClass'>
     <td>GetHomePageUserCurveData</td>
     <td>1</td>
-    <td>0</td>
-    <td>0</td>
     <td>1</td>
+    <td>0</td>
+    <td>0</td>
     <td><a href="javascript:showClassDetail('c3',1)">Detail</a></td>
 </tr>
 
-<tr id='ft3.1' class='none'>
-    <td class='errorCase'><div class='testcase'>test_normal</div></td>
-    <td colspan='5' align='center'>
-
-    <!--css div popup start-->
-    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft3.1')" >
-        error</a>
-
-    <div id='div_ft3.1' class="popup_window">
-        <div style='text-align: right; color:red;cursor:pointer'>
-        <a onfocus='this.blur();' onclick="document.getElementById('div_ft3.1').style.display = 'none' " >
-           [x]</a>
-        </div>
-        <pre>
-        
-ft3.1: Traceback (most recent call last):
-  File ".\analysis_fortune.py", line 103, in test_normal
-    sql=hbase_command, url=url, data=data)
-  File ".\analysis_fortune.py", line 396, in checking
-    list_name=params.get("list_name"))
-  File "E:\scripts\git\unittests\utils\business\business.py", line 98, in deal
-    if is_json_content and column.split(":")[1] in list_name:
-TypeError: argument of type 'NoneType' is not iterable
-Traceback (most recent call last):
-  File ".\analysis_fortune.py", line 103, in test_normal
-    sql=hbase_command, url=url, data=data)
-  File ".\analysis_fortune.py", line 396, in checking
-    list_name=params.get("list_name"))
-  File "E:\scripts\git\unittests\utils\business\business.py", line 98, in deal
-    if is_json_content and column.split(":")[1] in list_name:
-TypeError: argument of type 'NoneType' is not iterable
-
-
-        </pre>
-    </div>
-    <!--css div popup end-->
-
-    </td>
+<tr id='pt3.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>pass</td>
 </tr>
 
 <tr class='passClass'>
-    <td>GetFinancialPageUserIntervalData</td>
+    <td>GetCashPageUserCurveData</td>
     <td>1</td>
     <td>1</td>
     <td>0</td>
@@ -313,7 +278,7 @@ TypeError: argument of type 'NoneType' is not iterable
 </tr>
 
 <tr class='passClass'>
-    <td>GetBondPageUserDailyData</td>
+    <td>GetCfbPageUserCurveData</td>
     <td>1</td>
     <td>1</td>
     <td>0</td>
@@ -327,7 +292,7 @@ TypeError: argument of type 'NoneType' is not iterable
 </tr>
 
 <tr class='passClass'>
-    <td>GetBondPageUserIntervalData</td>
+    <td>GetFinancialPageUserIntervalData</td>
     <td>1</td>
     <td>1</td>
     <td>0</td>
@@ -341,7 +306,7 @@ TypeError: argument of type 'NoneType' is not iterable
 </tr>
 
 <tr class='passClass'>
-    <td>GetFinancialPageUserDailyData</td>
+    <td>GetBondPageUserDailyData</td>
     <td>1</td>
     <td>1</td>
     <td>0</td>
@@ -355,7 +320,7 @@ TypeError: argument of type 'NoneType' is not iterable
 </tr>
 
 <tr class='passClass'>
-    <td>GetStockPageUserDailyData</td>
+    <td>GetBondPageUserIntervalData</td>
     <td>1</td>
     <td>1</td>
     <td>0</td>
@@ -369,7 +334,7 @@ TypeError: argument of type 'NoneType' is not iterable
 </tr>
 
 <tr class='passClass'>
-    <td>GetStockPageUserIntervalData</td>
+    <td>GetFinancialPageUserDailyData</td>
     <td>1</td>
     <td>1</td>
     <td>0</td>
@@ -383,7 +348,7 @@ TypeError: argument of type 'NoneType' is not iterable
 </tr>
 
 <tr class='passClass'>
-    <td>GetStockDetailPageData</td>
+    <td>GetStockPageUserDailyData</td>
     <td>1</td>
     <td>1</td>
     <td>0</td>
@@ -397,7 +362,7 @@ TypeError: argument of type 'NoneType' is not iterable
 </tr>
 
 <tr class='passClass'>
-    <td>GetNewStockPageUserIntervalData</td>
+    <td>GetStockPageUserIntervalData</td>
     <td>1</td>
     <td>1</td>
     <td>0</td>
@@ -410,12 +375,40 @@ TypeError: argument of type 'NoneType' is not iterable
     <td colspan='5' align='center'>pass</td>
 </tr>
 
+<tr class='passClass'>
+    <td>GetStockDetailPageData</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c12',1)">Detail</a></td>
+</tr>
+
+<tr id='pt12.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr class='passClass'>
+    <td>GetNewStockPageUserIntervalData</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c13',1)">Detail</a></td>
+</tr>
+
+<tr id='pt13.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
 <tr id='total_row'>
     <td>Total</td>
-    <td>11</td>
-    <td>10</td>
+    <td>13</td>
+    <td>13</td>
     <td>0</td>
-    <td>1</td>
+    <td>0</td>
     <td>&nbsp;</td>
 </tr>
 </table>

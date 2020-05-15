@@ -9,7 +9,7 @@ imp.reload(sys)
 from HTMLTestRunner import HTMLTestRunner
 from get_configurations import get_configurations, hbase_client
 from business.interfaces import interfaces
-from business.business import cumulative_rate, get_month_account_yield, hbase_result_deal
+from business.business import cumulative_rate, get_month_account_yield, hbase_result_deal, special_date
 __author__ = "chenk"
 
 
@@ -76,9 +76,9 @@ class GetHomePageUserIntervalData(unittest.TestCase):
 
 class GetHomePageUserCurveData(unittest.TestCase):
     TABLE_NAME = "".join([get_configurations.get_target_section(section='database_chasing').get("database_prefix"),
-                          "home_page_user_daily_data"])
+                          "home_page_user_month_data"])
     INTERFACE_NAME = "general/get_home_page_user_curve_data"
-    COLUMNS = ["monthDataList"]
+    COLUMNS = ["monthDataList", "homeCurveDataList"]
 
     @classmethod
     def setUpClass(cls):
@@ -94,13 +94,169 @@ class GetHomePageUserCurveData(unittest.TestCase):
         url = self.url_prefix + GetHomePageUserCurveData.INTERFACE_NAME
         data = str(self.data.copy()).replace("'", '"')
         interface_result = interfaces.request(url=url, data=data, is_get_method=False)
-        row_key = ",".join([self.data.get("fund_account_reversed"), init_date_to_cal_date(self.info.get("init_date"))])
-        hbase_result_origin = hbase_client.getRow(tableName=GetHomePageUserCurveData.TABLE_NAME, row=row_key)
-        hbase_command = """get "{0}", "{1}" """.format(GetHomePageUserCurveData.TABLE_NAME, row_key)
 
-        checking(self=self, class_name=GetHomePageUserCurveData, sql_result=hbase_result_origin,
+        # monthDataList
+        hbase_result_deal_list = []
+        hbase_result = {}
+        for month in special_date.get_init_month(cal_init_date=self.info.get("cal_init_date")):
+            row_key = ",".join([self.data.get("fund_account_reversed"), month])
+            # hbase_command = """get "{0}", "{1}" """.format(GetHomePageUserCurveData.TABLE_NAME, row_key)
+            # self.assertTrue(0, msg="{0}".format(hbase_command))
+            hbase_result_origin = hbase_client.getRow(tableName=GetHomePageUserCurveData.TABLE_NAME, row=row_key)
+            hbase_result_deal_dict = hbase_result_deal.hbase_result_to_dict(hbase_result=hbase_result_origin,
+                                                                            init_month=month,
+                                                                            month_income="month_income")
+            if len(hbase_result_deal_dict) > 0:
+                hbase_result_deal_list.append(hbase_result_deal_dict)
+
+        hbase_result.setdefault("monthDataList", hbase_result_deal_list)
+
+        # homeCurveDataList
+        hbase_result_deal_list = []
+        init_date_base = special_date.get_init_date(self.info.get("init_date"), self.info.get("interval"))
+        for i in range(30):
+            init_date = special_date.get_date(init_date_base, i)
+            row_key = ",".join([self.data.get("fund_account_reversed"),
+                                init_date_to_cal_date(init_date)])
+            if not locals().get("init_total_asset"):
+                init_total_asset_row_key = ",".join([self.data.get("fund_account_reversed"),
+                                             init_date_to_cal_date(special_date.get_date(init_date_base, -1))])
+                hbase_total_asset = hbase_client.get(tableName="chenk_zhfx:home_page_user_daily_data",
+                                                       row=init_total_asset_row_key, column="tag_base:total_asset")
+                init_total_asset = eval(hbase_total_asset[0].value)
+            # hbase_command = """get "{0}", "{1}" """.format(GetHomePageUserCurveData.TABLE_NAME, row_key)
+            # self.assertTrue(0, msg="{0}".format(hbase_command))
+            hbase_result_origin = hbase_client.getRow(tableName="chenk_zhfx:home_page_user_daily_data", row=row_key)
+            hbase_result_deal_dict = hbase_result_deal.hbase_result_to_dict(hbase_result=hbase_result_origin,
+                                                                            init_date=init_date,
+                                                                            total_asset="total_asset",
+                                                                            daily_income="daily_income",
+                                                                            daily_income_ratio="daily_income_ratio",
+                                                                            ac_daily_income_ratio="ac_daily_income_ratio",
+                                                                            fund_in="fund_in",
+                                                                            fund_out="fund_out")
+            if len(hbase_result_deal_dict) > 0:
+                hbase_result_deal_list.append(hbase_result_deal_dict)
+
+        hbase_result_deal_list = self.__set_cumulative_ratio(init_total_asset, hbase_result_deal_list,
+                                                             "ac_daily_income_ratio")
+        hbase_result.setdefault("homeCurveDataList", hbase_result_deal_list)
+        # self.assertTrue(0, msg="{0}--".format(hbase_result))
+        hbase_command = """get "{0}", "{1}" """.format(GetHomePageUserCurveData.TABLE_NAME, row_key)
+        checking(self=self, class_name=GetHomePageUserCurveData, sql_result=hbase_result,
                  interface_result=interface_result, is_hbase_result=True, is_json_content=True,
-                 sql=hbase_command, url=url, data=data)
+                 sql=hbase_command, url=url, data=data, table_columns=GetHomePageUserCurveData.COLUMNS,
+                 list_name=["monthDataList", "monthDataList", "homeCurveDataList", "homeCurveDataList"])
+
+    def __set_cumulative_ratio(self, cost, data_list, key):
+        tmp_cost = cost
+        cost = cost  # 成本
+        balance = 0
+        new_data_list = []
+        for i, data in enumerate(data_list):
+            balance += eval(data.get("daily_income"))
+            fund_in = eval(data.get("fund_in")) - eval(data.get("fund_out"))
+            tmp_cost += fund_in
+            if tmp_cost > cost:
+                cost = tmp_cost
+            ac_daily_income_ratio = round(balance / cost, 6)
+            data.setdefault(key, ac_daily_income_ratio)
+            new_data_list.append(data)
+
+        return new_data_list
+
+
+class GetCashPageUserCurveData(unittest.TestCase):
+    TABLE_NAME = "".join([get_configurations.get_target_section(section='database_chasing').get("database_prefix"),
+                          "home_page_user_daily_data"]) # 原表 cash_page_user_daily_data 改成 home_page_user_daily_data
+    INTERFACE_NAME = "general/get_cash_page_user_curve_data"
+    COLUMNS = ["cashCurveDataList"]
+
+    @classmethod
+    def setUpClass(cls):
+        urls_prefix = get_configurations.get_target_section(section='url_prefix')
+        cls.info = get_configurations.get_target_section(section='chasing_info')
+        print("here is info:\n", cls.info)
+        cls.url_prefix = urls_prefix.get("analysis_chasing_prefix")
+        cls.data = get_basic_paramaters(init_date=cls.info.get("init_date"),
+                                        fund_account=cls.info.get("fund_account"), interval=cls.info.get("interval"))
+
+    def test_normal(self):
+        """"""
+        url = self.url_prefix + GetCashPageUserCurveData.INTERFACE_NAME
+        data = str(self.data.copy()).replace("'", '"')
+        interface_result = interfaces.request(url=url, data=data, is_get_method=False)
+
+        # cashCurveDataList
+        hbase_result = {}
+        hbase_result_deal_list = []
+        init_date_base = special_date.get_init_date(self.info.get("init_date"), self.info.get("interval"))
+        for i in range(30):
+            init_date = special_date.get_date(init_date_base, i)
+            row_key = ",".join([self.data.get("fund_account_reversed"),
+                                init_date_to_cal_date(init_date)])
+
+            hbase_result_origin = hbase_client.getRow(tableName=GetCashPageUserCurveData.TABLE_NAME, row=row_key)
+            hbase_result_deal_dict = hbase_result_deal.hbase_result_to_dict(hbase_result=hbase_result_origin,
+                                                                            init_date=init_date,
+                                                                            cash_asset="cash_asset")
+            if len(hbase_result_deal_dict) > 0:
+                hbase_result_deal_list.append(hbase_result_deal_dict)
+
+        hbase_result.setdefault("cashCurveDataList", hbase_result_deal_list)
+        # self.assertTrue(0, msg="{0}--".format(hbase_result))
+        hbase_command = """get "{0}", "{1}" """.format(GetCashPageUserCurveData.TABLE_NAME, row_key)
+        checking(self=self, class_name=GetCashPageUserCurveData, sql_result=hbase_result,
+                 interface_result=interface_result, is_hbase_result=True, is_json_content=True,
+                 sql=hbase_command, url=url, data=data, table_columns=GetCashPageUserCurveData.COLUMNS,
+                 list_name=["cashCurveDataList", "cashCurveDataList"])
+
+
+class GetCfbPageUserCurveData(unittest.TestCase):
+    TABLE_NAME = "".join([get_configurations.get_target_section(section='database_chasing').get("database_prefix"),
+                          "cfb_page_user_daily_data"])
+    INTERFACE_NAME = "general/get_cfb_page_user_curve_data"
+    COLUMNS = ["cfbCurveDataList"]
+
+    @classmethod
+    def setUpClass(cls):
+        urls_prefix = get_configurations.get_target_section(section='url_prefix')
+        cls.info = get_configurations.get_target_section(section='chasing_info')
+        print("here is info:\n", cls.info)
+        cls.url_prefix = urls_prefix.get("analysis_chasing_prefix")
+        cls.data = get_basic_paramaters(init_date=cls.info.get("init_date"),
+                                        fund_account=cls.info.get("fund_account"), interval=cls.info.get("interval"))
+
+    def test_normal(self):
+        """"""
+        url = self.url_prefix + GetCfbPageUserCurveData.INTERFACE_NAME
+        data = str(self.data.copy()).replace("'", '"')
+        interface_result = interfaces.request(url=url, data=data, is_get_method=False)
+
+        # cashCurveDataList
+        hbase_result = {}
+        hbase_result_deal_list = []
+        init_date_base = special_date.get_init_date(self.info.get("init_date"), self.info.get("interval"))
+        for i in range(30):
+            init_date = special_date.get_date(init_date_base, i)
+            row_key = ",".join([self.data.get("fund_account_reversed"),
+                                init_date_to_cal_date(init_date)])
+
+            hbase_result_origin = hbase_client.getRow(tableName=GetCfbPageUserCurveData.TABLE_NAME, row=row_key)
+            hbase_result_deal_dict = hbase_result_deal.hbase_result_to_dict(hbase_result=hbase_result_origin,
+                                                                            init_date=init_date,
+                                                                            cfb_asset="cfb_asset",
+                                                                            cfb_daily_income="cfb_daily_income")
+            if len(hbase_result_deal_dict) > 0:
+                hbase_result_deal_list.append(hbase_result_deal_dict)
+
+        hbase_result.setdefault("cfbCurveDataList", hbase_result_deal_list)
+        # self.assertTrue(0, msg="{0}--".format(hbase_result))
+        hbase_command = """get "{0}", "{1}" """.format(GetCfbPageUserCurveData.TABLE_NAME, row_key)
+        checking(self=self, class_name=GetCfbPageUserCurveData, sql_result=hbase_result,
+                 interface_result=interface_result, is_hbase_result=True, is_json_content=True,
+                 sql=hbase_command, url=url, data=data, table_columns=GetCfbPageUserCurveData.COLUMNS,
+                 list_name=["cfbCurveDataList", "cfbCurveDataList"])
 
 
 class GetBondPageUserDailyData(unittest.TestCase):
@@ -409,7 +565,7 @@ def checking(self, class_name, sql_result, interface_result, is_fetchone=True, *
                         else:
                             tmp = params.get("list_name").index(column) - 1
                         column = params.get("list_name")[tmp]
-                        self.assertTrue(0, msg="{0}-{1}-{2}".format(origin_column, column, sql_result))
+                        # self.assertTrue(0, msg="{0}-{1}-{2}".format(origin_column, column, sql_result))
                     for i, info in enumerate(sql_result.get(column)):
                         for k, v in info.items():
                             deal_column = params.get("deal_column", [False])
@@ -427,6 +583,8 @@ def checking(self, class_name, sql_result, interface_result, is_fetchone=True, *
                             else:
                                 self.assertEqual(str(v), str(interface_result.get(column)[i].get(k)), msg=msg_model)
         except TypeError:
+            if not locals().get(column):
+                column = "cant get."
             self.assertTrue(0, msg="sql is\n {0}\n interface is\n {1}\n params is {2}\n\
                             Current is checking column {3}".format(params.get("sql"), params.get("url"),
                                                                    params.get("data"), column))
@@ -500,6 +658,8 @@ if __name__ == "__main__":
     tests.addTest(unittest.makeSuite(testCaseClass=GetHomePageUserDailyData, prefix='test'))
     tests.addTest(unittest.makeSuite(testCaseClass=GetHomePageUserIntervalData, prefix='test'))
     tests.addTest(unittest.makeSuite(testCaseClass=GetHomePageUserCurveData, prefix='test'))
+    tests.addTest(unittest.makeSuite(testCaseClass=GetCashPageUserCurveData, prefix='test'))
+    tests.addTest(unittest.makeSuite(testCaseClass=GetCfbPageUserCurveData, prefix='test'))
     tests.addTest(unittest.makeSuite(testCaseClass=GetFinancialPageUserIntervalData, prefix='test'))
     tests.addTest(unittest.makeSuite(testCaseClass=GetBondPageUserDailyData, prefix='test'))
     tests.addTest(unittest.makeSuite(testCaseClass=GetBondPageUserIntervalData, prefix='test'))
