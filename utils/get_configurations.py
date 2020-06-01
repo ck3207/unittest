@@ -2,6 +2,8 @@
 import configparser
 import pymysql
 import decimal
+import cx_Oracle
+import time
 
 from thrift.transport import TSocket, TTransport
 from thrift.protocol import TBinaryProtocol
@@ -50,6 +52,28 @@ class GetConfigurations:
         return client
         # print(client.getTableNames())  # 获取当前所有的表名
 
+    def connect_to_oracle(self):
+        conn = cx_Oracle.connect("hs_com", "jyhTEST123", "192.168.44.172:1521/JYHTestDB")
+        cursor = conn.cursor()
+        while True:
+            with open("print.txt", "w")as f:
+                sql = "SELECT INIT_DATE, ENTRUST_NO, CURR_DATE, BUSINESS_AMOUNT,POST_AMOUNT, BUSINESS_PRICE,BUSIN_ACCOUNT \
+                from COMENTRUSTDETAIL where INIT_DATE = '20200519' ORDER BY ENTRUST_NO desc"
+                f.write("""{0},{1},{2}""".format("*"*20, "COMENTRUSTDETAIL", "*"*20))
+                print("*"*20, "COMENTRUSTDETAIL", "*"*20)
+                for each in cursor.execute(sql):
+                    f.write(str(each))
+                    print(each)
+                sql2 = "SELECT INIT_DATE,SERIAL_NO,TAG,PUSH_STATUS,SENDERCOMP_ID from COMPUSH \
+        where INIT_DATE = '20200519' ORDER BY SERIAL_NO desc"
+                f.write("""{0},{1},{2}""".format("*" * 25, "COMPUSH", "*" * 25))
+                print("*" * 25, "COMPUSH", "*" * 25)
+                for each in cursor.execute(sql2):
+                    f.write(str(each))
+                    print(each)
+                time.sleep(0.1)
+        return
+
 
 def test_normal(cur):
     sql = "SELECT * from interval_trade_style where fund_account = 11000619 and interval_type = 1;"
@@ -62,15 +86,16 @@ def test_normal(cur):
             print("*"*10)
 
 get_configurations = GetConfigurations()
-hbase_client = get_configurations.connect_to_hbase(get_configurations.get_target_section(section="database_chasing"))
+# hbase_client = get_configurations.connect_to_hbase(get_configurations.get_target_section(section="database_chasing"))
 if __name__ == "__main__":
     init_date = str(99999999 - 20200326)
     # print(hbase_client.send_getRowWithColumns("chenk_zhfx:bond_page_user_daily_data", "88888,{0}".format(init_date), "tag_base:init_date"))
-    print(hbase_client.isTableEnabled("chenk_zhfx:bond_page_user_daily_data"))
-    print(hbase_client.getTableNames())
-    print(hbase_client.getRow("chenk_zhfx:stock_page_user_daily_data", "00988,79799569"))
-    print(hbase_client.send_mutateRows("chenk_zhfx:stock_page_user_daily_data", "00988,79799569"))
-    print(hbase_client.mutateRows("chenk_zhfx:stock_page_user_daily_data", "00988,79799569"))
+    # print(hbase_client.isTableEnabled("chenk_zhfx:bond_page_user_daily_data"))
+    # print(hbase_client.getTableNames())
+    # print(hbase_client.getRow("chenk_zhfx:stock_page_user_daily_data", "00988,79799569"))
+    # print(hbase_client.send_mutateRows("chenk_zhfx:stock_page_user_daily_data", "00988,79799569"))
+    # print(hbase_client.mutateRows("chenk_zhfx:stock_page_user_daily_data", "00988,79799569"))
+    get_configurations.connect_to_oracle()
 
     # conn = get_configurations.connect_to_mysql(get_configurations.get_target_section(section="database"))
     # test_normal(conn.cursor())
