@@ -431,7 +431,7 @@ class GuoLianAnalysis:
 
     def home_page_data(self):
         _table_name = sys._getframe().f_code.co_name
-        sql = "insert into {0}} values".format(_table_name)
+        sql = "insert into {0} values".format(_table_name)
         sql_model = """({0}),\n""".format(sqls_info.get(_table_name))
         for init_date_delay in range(0, self.init_date_num, 1):
             init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
@@ -442,6 +442,23 @@ class GuoLianAnalysis:
                 for interval_type in self.interval_types:
                     begin_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
                           datetime.timedelta(days=-init_date_delay*30-30)).strftime('%Y%m%d')
+                    profits = {}
+                    for i in range(6):
+                        stock_name = random.choice(list(GuoLianAnalysis.STOCK_INFO.keys()))
+                        stock_code = GuoLianAnalysis.STOCK_INFO.get(stock_name)
+                        exchange_type = "2"
+                        if stock_code.startswith("6"):
+                            exchange_type = "1"
+                        if i < 3:
+                            is_gt_0 = 1
+                        else:
+                            is_gt_0 = -1
+                        profits.setdefault(i, {"stock_name": stock_name, "stock_code": stock_code,
+                                               "income": self.get_random_num(123456, 2, 1) * is_gt_0,
+                                               "income_rate": self.get_random_num(1, 4, 1) * is_gt_0,
+                                               "trade_type": random.choice([0, 1]),
+                                               })
+
                     sql += sql_model.format(",".join([fund_account, interval_type, "0",
                                                       str(self.init_date_special_deal_num-int(init_date))]),
                                             self.get_random_num(123456, 2, 0), self.get_random_num(123456, 2, 0),
@@ -456,7 +473,17 @@ class GuoLianAnalysis:
                                             self.get_random_num(1, 4, 1), self.get_random_num(1, 4, 1),
                                             self.get_random_num(100, 2, 1), self.get_random_num(100, 2, 1),
                                             self.get_random_num(100, 2, 1), self.get_random_num(100, 2, 1),
-                                            self.get_random_num(100, 2, 1), self.get_random_num(100, 2, 1), # begin_date,begin_asset
+                                            begin_date, self.get_random_num(12345678, 2, 1),
+                                            self.get_random_num(123456, 2, 1), self.get_random_num(123456, 2, 1),
+                                            self.get_random_num(12345678, 2, 1), init_date,
+                                            self.get_random_num(1, 4, 0), self.get_random_num(100, 2, 1),
+                                            self.get_random_num(100, 2, 1), self.get_random_num(1, 4, 1),
+                                            self.get_random_num(1, 4, 1), profits.get(0), profits.get(1),
+                                            profits.get(2), profits.get(3), profits.get(4), profits.get(5),
+                                            self.get_random_num(100, 2, 1), self.get_random_num(100, 2, 1),
+                                            self.get_random_num(100, 2, 1), self.get_random_num(100, 2, 1),
+                                            self.get_random_num(100, 2, 1), self.get_random_num(100, 2, 1),
+                                            self.get_random_num(1, 4, 1), "0j"
                                             )
 
         self.f.write("use wt_hbase_chenk_gl;\n")
@@ -640,6 +667,7 @@ if __name__ == "__main__":
     # guolian_analysis.credit_user_daily_data()
     # guolian_analysis.basic_data()
     # guolian_analysis.credit_basic_data()
-    guolian_analysis.daily_basic_data()
+    # guolian_analysis.daily_basic_data()
+    guolian_analysis.home_page_data()
 
     guolian_analysis.close_file()
