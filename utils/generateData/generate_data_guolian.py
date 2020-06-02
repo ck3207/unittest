@@ -26,22 +26,19 @@ class GuoLianAnalysis:
         self.init_date_num = 365
         self.interval_types = ["1", "2", "3", "4"]
         self.f = ""
-        
-    def market_cumulative_data(self):        
-        sql = "insert into market_cumulative_data values"
-        sql_model = "('{0}','{1}',{2},{3},{4},{5}),"
-        
+
+    def cal_record(self):
+        _table_name = sys._getframe().f_code.co_name
+        sql = "insert into {0} values".format(_table_name)
+        sql_model = "({0}),\n".format(sqls_info.get(_table_name))
         for init_date_num in range(self.init_date_num):
             start_init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
                                datetime.timedelta(days=init_date_num)).strftime('%Y%m%d')
-
-            for interval_type in self.interval_types:
-                sql += sql_model.format(",".join([interval_type, start_init_date]), start_init_date,
-                                        self.get_random_num(1, 4, 0), self.get_random_num(1, 4, 0),
-                                        self.get_random_num(1, 4, 0), self.get_random_num(1, 4, 0))
-        self.f.write(sql[:-1]+";\n\n")
+            sql += sql_model.format(start_init_date, start_init_date)
+        self.f.write("use wt_hbase_chenk_gl;\n")
+        self.f.write(sql[:-2]+";\n\n")
         return
-    
+
     def basic_data(self):
         _table_name = sys._getframe().f_code.co_name
         sql = "insert into {0} values".format(_table_name)
@@ -99,248 +96,57 @@ class GuoLianAnalysis:
         self.f.write(sql[:-2]+";\n\n")
         return
 
-    def home_page_user_daily_data(self):
-        sql = "insert into home_page_user_daily_data values"
-        sql_model = "('{0}','{1}',{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12}),"
-        base_price = 3000
-        for init_date_num in range(self.init_date_num):
-            start_init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
-                               datetime.timedelta(days=init_date_num)).strftime('%Y%m%d')
-            for fund_account_num in range(self.fund_account):
-                fund_account = "".join(reversed(str(self.start_fund_account + fund_account_num)))
-                sql += sql_model.format(",".join([fund_account,
-                                                  str(self.init_date_special_deal_num-int(start_init_date))]),
-                                        start_init_date, self.get_random_num(123456, 2, 1),
-                                        self.get_random_num(123456, 2, 1), self.get_random_num(123456, 2, 1),
-                                        self.get_random_num(123456, 2, 1), self.get_random_num(1, 4, 0),
-                                        self.get_random_num(123456, 2, 1), self.get_random_num(123456, 2, 1),
-                                        self.get_random_num(123456, 2, 1), self.get_random_num(123456, 2, 1),
-                                        self.get_random_num(123456, 2, 1), self.get_random_num(123456, 2, 1))
-        self.f.write(sql[:-1]+";\n\n")
-        return
-
-    def home_page_user_interval_data(self):
-        sql = "insert into home_page_user_interval_data values"
-        sql_model = "('{0}','{1}',{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15}),"
-        base_price = 3000
+    def interval_stock(self):
+        _table_name = sys._getframe().f_code.co_name
+        sql = "insert into {0} values".format(_table_name)
+        sql_model = "({0}),\n".format(sqls_info.get(_table_name))
         asset_prop = "0"
-        for init_date_num in range(self.init_date_num):
+        for init_date_num in range(180, self.init_date_num, 1):
             start_init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
                                datetime.timedelta(days=init_date_num)).strftime('%Y%m%d')
             for fund_account_num in range(self.fund_account):
                 fund_account = "".join(reversed(str(self.start_fund_account + fund_account_num)))
                 for interval_type in self.interval_types:
+                    stock_content = self.__get_stock_code_info_list(interval_stock=1)
                     sql += sql_model.format(",".join([fund_account, interval_type, asset_prop,
                                                       str(self.init_date_special_deal_num-int(start_init_date))]),
-                                            self.get_random_num(123456, 2, 0),self.get_random_num(1, 4, 0),
-                                            self.get_random_num(123456, 2, 0), self.get_random_num(123456, 2, 0),
-                                            self.get_random_num(123456, 2, 0),self.get_random_num(123456, 2, 0),
-                                            self.get_random_num(123456, 2, 0),self.get_random_num(1234567, 2, 1),
-                                            self.get_random_num(123456, 2, 1),self.get_random_num(123456, 2, 1),
-                                            self.get_random_num(1234567, 2, 1), self.get_random_num(1, 4, 1),
-                                            self.get_random_num(1, 4, 1), self.get_random_num(1, 4, 1),
-                                            self.get_random_num(1, 4, 1))
-        self.f.write(sql[:-1]+";\n\n")
-        return
-
-    def home_page_user_month_data(self):
-        sql = "insert into home_page_user_month_data values"
-        sql_model = "('{0}','{1}',{2},{3}),"
-        for month_delay in range(12):
-            init_month = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
-                          datetime.timedelta(days=month_delay*30)).strftime('%Y%m')
-            for fund_account_num in range(self.fund_account):
-                fund_account = "".join(reversed(str(self.start_fund_account + fund_account_num)))
-
-                sql += sql_model.format(",".join([fund_account, init_month]), init_month,
-                                        self.get_random_num(123456, 2, 0), self.get_random_num(1, 4, 0))
-        self.f.write(sql[:-1]+";\n\n")
-        return
-
-    def cash_page_user_daily_data(self):
-        sql = "insert into cash_page_user_daily_data values"
-        sql_model = "('{0}','{1}',{2},{3},{4}),"
-        for init_date_delay in range(self.init_date_num):
-            init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
-                          datetime.timedelta(days=init_date_delay)).strftime('%Y%m%d')
-            for fund_account_num in range(self.fund_account):
-                fund_account = "".join(reversed(str(self.start_fund_account + fund_account_num)))
-
-                sql += sql_model.format(",".join([fund_account, str(self.init_date_special_deal_num-int(init_date))]),
-                                        init_date, self.get_random_num(123456, 2, 1), self.get_random_num(123456, 2, 1),
-                                        self.get_random_num(123456, 2, 1))
-        self.f.write(sql[:-1]+";\n\n")
-        return
-
-    def stock_page_user_daily_data(self):
-        sql = "insert into stock_page_user_daily_data values"
-        sql_model = """('{0}','{1}',{2},{3},{4},{5},{6},{7},{8},"{9}"),\n"""
-        base_num = 1000000
-        for init_date_delay in range(self.init_date_num):
-            init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
-                          datetime.timedelta(days=init_date_delay)).strftime('%Y%m%d')
-            for fund_account_num in range(self.fund_account):
-                fund_account = "".join(reversed(str(self.start_fund_account + fund_account_num)))
-
-                stock_hold_data = self.__get_stock_code_info_list(stock_page_user_daily_data=1)
-                sql += sql_model.format(",".join([fund_account, str(self.init_date_special_deal_num-int(init_date))]),
-                                        init_date, self.get_random_num(12345678, 2, 1),
-                                        self.get_random_num(123456, 2, 0), self.get_random_num(1, 4, 0),
-                                        self.get_random_num(123456, 2, 1), self.get_random_num(123456, 2, 1),
-                                        self.get_random_num(123456, 2, 1), self.get_random_num(1, 4, 1),
-                                        stock_hold_data)
+                                            stock_content)
         self.f.write("use wt_hbase_chenk_gl;\n")
         self.f.write(sql[:-2]+";\n\n")
         return
 
-    def stock_page_user_interval_data(self):
-        sql = "insert into stock_page_user_interval_data values"
-        sql_model = "('{0}','{1}',{2},{3},{4},{5},'{6}','{7}',{8},'{9}','{10}',{11},{12},{13},{14},{15},{16},{17},{18},{19}," \
-                    "{20},{21},{22},{23},{24},{25}),\n"
-        for init_date_delay in range(self.init_date_num):
+    def interval_fund_rank(self):
+        _table_name = sys._getframe().f_code.co_name
+        sql = "insert into {0} values".format(_table_name)
+        sql_model = "({0}),\n".format(sqls_info.get(_table_name))
+        for init_date_num in range(0, self.init_date_num, 10):
+            start_init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
+                               datetime.timedelta(days=init_date_num)).strftime('%Y%m%d')
+            for interval_type in self.interval_types:
+                for stock_name, stock_code in GuoLianAnalysis.FINANCIAL_INFO.items():
+                    sql += sql_model.format(",".join([interval_type,
+                                                      str(self.init_date_special_deal_num-int(start_init_date))]),
+                                            {"prod_no": stock_name, "prod_code": stock_code,
+                                             "yield": str(self.get_random_num(1, 4, 0))})
+        self.f.write("use wt_hbase_chenk_gl;\n")
+        self.f.write(sql[:-2]+";\n\n")
+        return
+
+    def interval_trade_distribution(self):
+        _table_name = sys._getframe().f_code.co_name
+        sql = "insert into {0} values".format(_table_name)
+        sql_model = """({0}),\n""".format(sqls_info.get(_table_name))
+        for init_date_delay in range(150, self.init_date_num, 1):
             init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
                           datetime.timedelta(days=init_date_delay)).strftime('%Y%m%d')
             for fund_account_num in range(self.fund_account):
                 fund_account = "".join(reversed(str(self.start_fund_account + fund_account_num)))
 
                 for interval_type in self.interval_types:
-                    sql += sql_model.format(",".join([fund_account, interval_type, "0",
+                    distribute_content = self.__get_stock_code_info_list(interval_trade_distribution=1)
+                    sql += sql_model.format(",".join([fund_account, interval_type, random.choice(["0", "1"]),
                                                       str(self.init_date_special_deal_num-int(init_date))]),
-                                            self.get_random_num(123456, 2, 1), self.get_random_num(123000, 1, 1),
-                                            self.get_random_num(1000, 2, 1), self.get_random_num(1, 4, 1),
-                                            "600000", "浦发银行", self.get_random_num(123456, 2, 1),
-                                            "000001", "平安银行", -self.get_random_num(123456, 2, 1),
-                                            self.get_random_num(1, 4, 1), self.get_random_num(1, 4, 1),
-                                            self.get_random_num(100, 2, 1), self.get_random_num(100, 2, 1),
-                                            self.get_random_num(200, 2, 1), self.get_random_num(200, 2, 1),
-                                            self.get_random_num(200, 2, 1), self.get_random_num(100, 2, 1),
-                                            self.get_random_num(100, 2, 1), self.get_random_num(123456, 2, 1),
-                                            self.get_random_num(123456, 2, 1), self.get_random_num(100, 2, 1),
-                                            self.get_random_num(100, 2, 1), self.get_random_num(100, 4, 1),
-                                            self.get_random_num(1000, 2, 1)
-                                            )
-
-        self.f.write("use wt_hbase_chenk_gl;\n")
-        self.f.write(sql[:-2]+";\n\n")
-        return
-
-    def stock_page_user_single_stock_interval_data(self):
-        sql = "insert into stock_page_user_single_stock_interval_data values"
-        sql_model = """('{0}',"{1}"),\n"""
-        for init_date_delay in range(self.init_date_num):
-            init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
-                          datetime.timedelta(days=init_date_delay)).strftime('%Y%m%d')
-            for fund_account_num in range(self.fund_account):
-                fund_account = "".join(reversed(str(self.start_fund_account + fund_account_num)))
-
-                for interval_type in self.interval_types:
-                    json_content = self.__get_stock_code_info_list(stock_page_user_single_stock_interval_data=1)
-                    sql += sql_model.format(",".join([fund_account, interval_type,
-                                                      str(self.init_date_special_deal_num-int(init_date))]),
-                                            json_content)
-
-        self.f.write("use wt_hbase_chenk_gl;\n")
-        self.f.write(sql[:-2]+";\n\n")
-        return
-
-    def stock_page_user_interval_trade_distribution(self):
-        sql = "insert into stock_page_user_interval_trade_distribution values"
-        sql_model = """('{0}',"{1}"),\n"""
-        for init_date_delay in range(self.init_date_num):
-            init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
-                          datetime.timedelta(days=init_date_delay)).strftime('%Y%m%d')
-            for fund_account_num in range(self.fund_account):
-                fund_account = "".join(reversed(str(self.start_fund_account + fund_account_num)))
-
-                for interval_type in self.interval_types:
-                    json_content = self.__get_stock_code_info_list(stock_page_user_interval_trade_distribution=1)
-                    sql += sql_model.format(",".join([fund_account, interval_type,
-                                                      str(self.init_date_special_deal_num-int(init_date))]),
-                                            json_content)
-
-        self.f.write("use wt_hbase_chenk_gl;\n")
-        self.f.write(sql[:-2]+";\n\n")
-        return
-
-    def financial_page_user_daily_data(self):
-        sql = "insert into financial_page_user_daily_data values"
-        sql_model = """({}),\n""".format()
-        for init_date_delay in range(self.init_date_num):
-            init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
-                          datetime.timedelta(days=init_date_delay)).strftime('%Y%m%d')
-            for fund_account_num in range(self.fund_account):
-                fund_account = "".join(reversed(str(self.start_fund_account + fund_account_num)))
-
-                json_content = self.__get_stock_code_info_list(financial_page_user_daily_data=1, init_date=init_date)
-                sql += sql_model.format(",".join([fund_account, str(self.init_date_special_deal_num-int(init_date))]),
-                                        init_date, self.get_random_num(1234567, 2, 1),
-                                        self.get_random_num(123456, 2, 1), json_content)
-
-        self.f.write("use wt_hbase_chenk_gl;\n")
-        self.f.write(sql[:-2]+";\n\n")
-        return
-
-    def financial_page_user_interval_data(self):
-        sql = "insert into financial_page_user_interval_data values"
-        sql_model = """('{0}',{1},{2},{3},'{4}','{5}',{6},'{7}','{8}',{9},{10},{11},"{12}"),\n"""
-        for init_date_delay in range(self.init_date_num):
-            init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
-                          datetime.timedelta(days=init_date_delay)).strftime('%Y%m%d')
-            for fund_account_num in range(self.fund_account):
-                fund_account = "".join(reversed(str(self.start_fund_account + fund_account_num)))
-
-                for interval_type in self.interval_types:
-                    json_content = self.__get_stock_code_info_list(financial_page_user_interval_data=1, init_date=init_date)
-                    sql += sql_model.format(",".join([fund_account, interval_type, "0",
-                                                      str(self.init_date_special_deal_num-int(init_date))]),
-                                            self.get_random_num(123456, 2, 1), self.get_random_num(100, 2, 1),
-                                            self.get_random_num(100, 2, 1), "T12139", "华润信托鑫华10号",
-                                            self.get_random_num(123456, 2, 1), "SGK660", "幻方量化专享1号1期",
-                                            self.get_random_num(123456, 2, 1), self.get_random_num(100, 2, 1),
-                                            self.get_random_num(100, 2, 1), json_content)
-        self.f.write("use wt_hbase_chenk_gl;\n")
-        self.f.write(sql[:-2]+";\n\n")
-        return
-
-    def bond_page_user_daily_data(self):
-        sql = "insert into bond_page_user_daily_data values"
-        sql_model = """('{0}','{1}',{2},{3},"{4}"),\n"""
-        for init_date_delay in range(self.init_date_num):
-            init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
-                          datetime.timedelta(days=init_date_delay)).strftime('%Y%m%d')
-            for fund_account_num in range(self.fund_account):
-                fund_account = "".join(reversed(str(self.start_fund_account + fund_account_num)))
-
-                json_content = self.__get_stock_code_info_list(bond_page_user_daily_data=1, init_date=init_date)
-                sql += sql_model.format(",".join([fund_account, str(self.init_date_special_deal_num-int(init_date))]),
-                                        init_date, self.get_random_num(12345678, 2, 1),
-                                        self.get_random_num(123456, 2, 1), json_content)
-
-        self.f.write("use wt_hbase_chenk_gl;\n")
-        self.f.write(sql[:-2]+";\n\n")
-        return
-
-    def bond_page_user_interval_data(self):
-        sql = "insert into bond_page_user_interval_data values"
-        sql_model = """('{0}',{1},{2},{3},{4},{5},'{6}','{7}',{8},'{9}','{10}',{11},{12},{13},{14},{15},{16},"{17}"),\n"""
-        for init_date_delay in range(0, self.init_date_num, 10):
-            init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
-                          datetime.timedelta(days=init_date_delay)).strftime('%Y%m%d')
-            for fund_account_num in range(self.fund_account):
-                fund_account = "".join(reversed(str(self.start_fund_account + fund_account_num)))
-
-                for interval_type in self.interval_types:
-                    json_content = self.__get_stock_code_info_list(bond_page_user_interval_data=1, init_date=init_date)
-                    sql += sql_model.format(",".join([fund_account, interval_type, "0",
-                                                      str(self.init_date_special_deal_num-int(init_date))]),
-                                            self.get_random_num(123456, 2, 1), self.get_random_num(100, 2, 1),
-                                            self.get_random_num(100, 2, 1), self.get_random_num(1, 4, 1),
-                                            "128068", "国轩转债", self.get_random_num(123456, 2, 1),
-                                            "113028", "环境转债", -self.get_random_num(123456, 2, 1),
-                                            self.get_random_num(12345678, 2, 1), self.get_random_num(100, 2, 1),
-                                            self.get_random_num(100, 2, 1), self.get_random_num(100, 2, 1),
-                                            self.get_random_num(100, 2, 1), self.get_random_num(100, 2, 1),
-                                            json_content)
+                                            distribute_content)
 
         self.f.write("use wt_hbase_chenk_gl;\n")
         self.f.write(sql[:-2]+";\n\n")
@@ -454,9 +260,9 @@ class GuoLianAnalysis:
                         else:
                             is_gt_0 = -1
                         profits.setdefault(i, {"stock_name": stock_name, "stock_code": stock_code,
-                                               "income": self.get_random_num(123456, 2, 1) * is_gt_0,
-                                               "income_rate": self.get_random_num(1, 4, 1) * is_gt_0,
-                                               "trade_type": random.choice([0, 1]),
+                                               "income": str(self.get_random_num(123456, 2, 1) * is_gt_0),
+                                               "income_rate": str(self.get_random_num(1, 4, 1) * is_gt_0),
+                                               "trade_type": str(random.choice([0, 1])),
                                                })
 
                     sql += sql_model.format(",".join([fund_account, interval_type, "0",
@@ -483,35 +289,41 @@ class GuoLianAnalysis:
                                             self.get_random_num(100, 2, 1), self.get_random_num(100, 2, 1),
                                             self.get_random_num(100, 2, 1), self.get_random_num(100, 2, 1),
                                             self.get_random_num(100, 2, 1), self.get_random_num(100, 2, 1),
-                                            self.get_random_num(1, 4, 1), "0j"
-                                            )
+                                            self.get_random_num(1, 4, 1), random.choice([0, 1]))
 
         self.f.write("use wt_hbase_chenk_gl;\n")
         self.f.write(sql[:-2]+";\n\n")
         return
 
-    def stock_detail_page_data(self):
-        sql = "insert into stock_detail_page_data values"
-        sql_model = """('{0}',"{1}"),\n"""
-        yield_init_date = self.yield_init_date(start=0, end=self.init_date_num, step=10)
-
-        while True:
-            try:
-                init_date = yield_init_date.__next__()
-            except StopIteration:
-                self.f.write("use wt_hbase_chenk_gl;\n")
-                self.f.write(sql[:-2] + ";\n\n")
-                return
+    def trade_statistics(self):
+        _table_name = sys._getframe().f_code.co_name
+        sql = "insert into {0} values".format(_table_name)
+        sql_model = """({0}),\n""".format(sqls_info.get(_table_name))
+        for init_date_delay in range(180, self.init_date_num, 1):
+            init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
+                          datetime.timedelta(days=init_date_delay)).strftime('%Y%m%d')
             for fund_account_num in range(self.fund_account):
                 fund_account = "".join(reversed(str(self.start_fund_account + fund_account_num)))
-
-                for stock_name, stock_code in GuoLianAnalysis.STOCK_INFO.items():
-                    exchange_type = "2"
-                    if stock_code.startswith("6"):
-                        exchange_type = "1"
-                    json_content = self.__get_stock_code_info_list(stock_detail_page_data=1, init_date=init_date)
-                    sql += sql_model.format(",".join([fund_account, str(self.init_date_special_deal_num-int(init_date)),
-                                                      stock_code, exchange_type]), json_content)
+                for interval_type in self.interval_types:
+                    for stock_name, stock_code in GuoLianAnalysis.STOCK_INFO.items():
+                        exchange_type = "2"
+                        if stock_code.startswith("6"):
+                            exchange_type = "1"
+                        sql += sql_model.format(",".join([fund_account, interval_type, random.choice(["0", "1"]),
+                                                          str(self.init_date_special_deal_num-int(init_date))]),
+                                                stock_name, stock_code, "0", exchange_type,
+                                                self.get_random_num(100, 2, 1), self.get_random_num(123456, 2, 0),
+                                                self.get_random_num(1234567, 2, 1), self.get_random_num(100, 2, 1),
+                                                self.get_random_num(1000, 2, 1), self.get_random_num(1000, 2, 1),
+                                                self.get_random_num(100, 2, 1), self.get_random_num(100, 2, 1),
+                                                self.get_random_num(1, 4, 1), self.get_random_num(1, 4, 1),
+                                                self.get_random_num(1, 4, 1), self.get_random_num(1, 4, 1),
+                                                self.get_random_num(1, 4, 1), self.get_random_num(1, 4, 1),
+                                                self.get_random_num(1, 4, 1), self.get_random_num(1, 4, 1),
+                                                self.get_random_num(1, 4, 1))
+        self.f.write("use wt_hbase_chenk_gl;\n")
+        self.f.write(sql[:-2]+";\n\n")
+        return
 
     def get_random_num(self, base_num, decimal_num, is_gt_0, add_num=0):
         is_gt = random.choice([1, -1])
@@ -550,7 +362,7 @@ class GuoLianAnalysis:
                     business_name = random.choice(list(GuoLianAnalysis.BUSINESS_FLAG.keys()))
                     element = {"stock_code": stock_code, "stock_name": stock_name, "exchange_type": exchange_type,
                                "init_date": kwargs.get("init_date"),
-                               "business_time": "{0}:{1}:{1}".format(random.randint(9, 11), random.randint(0, 60)),
+                               "business_time": "{0}{1}{1}".format(random.randint(9, 11), random.randint(0, 60)),
                                "business_flag": GuoLianAnalysis.BUSINESS_FLAG.get(business_name),
                                "business_amount": self.get_random_num(123000, 2, 1),
                                "business_price": self.get_random_num(100, 4, 1),
@@ -566,7 +378,7 @@ class GuoLianAnalysis:
             business_name = random.choice(list(GuoLianAnalysis.BUSINESS_FLAG.keys()))
             element = {
                        "init_date": kwargs.get("init_date"),
-                       "business_time": "{0}:{1}:{1}".format(random.randint(9, 11), random.randint(0, 60)),
+                       "business_time": "{0}{1}{1}".format(random.randint(9, 11), random.randint(0, 60)),
                        "serial_no": "{0}".format(base_num + self.get_random_num(12345, 0, 1)),
                        "business_flag": GuoLianAnalysis.BUSINESS_FLAG.get(business_name),
                        "business_amount": self.get_random_num(123000, 2, 1),
@@ -575,7 +387,7 @@ class GuoLianAnalysis:
                        "business_balance": self.get_random_num(123456, 2, 0),
                        "money_type": "0"}
             stock_hold_data.append(element)
-        elif kwargs.get("stock_page_user_interval_trade_distribution"):
+        elif kwargs.get("interval_trade_distribution"):
             for distribute_type, distribute_names in distribute_info.items():
                 value_sum = 0
                 for i, distribute_name in enumerate(distribute_names):
@@ -584,8 +396,8 @@ class GuoLianAnalysis:
                     else:
                         value = (1-value_sum) * self.get_random_num(1, 4, 1)
                     value_sum += value
-                    element = {"distribute_type": distribute_type, "distribute_name": distribute_name,
-                               "distribute_value": value}
+                    element = {"distribute_name": distribute_name, "distribute_type": distribute_type,
+                               "distribute_mode": random.choice(["1", "2"]), "distribute_value": value}
                     stock_hold_data.append(element)
                     if value_sum >= 1:
                         break
@@ -603,52 +415,19 @@ class GuoLianAnalysis:
                                "end_date": kwargs.get("init_date"),
                                "hold_status": random.choice([0, 1])}
                 stock_hold_data.append(element)
-        elif kwargs.get("bond_page_user_daily_data") or kwargs.get("bond_page_user_interval_data"):
-
-            for stock_name, stock_code in GuoLianAnalysis.BOND_INFO.items():
-                exchange_type = "1"
-                if stock_code.startswith("11"):
-                    exchange_type = "0"
-                if kwargs.get("bond_page_user_daily_data"):
-                    element = {"stock_code": stock_code, "stock_name": stock_name, "exchange_type": exchange_type,
-                               "single_bond_day_income": self.get_random_num(123456, 2, 1),
-                               "bond_market_value": self.get_random_num(123456, 2, 1),
-                               "bond_nums": self.get_random_num(100, 0, 1)}
-                elif kwargs.get("bond_page_user_interval_data"):
-                    element = {"stock_code": stock_code, "stock_name": stock_name, "exchange_type": exchange_type,
-                               "cumu_income": self.get_random_num(123456, 2, 1),
-                               "hold_days": self.get_random_num(100, 2, 1),
-                               "bond_market_value": self.get_random_num(123456, 2, 1),
-                               "end_date": kwargs.get("init_date")}
+        elif kwargs.get("interval_stock"):
+            for stock_name, stock_code in GuoLianAnalysis.STOCK_INFO.items():
+                exchange_type = "2"
+                if stock_code.startswith("6"):
+                    exchange_type = "1"
+                element = {"stock_code": stock_code, "stock_name": stock_name, "stock_type": random.choice(["0", "1"]),
+                           "exchange_type": exchange_type,
+                           "income": self.get_random_num(123456, 2, 1),
+                           "hold_day": self.get_random_num(100, 2, 1),
+                           "amount": self.get_random_num(100, 0, 1),
+                           "hold_status": random.choice(["0", "1"]),
+                           "money_type": "0"}
                 stock_hold_data.append(element)
-        elif kwargs.get("new_stock_page_data"):
-            if kwargs.get("stock_content"):
-                for stock_name, stock_code in GuoLianAnalysis.STOCK_INFO.items():
-                    element = {"stock_name": stock_name, "stock_code": stock_code,
-                               "init_date": kwargs.get("init_date"),
-                               "business_amount": self.get_random_num(1000, 2, 1),
-                               "first_up_rate": self.get_random_num(10, 4, 1),
-                               "total_up_rate": self.get_random_num(20, 4, 1)}
-            elif kwargs.get("bond_content"):
-                for stock_name, stock_code in GuoLianAnalysis.BOND_INFO.items():
-                    element = {"stock_name": stock_name, "stock_code": stock_code,
-                               "init_date": kwargs.get("init_date"),
-                               "business_amount": self.get_random_num(1000, 2, 1),
-                               "first_up_rate": self.get_random_num(10, 4, 1),
-                               "total_up_rate": self.get_random_num(20, 4, 1)}
-            stock_hold_data.append(element)
-        elif kwargs.get("stock_detail_page_data"):
-            business_name = random.choice(list(GuoLianAnalysis.BUSINESS_FLAG.keys()))
-            element = {"init_date": kwargs.get("init_date"),
-                       "business_time": "{0}:{1}:{1}".format(random.randint(9, 11), random.randint(0, 60)),
-                       "serial_no": 10000 + random.randint(1000, 9999),
-                       "business_flag": GuoLianAnalysis.BUSINESS_FLAG.get(business_name),
-                       "business_amount": self.get_random_num(123000, 2, 1),
-                       "business_price": self.get_random_num(100, 4, 1),
-                       "business_name": business_name,
-                       "business_balance": self.get_random_num(123456, 2, 0)}
-            stock_hold_data.append(element)
-
         return "{}".format(stock_hold_data)
 
     def yield_init_date(self, start=0, end=0, step=10):
@@ -663,11 +442,16 @@ if __name__ == "__main__":
     guolian_analysis.write_to_file("guolian_analysis.sql")
     # guolian_analysis.user_daily_asset()
     # guolian_analysis.user_daily_data()
-    # guolian_analysis.his_deliver()
+    guolian_analysis.his_deliver()
     # guolian_analysis.credit_user_daily_data()
     # guolian_analysis.basic_data()
     # guolian_analysis.credit_basic_data()
     # guolian_analysis.daily_basic_data()
-    guolian_analysis.home_page_data()
+    # guolian_analysis.home_page_data()
+    # guolian_analysis.interval_trade_distribution()
+    # guolian_analysis.trade_statistics()
+    # guolian_analysis.interval_stock()
+    # guolian_analysis.interval_fund_rank()
+    # guolian_analysis.cal_record()
 
     guolian_analysis.close_file()

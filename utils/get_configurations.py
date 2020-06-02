@@ -86,7 +86,7 @@ def test_normal(cur):
             print("*"*10)
 
 get_configurations = GetConfigurations()
-# hbase_client = get_configurations.connect_to_hbase(get_configurations.get_target_section(section="database_chasing"))
+hbase_client = get_configurations.connect_to_hbase(get_configurations.get_target_section(section="database_chasing"))
 if __name__ == "__main__":
     init_date = str(99999999 - 20200326)
     # print(hbase_client.send_getRowWithColumns("chenk_zhfx:bond_page_user_daily_data", "88888,{0}".format(init_date), "tag_base:init_date"))

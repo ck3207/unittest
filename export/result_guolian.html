@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>测试报告</title>
+    <meta name="generator" content="HTMLTestRunner 0.8.2"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    
+<style type="text/css" media="screen">
+body        { font-family: verdana, arial, helvetica, sans-serif; font-size: 80%; }
+table       { font-size: 100%; }
+pre         { }
+
+/* -- heading ---------------------------------------------------------------------- */
+h1 {
+	font-size: 16pt;
+	color: gray;
+}
+.heading {
+    margin-top: 0ex;
+    margin-bottom: 1ex;
+}
+
+.heading .attribute {
+    margin-top: 1ex;
+    margin-bottom: 0;
+}
+
+.heading .description {
+    margin-top: 4ex;
+    margin-bottom: 6ex;
+}
+
+/* -- css div popup ------------------------------------------------------------------------ */
+a.popup_link {
+}
+
+a.popup_link:hover {
+    color: red;
+}
+
+.popup_window {
+    display: none;
+    position: relative;
+    left: 0px;
+    top: 0px;
+    /*border: solid #627173 1px; */
+    padding: 10px;
+    background-color: #E6E6D6;
+    font-family: "Lucida Console", "Courier New", Courier, monospace;
+    text-align: left;
+    font-size: 8pt;
+    width: 500px;
+}
+
+}
+/* -- report ------------------------------------------------------------------------ */
+#show_detail_line {
+    margin-top: 3ex;
+    margin-bottom: 1ex;
+}
+#result_table {
+    width: 80%;
+    border-collapse: collapse;
+    border: 1px solid #777;
+}
+#header_row {
+    font-weight: bold;
+    color: white;
+    background-color: #777;
+}
+#result_table td {
+    border: 1px solid #777;
+    padding: 2px;
+}
+#total_row  { font-weight: bold; }
+.passClass  { background-color: #6c6; }
+.failClass  { background-color: #c60; }
+.errorClass { background-color: #c00; }
+.passCase   { color: #6c6; }
+.failCase   { color: #c60; font-weight: bold; }
+.errorCase  { color: #c00; font-weight: bold; }
+.hiddenRow  { display: none; }
+.testcase   { margin-left: 2em; }
+
+
+/* -- ending ---------------------------------------------------------------------- */
+#ending {
+}
+
+</style>
+
+</head>
+<body>
+<script language="javascript" type="text/javascript"><!--
+output_list = Array();
+
+/* level - 0:Summary; 1:Failed; 2:All */
+function showCase(level) {
+    trs = document.getElementsByTagName("tr");
+    for (var i = 0; i < trs.length; i++) {
+        tr = trs[i];
+        id = tr.id;
+        if (id.substr(0,2) == 'ft') {
+            if (level < 1) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+        if (id.substr(0,2) == 'pt') {
+            if (level > 1) {
+                tr.className = '';
+            }
+            else {
+                tr.className = 'hiddenRow';
+            }
+        }
+    }
+}
+
+
+function showClassDetail(cid, count) {
+    var id_list = Array(count);
+    var toHide = 1;
+    for (var i = 0; i < count; i++) {
+        tid0 = 't' + cid.substr(1) + '.' + (i+1);
+        tid = 'f' + tid0;
+        tr = document.getElementById(tid);
+        if (!tr) {
+            tid = 'p' + tid0;
+            tr = document.getElementById(tid);
+        }
+        id_list[i] = tid;
+        if (tr.className) {
+            toHide = 0;
+        }
+    }
+    for (var i = 0; i < count; i++) {
+        tid = id_list[i];
+        if (toHide) {
+            document.getElementById('div_'+tid).style.display = 'none'
+            document.getElementById(tid).className = 'hiddenRow';
+        }
+        else {
+            document.getElementById(tid).className = '';
+        }
+    }
+}
+
+
+function showTestDetail(div_id){
+    var details_div = document.getElementById(div_id)
+    var displayState = details_div.style.display
+    // alert(displayState)
+    if (displayState != 'block' ) {
+        displayState = 'block'
+        details_div.style.display = 'block'
+    }
+    else {
+        details_div.style.display = 'none'
+    }
+}
+
+
+function html_escape(s) {
+    s = s.replace(/&/g,'&amp;');
+    s = s.replace(/</g,'&lt;');
+    s = s.replace(/>/g,'&gt;');
+    return s;
+}
+
+/* obsoleted by detail in <div>
+function showOutput(id, name) {
+    var w = window.open("", //url
+                    name,
+                    "resizable,scrollbars,status,width=800,height=450");
+    d = w.document;
+    d.write("<pre>");
+    d.write(html_escape(output_list[id]));
+    d.write("\n");
+    d.write("<a href='javascript:window.close()'>close</a>\n");
+    d.write("</pre>\n");
+    d.close();
+}
+*/
+--></script>
+
+<div class='heading'>
+<h1>测试报告</h1>
+<p class='attribute'><strong>Start Time:</strong> 2020-06-02 20:52:11</p>
+<p class='attribute'><strong>Duration:</strong> 0:00:00.107021</p>
+<p class='attribute'><strong>Status:</strong> Pass 2 Failure 1</p>
+
+<p class='description'>单元测试报告：</p>
+</div>
+
+
+
+<p id='show_detail_line'>Show
+<a href='javascript:showCase(0)'>Summary</a>
+<a href='javascript:showCase(1)'>Failed</a>
+<a href='javascript:showCase(2)'>All</a>
+</p>
+<table id='result_table'>
+<colgroup>
+<col align='left' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+</colgroup>
+<tr id='header_row'>
+    <td>Test Group/Test case</td>
+    <td>Count</td>
+    <td>Pass</td>
+    <td>Fail</td>
+    <td>Error</td>
+    <td>View</td>
+</tr>
+
+<tr class='failClass'>
+    <td>GetAccountYield</td>
+    <td>1</td>
+    <td>0</td>
+    <td>1</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c1',1)">Detail</a></td>
+</tr>
+
+<tr id='ft1.1' class='none'>
+    <td class='failCase'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft1.1')" >
+        fail</a>
+
+    <div id='div_ft1.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft1.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft1.1: Traceback (most recent call last):
+  File "analysis_guolian.py", line 44, in test_normal
+    special_column=["accumulative_yield"])
+  File "analysis_guolian.py", line 577, in checking
+    self.assertEqual(str(sql_result.get(column)), str(interface_result.get(column)), msg=msg_model)
+AssertionError: '20200430' != 'None'
+- 20200430
++ None
+ : 
+SQL is
+ get "zhfx_gl_chenk:user_daily_data", "88888,79799569" 
+ Interface is
+ http://10.20.18.174:18083/guolian/general/get_account_yield
+ params is
+ {"init_date": "20200430", "fund_account": "88888", "interval": "1", "fund_account_reversed": "88888"}
+Interface response is
+ {'error_no': '0', 'error_info': '执行成功', 'data_list': [{'init_date': 20200331, 'income': -51233.92, 'yield': -0.5116, 'accumulative_yield': -0.5116, 'position': 0.57, 'daily_income': -51233.92, 'daily_income_ratio': -0.5116}, {'init_date': 20200401, 'income': 56549.95, 'yield': 0.8406, 'accumulative_yield': -0.1011, 'position': 0.2309, 'daily_income': 56549.95, 'daily_income_ratio': 0.8406}, {'init_date': 20200402, 'income': 11642.72, 'yield': 0.4361, 'accumulative_yield': 0.2909, 'position': 0.9303, 'daily_income': 11642.72, 'daily_income_ratio': 0.4361}, {'init_date': 20200403, 'income': 49235.64, 'yield': 0.0338, 'accumulative_yield': 0.3345, 'position': 0.3309, 'daily_income': 49235.64, 'daily_income_ratio': 0.0338}, {'init_date': 20200404, 'income': -17502.57, 'yield': 0.651, 'accumulative_yield': 1.2033, 'position': 0.2636, 'daily_income': -17502.57, 'daily_income_ratio': 0.651}, {'init_date': 20200405, 'income': -122428.14, 'yield': -0.1103, 'accumulative_yield': 0.9603, 'position': 0.6609, 'daily_income': -122428.14, 'daily_income_ratio': -0.1103}, {'init_date': 20200406, 'income': 70166.79, 'yield': 0.1223, 'accumulative_yield': 1.2, 'position': 0.8688, 'daily_income': 70166.79, 'daily_income_ratio': 0.1223}, {'init_date': 20200407, 'income': -13257.33, 'yield': -0.2253, 'accumulative_yield': 0.7043, 'position': 0.0747, 'daily_income': -13257.33, 'daily_income_ratio': -0.2253}, {'init_date': 20200408, 'income': 27365.87, 'yield': 0.8762, 'accumulative_yield': 2.1976, 'position': 0.0527, 'daily_income': 27365.87, 'daily_income_ratio': 0.8762}, {'init_date': 20200409, 'income': 5165.99, 'yield': 0.9658, 'accumulative_yield': 5.2858, 'position': 0.7522, 'daily_income': 5165.99, 'daily_income_ratio': 0.9658}, {'init_date': 20200410, 'income': -16769.1, 'yield': 0.7811, 'accumulative_yield': 10.1956, 'position': 0.7699, 'daily_income': -16769.1, 'daily_income_ratio': 0.7811}, {'init_date': 20200411, 'income': -1976.4, 'yield': 0.4862, 'accumulative_yield': 15.6389, 'position': 0.7577, 'daily_income': -1976.4, 'daily_income_ratio': 0.4862}, {'init_date': 20200412, 'income': 74246.26, 'yield': 0.2132, 'accumulative_yield': 19.1863, 'position': 0.2503, 'daily_income': 74246.26, 'daily_income_ratio': 0.2132}, {'init_date': 20200413, 'income': -20731.48, 'yield': 0.8221, 'accumulative_yield': 35.7815, 'position': 0.0779, 'daily_income': -20731.48, 'daily_income_ratio': 0.8221}, {'init_date': 20200414, 'income': -108689.88, 'yield': 0.7905, 'accumulative_yield': 64.8573, 'position': 0.0437, 'daily_income': -108689.88, 'daily_income_ratio': 0.7905}, {'init_date': 20200415, 'income': -41972.17, 'yield': -0.9122, 'accumulative_yield': 4.7823, 'position': 0.8604, 'daily_income': -41972.17, 'daily_income_ratio': -0.9122}, {'init_date': 20200416, 'income': -44977.68, 'yield': -0.0581, 'accumulative_yield': 4.4463, 'position': 0.188, 'daily_income': -44977.68, 'daily_income_ratio': -0.0581}, {'init_date': 20200417, 'income': 101460.93, 'yield': -0.1276, 'accumulative_yield': 3.7514, 'position': 0.9785, 'daily_income': 101460.93, 'daily_income_ratio': -0.1276}, {'init_date': 20200418, 'income': -11863.52, 'yield': -0.9353, 'accumulative_yield': -0.6926, 'position': 0.7097, 'daily_income': -11863.52, 'daily_income_ratio': -0.9353}, {'init_date': 20200419, 'income': -117652.99, 'yield': 0.3618, 'accumulative_yield': -0.5814, 'position': 0.6695, 'daily_income': -117652.99, 'daily_income_ratio': 0.3618}, {'init_date': 20200420, 'income': -86283.71, 'yield': -0.5583, 'accumulative_yield': -0.8151, 'position': 0.1418, 'daily_income': -86283.71, 'daily_income_ratio': -0.5583}, {'init_date': 20200421, 'income': -51975.15, 'yield': -0.8041, 'accumulative_yield': -0.9638, 'position': 0.3896, 'daily_income': -51975.15, 'daily_income_ratio': -0.8041}, {'init_date': 20200422, 'income': 105788.03, 'yield': -0.7167, 'accumulative_yield': -0.9897, 'position': 0.6349, 'daily_income': 105788.03, 'daily_income_ratio': -0.7167}, {'init_date': 20200423, 'income': 103170.4, 'yield': 0.4513, 'accumulative_yield': -0.9851, 'position': 0.0832, 'daily_income': 103170.4, 'daily_income_ratio': 0.4513}, {'init_date': 20200424, 'income': -54223.87, 'yield': 0.5862, 'accumulative_yield': -0.9764, 'position': 0.8164, 'daily_income': -54223.87, 'daily_income_ratio': 0.5862}, {'init_date': 20200425, 'income': 31802.65, 'yield': 0.5849, 'accumulative_yield': -0.9626, 'position': 0.8838, 'daily_income': 31802.65, 'daily_income_ratio': 0.5849}, {'init_date': 20200426, 'income': 15834.26, 'yield': 0.8544, 'accumulative_yield': -0.9306, 'position': 0.2526, 'daily_income': 15834.26, 'daily_income_ratio': 0.8544}, {'init_date': 20200427, 'income': 21550.14, 'yield': -0.5857, 'accumulative_yield': -0.9712, 'position': 0.8184, 'daily_income': 21550.14, 'daily_income_ratio': -0.5857}, {'init_date': 20200428, 'income': 95508.24, 'yield': 0.0843, 'accumulative_yield': -0.9688, 'position': 0.8891, 'daily_income': 95508.24, 'daily_income_ratio': 0.0843}, {'init_date': 20200429, 'income': -64728.38, 'yield': -0.9159, 'accumulative_yield': -0.9974, 'position': 0.0889, 'daily_income': -64728.38, 'daily_income_ratio': -0.9159}, {'init_date': 20200430, 'income': 22078.19, 'yield': -0.4973, 'accumulative_yield': -0.9987, 'position': 0.3328, 'daily_income': 22078.19, 'daily_income_ratio': -0.4973}], 'count': 31}
+    Hbase result is
+[TRowResult(row='88888,79799569', columns={'tag_base:daily_income': TCell(value='22078.19', timestamp=1591008698164), 'tag_base:daily_income_ratio': TCell(value='-0.4973', timestamp=1591008698164), 'tag_base:daily_income_ratio_percent': TCell(value='0.98', timestamp=1591008698164), 'tag_base:deliver_content': TCell(value="[{'stock_code': '002460', 'stock_name': '赣锋锂业', 'exchange_type': '1', 'init_date': '20200430', 'business_time': '9:18:18', 'business_flag': '4001', 'business_amount': 15529.09, 'business_price': 2.5978, 'business_status': 2, 'business_balance': 6308.9}, {'stock_code': '600388', 'stock_name': '龙净环保', 'exchange_type': '0', 'init_date': '20200430', 'business_time': '9:57:57', 'business_flag': '4016', 'business_amount': 103627.04, 'business_price': 38.6163, 'business_status': 4, 'business_balance': -64529.35}, {'stock_code': '601318', 'stock_name': '中国平安', 'exchange_type': '0', 'init_date': '20200430', 'business_time': '9:33:33', 'business_flag': '4002', 'business_amount': 1089.52, 'business_price': 4.5662, 'business_status': 4, 'business_balance': 82423.11}, {'stock_code': '002142', 'stock_name': '宁波银行', 'exchange_type': '1', 'init_date': '20200430', 'business_time': '10:34:34', 'business_flag': '4016', 'business_amount': 27266.91, 'business_price': 68.8382, 'business_status': 1, 'business_balance': 112369.08}, {'stock_code': '300498', 'stock_name': '温氏股份', 'exchange_type': '1', 'init_date': '20200430', 'business_time': '10:54:54', 'business_flag': '4015', 'business_amount': 7444.65, 'business_price': 14.3769, 'business_status': 4, 'business_balance': -36678.43}, {'stock_code': '002415', 'stock_name': '海康威视', 'exchange_type': '1', 'init_date': '20200430', 'business_time': '9:33:33', 'business_flag': '4002', 'business_amount': 99591.32, 'business_price': 43.0009, 'business_status': 1, 'business_balance': -44745.09}, {'stock_code': '002475', 'stock_name': '立讯精密', 'exchange_type': '1', 'init_date': '20200430', 'business_time': '11:30:30', 'business_flag': '4015', 'business_amount': 2601.3, 'business_price': 65.065, 'business_status': 4, 'business_balance': 9327.13}, {'stock_code': '601628', 'stock_name': '中国人寿', 'exchange_type': '0', 'init_date': '20200430', 'business_time': '10:22:22', 'business_flag': '4002', 'business_amount': 14824.71, 'business_price': 40.6389, 'business_status': 3, 'business_balance': -17358.41}, {'stock_code': '601328', 'stock_name': '交通银行', 'exchange_type': '0', 'init_date': '20200430', 'business_time': '9:30:30', 'business_flag': '4016', 'business_amount': 105194.52, 'business_price': 87.7963, 'business_status': 3, 'business_balance': -103578.04}, {'stock_code': '601668', 'stock_name': '中国建筑', 'exchange_type': '0', 'init_date': '20200430', 'business_time': '10:47:47', 'business_flag': '4002', 'business_amount': 70613.0, 'business_price': 75.2919, 'business_status': 2, 'business_balance': -74846.1}, {'stock_code': '603288', 'stock_name': '海天味业', 'exchange_type': '0', 'init_date': '20200430', 'business_time': '9:5:5', 'business_flag': '4015', 'business_amount': 40957.44, 'business_price': 83.5612, 'business_status': 4, 'business_balance': -51476.83}, {'stock_code': '300033', 'stock_name': '同花顺', 'exchange_type': '1', 'init_date': '20200430', 'business_time': '10:39:39', 'business_flag': '4016', 'business_amount': 39184.58, 'business_price': 63.3715, 'business_status': 2, 'business_balance': 210.88}]", timestamp=1591008698164), 'tag_base:hs_daily_income_ratio': TCell(value='-0.5159', timestamp=1591008698164), 'tag_base:in_balance': TCell(value='25792.59', timestamp=1591008698164), 'tag_base:init_date': TCell(value='20200430', timestamp=1591008698164), 'tag_base:out_balance': TCell(value='36554.8', timestamp=1591008698164), 'tag_base:position': TCell(value='0.3328', timestamp=1591008698164), 'tag_base:single_stock_content': TCell(value="[{'stock_code': '002460', 'stock_name': '赣锋锂业', 'exchange_type': '1', 'stock_market_value': 1062278.39, 'single_stock_day_income': 3673.19, 'business_status': 4, 'single_stock_day_ratio': -0.1384, 'asset_price': 63.6057}, {'stock_code': '600388', 'stock_name': '龙净环保', 'exchange_type': '0', 'stock_market_value': 1042710.58, 'single_stock_day_income': 6982.07, 'business_status': 3, 'single_stock_day_ratio': -0.8417, 'asset_price': 5.865}, {'stock_code': '601318', 'stock_name': '中国平安', 'exchange_type': '0', 'stock_market_value': 1014004.08, 'single_stock_day_income': 8803.88, 'business_status': 2, 'single_stock_day_ratio': -0.5402, 'asset_price': 24.622}, {'stock_code': '002142', 'stock_name': '宁波银行', 'exchange_type': '1', 'stock_market_value': 1032210.39, 'single_stock_day_income': 3280.0, 'business_status': 3, 'single_stock_day_ratio': -0.9761, 'asset_price': 6.6441}, {'stock_code': '300498', 'stock_name': '温氏股份', 'exchange_type': '1', 'stock_market_value': 1086862.65, 'single_stock_day_income': 3215.28, 'business_status': 2, 'single_stock_day_ratio': 0.8393, 'asset_price': 97.2492}, {'stock_code': '002415', 'stock_name': '海康威视', 'exchange_type': '1', 'stock_market_value': 1119046.63, 'single_stock_day_income': 3205.32, 'business_status': 4, 'single_stock_day_ratio': -0.7455, 'asset_price': 57.3868}, {'stock_code': '002475', 'stock_name': '立讯精密', 'exchange_type': '1', 'stock_market_value': 1094898.37, 'single_stock_day_income': 9204.06, 'business_status': 1, 'single_stock_day_ratio': -0.0436, 'asset_price': 56.7405}, {'stock_code': '601628', 'stock_name': '中国人寿', 'exchange_type': '0', 'stock_market_value': 1009398.68, 'single_stock_day_income': 8933.83, 'business_status': 2, 'single_stock_day_ratio': -0.4561, 'asset_price': 41.4944}, {'stock_code': '601328', 'stock_name': '交通银行', 'exchange_type': '0', 'stock_market_value': 1009424.71, 'single_stock_day_income': 921.47, 'business_status': 4, 'single_stock_day_ratio': 0.4978, 'asset_price': 63.4691}, {'stock_code': '601668', 'stock_name': '中国建筑', 'exchange_type': '0', 'stock_market_value': 1102303.01, 'single_stock_day_income': 6275.48, 'business_status': 3, 'single_stock_day_ratio': -0.1465, 'asset_price': 65.0653}, {'stock_code': '603288', 'stock_name': '海天味业', 'exchange_type': '0', 'stock_market_value': 1072748.03, 'single_stock_day_income': 4032.77, 'business_status': 2, 'single_stock_day_ratio': 0.12, 'asset_price': 13.477}, {'stock_code': '300033', 'stock_name': '同花顺', 'exchange_type': '1', 'stock_market_value': 1071564.07, 'single_stock_day_income': 4742.3, 'business_status': 1, 'single_stock_day_ratio': -0.323, 'asset_price': 41.9371}]", timestamp=1591008698164), 'tag_base:total_asset': TCell(value='11536993.57', timestamp=1591008698164), 'tag_base:trade_balance': TCell(value='114329.67', timestamp=1591008698164)})]
+Traceback (most recent call last):
+  File "analysis_guolian.py", line 44, in test_normal
+    special_column=["accumulative_yield"])
+  File "analysis_guolian.py", line 577, in checking
+    self.assertEqual(str(sql_result.get(column)), str(interface_result.get(column)), msg=msg_model)
+AssertionError: '20200430' != 'None'
+- 20200430
++ None
+ : 
+SQL is
+ get "zhfx_gl_chenk:user_daily_data", "88888,79799569" 
+ Interface is
+ http://10.20.18.174:18083/guolian/general/get_account_yield
+ params is
+ {"init_date": "20200430", "fund_account": "88888", "interval": "1", "fund_account_reversed": "88888"}
+Interface response is
+ {'error_no': '0', 'error_info': '执行成功', 'data_list': [{'init_date': 20200331, 'income': -51233.92, 'yield': -0.5116, 'accumulative_yield': -0.5116, 'position': 0.57, 'daily_income': -51233.92, 'daily_income_ratio': -0.5116}, {'init_date': 20200401, 'income': 56549.95, 'yield': 0.8406, 'accumulative_yield': -0.1011, 'position': 0.2309, 'daily_income': 56549.95, 'daily_income_ratio': 0.8406}, {'init_date': 20200402, 'income': 11642.72, 'yield': 0.4361, 'accumulative_yield': 0.2909, 'position': 0.9303, 'daily_income': 11642.72, 'daily_income_ratio': 0.4361}, {'init_date': 20200403, 'income': 49235.64, 'yield': 0.0338, 'accumulative_yield': 0.3345, 'position': 0.3309, 'daily_income': 49235.64, 'daily_income_ratio': 0.0338}, {'init_date': 20200404, 'income': -17502.57, 'yield': 0.651, 'accumulative_yield': 1.2033, 'position': 0.2636, 'daily_income': -17502.57, 'daily_income_ratio': 0.651}, {'init_date': 20200405, 'income': -122428.14, 'yield': -0.1103, 'accumulative_yield': 0.9603, 'position': 0.6609, 'daily_income': -122428.14, 'daily_income_ratio': -0.1103}, {'init_date': 20200406, 'income': 70166.79, 'yield': 0.1223, 'accumulative_yield': 1.2, 'position': 0.8688, 'daily_income': 70166.79, 'daily_income_ratio': 0.1223}, {'init_date': 20200407, 'income': -13257.33, 'yield': -0.2253, 'accumulative_yield': 0.7043, 'position': 0.0747, 'daily_income': -13257.33, 'daily_income_ratio': -0.2253}, {'init_date': 20200408, 'income': 27365.87, 'yield': 0.8762, 'accumulative_yield': 2.1976, 'position': 0.0527, 'daily_income': 27365.87, 'daily_income_ratio': 0.8762}, {'init_date': 20200409, 'income': 5165.99, 'yield': 0.9658, 'accumulative_yield': 5.2858, 'position': 0.7522, 'daily_income': 5165.99, 'daily_income_ratio': 0.9658}, {'init_date': 20200410, 'income': -16769.1, 'yield': 0.7811, 'accumulative_yield': 10.1956, 'position': 0.7699, 'daily_income': -16769.1, 'daily_income_ratio': 0.7811}, {'init_date': 20200411, 'income': -1976.4, 'yield': 0.4862, 'accumulative_yield': 15.6389, 'position': 0.7577, 'daily_income': -1976.4, 'daily_income_ratio': 0.4862}, {'init_date': 20200412, 'income': 74246.26, 'yield': 0.2132, 'accumulative_yield': 19.1863, 'position': 0.2503, 'daily_income': 74246.26, 'daily_income_ratio': 0.2132}, {'init_date': 20200413, 'income': -20731.48, 'yield': 0.8221, 'accumulative_yield': 35.7815, 'position': 0.0779, 'daily_income': -20731.48, 'daily_income_ratio': 0.8221}, {'init_date': 20200414, 'income': -108689.88, 'yield': 0.7905, 'accumulative_yield': 64.8573, 'position': 0.0437, 'daily_income': -108689.88, 'daily_income_ratio': 0.7905}, {'init_date': 20200415, 'income': -41972.17, 'yield': -0.9122, 'accumulative_yield': 4.7823, 'position': 0.8604, 'daily_income': -41972.17, 'daily_income_ratio': -0.9122}, {'init_date': 20200416, 'income': -44977.68, 'yield': -0.0581, 'accumulative_yield': 4.4463, 'position': 0.188, 'daily_income': -44977.68, 'daily_income_ratio': -0.0581}, {'init_date': 20200417, 'income': 101460.93, 'yield': -0.1276, 'accumulative_yield': 3.7514, 'position': 0.9785, 'daily_income': 101460.93, 'daily_income_ratio': -0.1276}, {'init_date': 20200418, 'income': -11863.52, 'yield': -0.9353, 'accumulative_yield': -0.6926, 'position': 0.7097, 'daily_income': -11863.52, 'daily_income_ratio': -0.9353}, {'init_date': 20200419, 'income': -117652.99, 'yield': 0.3618, 'accumulative_yield': -0.5814, 'position': 0.6695, 'daily_income': -117652.99, 'daily_income_ratio': 0.3618}, {'init_date': 20200420, 'income': -86283.71, 'yield': -0.5583, 'accumulative_yield': -0.8151, 'position': 0.1418, 'daily_income': -86283.71, 'daily_income_ratio': -0.5583}, {'init_date': 20200421, 'income': -51975.15, 'yield': -0.8041, 'accumulative_yield': -0.9638, 'position': 0.3896, 'daily_income': -51975.15, 'daily_income_ratio': -0.8041}, {'init_date': 20200422, 'income': 105788.03, 'yield': -0.7167, 'accumulative_yield': -0.9897, 'position': 0.6349, 'daily_income': 105788.03, 'daily_income_ratio': -0.7167}, {'init_date': 20200423, 'income': 103170.4, 'yield': 0.4513, 'accumulative_yield': -0.9851, 'position': 0.0832, 'daily_income': 103170.4, 'daily_income_ratio': 0.4513}, {'init_date': 20200424, 'income': -54223.87, 'yield': 0.5862, 'accumulative_yield': -0.9764, 'position': 0.8164, 'daily_income': -54223.87, 'daily_income_ratio': 0.5862}, {'init_date': 20200425, 'income': 31802.65, 'yield': 0.5849, 'accumulative_yield': -0.9626, 'position': 0.8838, 'daily_income': 31802.65, 'daily_income_ratio': 0.5849}, {'init_date': 20200426, 'income': 15834.26, 'yield': 0.8544, 'accumulative_yield': -0.9306, 'position': 0.2526, 'daily_income': 15834.26, 'daily_income_ratio': 0.8544}, {'init_date': 20200427, 'income': 21550.14, 'yield': -0.5857, 'accumulative_yield': -0.9712, 'position': 0.8184, 'daily_income': 21550.14, 'daily_income_ratio': -0.5857}, {'init_date': 20200428, 'income': 95508.24, 'yield': 0.0843, 'accumulative_yield': -0.9688, 'position': 0.8891, 'daily_income': 95508.24, 'daily_income_ratio': 0.0843}, {'init_date': 20200429, 'income': -64728.38, 'yield': -0.9159, 'accumulative_yield': -0.9974, 'position': 0.0889, 'daily_income': -64728.38, 'daily_income_ratio': -0.9159}, {'init_date': 20200430, 'income': 22078.19, 'yield': -0.4973, 'accumulative_yield': -0.9987, 'position': 0.3328, 'daily_income': 22078.19, 'daily_income_ratio': -0.4973}], 'count': 31}
+    Hbase result is
+[TRowResult(row='88888,79799569', columns={'tag_base:daily_income': TCell(value='22078.19', timestamp=1591008698164), 'tag_base:daily_income_ratio': TCell(value='-0.4973', timestamp=1591008698164), 'tag_base:daily_income_ratio_percent': TCell(value='0.98', timestamp=1591008698164), 'tag_base:deliver_content': TCell(value="[{'stock_code': '002460', 'stock_name': '赣锋锂业', 'exchange_type': '1', 'init_date': '20200430', 'business_time': '9:18:18', 'business_flag': '4001', 'business_amount': 15529.09, 'business_price': 2.5978, 'business_status': 2, 'business_balance': 6308.9}, {'stock_code': '600388', 'stock_name': '龙净环保', 'exchange_type': '0', 'init_date': '20200430', 'business_time': '9:57:57', 'business_flag': '4016', 'business_amount': 103627.04, 'business_price': 38.6163, 'business_status': 4, 'business_balance': -64529.35}, {'stock_code': '601318', 'stock_name': '中国平安', 'exchange_type': '0', 'init_date': '20200430', 'business_time': '9:33:33', 'business_flag': '4002', 'business_amount': 1089.52, 'business_price': 4.5662, 'business_status': 4, 'business_balance': 82423.11}, {'stock_code': '002142', 'stock_name': '宁波银行', 'exchange_type': '1', 'init_date': '20200430', 'business_time': '10:34:34', 'business_flag': '4016', 'business_amount': 27266.91, 'business_price': 68.8382, 'business_status': 1, 'business_balance': 112369.08}, {'stock_code': '300498', 'stock_name': '温氏股份', 'exchange_type': '1', 'init_date': '20200430', 'business_time': '10:54:54', 'business_flag': '4015', 'business_amount': 7444.65, 'business_price': 14.3769, 'business_status': 4, 'business_balance': -36678.43}, {'stock_code': '002415', 'stock_name': '海康威视', 'exchange_type': '1', 'init_date': '20200430', 'business_time': '9:33:33', 'business_flag': '4002', 'business_amount': 99591.32, 'business_price': 43.0009, 'business_status': 1, 'business_balance': -44745.09}, {'stock_code': '002475', 'stock_name': '立讯精密', 'exchange_type': '1', 'init_date': '20200430', 'business_time': '11:30:30', 'business_flag': '4015', 'business_amount': 2601.3, 'business_price': 65.065, 'business_status': 4, 'business_balance': 9327.13}, {'stock_code': '601628', 'stock_name': '中国人寿', 'exchange_type': '0', 'init_date': '20200430', 'business_time': '10:22:22', 'business_flag': '4002', 'business_amount': 14824.71, 'business_price': 40.6389, 'business_status': 3, 'business_balance': -17358.41}, {'stock_code': '601328', 'stock_name': '交通银行', 'exchange_type': '0', 'init_date': '20200430', 'business_time': '9:30:30', 'business_flag': '4016', 'business_amount': 105194.52, 'business_price': 87.7963, 'business_status': 3, 'business_balance': -103578.04}, {'stock_code': '601668', 'stock_name': '中国建筑', 'exchange_type': '0', 'init_date': '20200430', 'business_time': '10:47:47', 'business_flag': '4002', 'business_amount': 70613.0, 'business_price': 75.2919, 'business_status': 2, 'business_balance': -74846.1}, {'stock_code': '603288', 'stock_name': '海天味业', 'exchange_type': '0', 'init_date': '20200430', 'business_time': '9:5:5', 'business_flag': '4015', 'business_amount': 40957.44, 'business_price': 83.5612, 'business_status': 4, 'business_balance': -51476.83}, {'stock_code': '300033', 'stock_name': '同花顺', 'exchange_type': '1', 'init_date': '20200430', 'business_time': '10:39:39', 'business_flag': '4016', 'business_amount': 39184.58, 'business_price': 63.3715, 'business_status': 2, 'business_balance': 210.88}]", timestamp=1591008698164), 'tag_base:hs_daily_income_ratio': TCell(value='-0.5159', timestamp=1591008698164), 'tag_base:in_balance': TCell(value='25792.59', timestamp=1591008698164), 'tag_base:init_date': TCell(value='20200430', timestamp=1591008698164), 'tag_base:out_balance': TCell(value='36554.8', timestamp=1591008698164), 'tag_base:position': TCell(value='0.3328', timestamp=1591008698164), 'tag_base:single_stock_content': TCell(value="[{'stock_code': '002460', 'stock_name': '赣锋锂业', 'exchange_type': '1', 'stock_market_value': 1062278.39, 'single_stock_day_income': 3673.19, 'business_status': 4, 'single_stock_day_ratio': -0.1384, 'asset_price': 63.6057}, {'stock_code': '600388', 'stock_name': '龙净环保', 'exchange_type': '0', 'stock_market_value': 1042710.58, 'single_stock_day_income': 6982.07, 'business_status': 3, 'single_stock_day_ratio': -0.8417, 'asset_price': 5.865}, {'stock_code': '601318', 'stock_name': '中国平安', 'exchange_type': '0', 'stock_market_value': 1014004.08, 'single_stock_day_income': 8803.88, 'business_status': 2, 'single_stock_day_ratio': -0.5402, 'asset_price': 24.622}, {'stock_code': '002142', 'stock_name': '宁波银行', 'exchange_type': '1', 'stock_market_value': 1032210.39, 'single_stock_day_income': 3280.0, 'business_status': 3, 'single_stock_day_ratio': -0.9761, 'asset_price': 6.6441}, {'stock_code': '300498', 'stock_name': '温氏股份', 'exchange_type': '1', 'stock_market_value': 1086862.65, 'single_stock_day_income': 3215.28, 'business_status': 2, 'single_stock_day_ratio': 0.8393, 'asset_price': 97.2492}, {'stock_code': '002415', 'stock_name': '海康威视', 'exchange_type': '1', 'stock_market_value': 1119046.63, 'single_stock_day_income': 3205.32, 'business_status': 4, 'single_stock_day_ratio': -0.7455, 'asset_price': 57.3868}, {'stock_code': '002475', 'stock_name': '立讯精密', 'exchange_type': '1', 'stock_market_value': 1094898.37, 'single_stock_day_income': 9204.06, 'business_status': 1, 'single_stock_day_ratio': -0.0436, 'asset_price': 56.7405}, {'stock_code': '601628', 'stock_name': '中国人寿', 'exchange_type': '0', 'stock_market_value': 1009398.68, 'single_stock_day_income': 8933.83, 'business_status': 2, 'single_stock_day_ratio': -0.4561, 'asset_price': 41.4944}, {'stock_code': '601328', 'stock_name': '交通银行', 'exchange_type': '0', 'stock_market_value': 1009424.71, 'single_stock_day_income': 921.47, 'business_status': 4, 'single_stock_day_ratio': 0.4978, 'asset_price': 63.4691}, {'stock_code': '601668', 'stock_name': '中国建筑', 'exchange_type': '0', 'stock_market_value': 1102303.01, 'single_stock_day_income': 6275.48, 'business_status': 3, 'single_stock_day_ratio': -0.1465, 'asset_price': 65.0653}, {'stock_code': '603288', 'stock_name': '海天味业', 'exchange_type': '0', 'stock_market_value': 1072748.03, 'single_stock_day_income': 4032.77, 'business_status': 2, 'single_stock_day_ratio': 0.12, 'asset_price': 13.477}, {'stock_code': '300033', 'stock_name': '同花顺', 'exchange_type': '1', 'stock_market_value': 1071564.07, 'single_stock_day_income': 4742.3, 'business_status': 1, 'single_stock_day_ratio': -0.323, 'asset_price': 41.9371}]", timestamp=1591008698164), 'tag_base:total_asset': TCell(value='11536993.57', timestamp=1591008698164), 'tag_base:trade_balance': TCell(value='114329.67', timestamp=1591008698164)})]
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>GetIncomeAnalyze</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c2',1)">Detail</a></td>
+</tr>
+
+<tr id='pt2.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr class='passClass'>
+    <td>GetLastAsset</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c3',1)">Detail</a></td>
+</tr>
+
+<tr id='pt3.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='total_row'>
+    <td>Total</td>
+    <td>3</td>
+    <td>2</td>
+    <td>1</td>
+    <td>0</td>
+    <td>&nbsp;</td>
+</tr>
+</table>
+
+<div id='ending'>&nbsp;</div>
+
+</body>
+</html>

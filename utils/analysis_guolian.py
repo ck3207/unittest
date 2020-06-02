@@ -13,79 +13,84 @@ from business.business import cumulative_rate, get_month_account_yield, hbase_re
 __author__ = "chenk"
 
 
-class GetHomePageUserDailyData(unittest.TestCase):
-    TABLE_NAME = "".join([get_configurations.get_target_section(section='database_chasing').get("database_prefix"),
-                          "home_page_user_daily_data"])
-    INTERFACE_NAME = "general/get_home_page_user_daily_data"
-    COLUMNS = ["init_date", "total_asset", "daily_income", "daily_income_ratio", "cash_asset",
-               "stock_asset", "financial_asset", "cfb_asset", "bond_asset", "other_asset"]
+class GetAccountYield(unittest.TestCase):
+    TABLE_NAME = "".join([get_configurations.get_target_section(section='database_guolian').get("database_prefix"),
+                          "user_daily_data"])
+    INTERFACE_NAME = "general/get_account_yield"
+    COLUMNS = ["init_date", "income", "yield", "accumulative_yield", "position",
+               "daily_income", "daily_income_ratio"]
 
     @classmethod
     def setUpClass(cls):
         urls_prefix = get_configurations.get_target_section(section='url_prefix')
-        cls.info = get_configurations.get_target_section(section='chasing_info')
+        cls.info = get_configurations.get_target_section(section='guolian_info')
         print("here is info:\n", cls.info)
-        cls.url_prefix = urls_prefix.get("analysis_chasing_prefix")
-        cls.data = get_basic_paramaters(init_date=cls.info.get("init_date"), fund_account=cls.info.get("fund_account"))
+        cls.url_prefix = urls_prefix.get("analysis_guolian_prefix")
+        cls.data = get_basic_paramaters(init_date=cls.info.get("init_date"), fund_account=cls.info.get("fund_account"),
+                                        interval=cls.info.get("interval"))
 
     def test_normal(self):
         """"""
-        url = self.url_prefix + GetHomePageUserDailyData.INTERFACE_NAME
+        url = self.url_prefix + GetAccountYield.INTERFACE_NAME
         data = str(self.data.copy()).replace("'", '"')
         interface_result = interfaces.request(url=url, data=data, is_get_method=False)
         row_key = ",".join([self.data.get("fund_account_reversed"), init_date_to_cal_date(self.info.get("init_date"))])
-        hbase_result_origin = hbase_client.getRow(tableName=GetHomePageUserDailyData.TABLE_NAME, row=row_key)
-        hbase_command = """get "{0}", "{1}" """.format(GetHomePageUserDailyData.TABLE_NAME, row_key)
+        hbase_result_origin = hbase_client.getRow(tableName=GetAccountYield.TABLE_NAME, row=row_key)
+        hbase_command = """get "{0}", "{1}" """.format(GetAccountYield.TABLE_NAME, row_key)
 
-        checking(self=self, class_name=GetHomePageUserDailyData, sql_result=hbase_result_origin,
+        checking(self=self, class_name=GetAccountYield, sql_result=hbase_result_origin,
                  interface_result=interface_result, is_hbase_result=True, is_json_content=False,
-                 sql=hbase_command, url=url, data=data, table_columns=GetHomePageUserDailyData.COLUMNS)
+                 sql=hbase_command, url=url, data=data, table_columns=GetAccountYield.COLUMNS,
+                 special_column=["accumulative_yield"])
 
 
-class GetHomePageUserIntervalData(unittest.TestCase):
-    TABLE_NAME = "".join([get_configurations.get_target_section(section='database_chasing').get("database_prefix"),
-                          "home_page_user_interval_data"])
-    INTERFACE_NAME = "general/get_home_page_user_interval_data"
-    COLUMNS = ["asset_income", "asset_yield", "stock_income", "financial_income", "cfb_income",
-               "bond_income", "begin_asset", "fund_in", "fund_out", "last_asset", "sharpe",
-               "draw_down", "income_loss_per", "income_risk_per"]
+class GetIncomeAnalyze(unittest.TestCase):
+    TABLE_NAME = "".join([get_configurations.get_target_section(section='database_guolian').get("database_prefix"),
+                          "home_page_data"])
+    INTERFACE_NAME = "general/get_income_analyze"
+    COLUMNS = ['fund_out', 'fund_in', 'begin_asset', 'last_asset', 'net_inflow', 'asset_income', 'asset_yield',
+               'stock_income', 'wit_income', 'fund_income', 'other_income', 'draw_back', 'fund_rank', 'bond_income',
+               'otc_income', 'other_assets_income', 'begin_date', 'end_date', 'bshare_income', 'net_inflow']
 
     @classmethod
     def setUpClass(cls):
         urls_prefix = get_configurations.get_target_section(section='url_prefix')
-        cls.info = get_configurations.get_target_section(section='chasing_info')
+        cls.info = get_configurations.get_target_section(section='guolian_info')
         print("here is info:\n", cls.info)
-        cls.url_prefix = urls_prefix.get("analysis_chasing_prefix")
+        cls.url_prefix = urls_prefix.get("analysis_guolian_prefix")
         cls.data = get_basic_paramaters(init_date=cls.info.get("init_date"), fund_account=cls.info.get("fund_account"),
                                         interval=cls.info.get("interval"), asset_prop=cls.info.get("asset_prop"))
 
     def test_normal(self):
         """"""
-        url = self.url_prefix + GetHomePageUserIntervalData.INTERFACE_NAME
+        url = self.url_prefix + GetIncomeAnalyze.INTERFACE_NAME
         data = str(self.data.copy()).replace("'", '"')
         interface_result = interfaces.request(url=url, data=data, is_get_method=False)
         row_key = ",".join([self.data.get("fund_account_reversed"), self.data.get("interval"),
                             self.data.get("asset_prop"), init_date_to_cal_date(self.info.get("init_date"))])
-        hbase_result_origin = hbase_client.getRow(tableName=GetHomePageUserIntervalData.TABLE_NAME, row=row_key)
-        hbase_command = """get "{0}", "{1}" """.format(GetHomePageUserIntervalData.TABLE_NAME, row_key)
+        hbase_result_origin = hbase_client.getRow(tableName=GetIncomeAnalyze.TABLE_NAME, row=row_key)
+        hbase_command = """get "{0}", "{1}" """.format(GetIncomeAnalyze.TABLE_NAME, row_key)
 
-        checking(self=self, class_name=GetHomePageUserIntervalData, sql_result=hbase_result_origin,
+        checking(self=self, class_name=GetIncomeAnalyze, sql_result=hbase_result_origin,
                  interface_result=interface_result, is_hbase_result=True, is_json_content=False,
-                 sql=hbase_command, url=url, data=data, table_columns=GetHomePageUserIntervalData.COLUMNS)
+                 sql=hbase_command, url=url, data=data, table_columns=GetIncomeAnalyze.COLUMNS,
+                 calculation=["net_inflow", "fund_in", "-", "fund_out"],
+                 list_name=["assure_yield", "asset_yield", "bond_income", "wit_income", "otc_income", "fund_income",
+                            "other_assets_income", "other_income"])
 
 
-class GetHomePageUserCurveData(unittest.TestCase):
-    TABLE_NAME = "".join([get_configurations.get_target_section(section='database_chasing').get("database_prefix"),
+class GetInvestAnalyze(unittest.TestCase):
+    TABLE_NAME = "".join([get_configurations.get_target_section(section='database_guolian').get("database_prefix"),
                           "home_page_user_month_data"])
-    INTERFACE_NAME = "general/get_home_page_user_curve_data"
-    COLUMNS = ["monthDataList", "homeCurveDataList"]
+    INTERFACE_NAME = "general/get_invest_analyze"
+    COLUMNS = ["my_ability", "avg_ability", "ability_rank"]
 
     @classmethod
     def setUpClass(cls):
         urls_prefix = get_configurations.get_target_section(section='url_prefix')
-        cls.info = get_configurations.get_target_section(section='chasing_info')
+        cls.info = get_configurations.get_target_section(section='guolian_info')
         print("here is info:\n", cls.info)
-        cls.url_prefix = urls_prefix.get("analysis_chasing_prefix")
+        cls.url_prefix = urls_prefix.get("analysis_guolian_prefix")
         cls.data = get_basic_paramaters(init_date=cls.info.get("init_date"),
                                         fund_account=cls.info.get("fund_account"), interval=cls.info.get("interval"))
 
@@ -166,54 +171,41 @@ class GetHomePageUserCurveData(unittest.TestCase):
         return new_data_list
 
 
-class GetCashPageUserCurveData(unittest.TestCase):
-    TABLE_NAME = "".join([get_configurations.get_target_section(section='database_chasing').get("database_prefix"),
-                          "home_page_user_daily_data"]) # 原表 cash_page_user_daily_data 改成 home_page_user_daily_data
-    INTERFACE_NAME = "general/get_cash_page_user_curve_data"
-    COLUMNS = ["cashCurveDataList"]
+class GetLastAsset(unittest.TestCase):
+    TABLE_NAME = "".join([get_configurations.get_target_section(section='database_guolian').get("database_prefix"),
+                          "user_daily_asset"]) # 原表 cash_page_user_daily_data 改成 home_page_user_daily_data
+    INTERFACE_NAME = "general/get_last_asset"
+    COLUMNS = ["asset", "init_date", "is_last", "begin_RMB_asset", "end_RMB_asset", "begin_HKD_asset",
+               "end_HKD_asset", "begin_doller_asset", "end_doller_asset"]
 
     @classmethod
     def setUpClass(cls):
         urls_prefix = get_configurations.get_target_section(section='url_prefix')
-        cls.info = get_configurations.get_target_section(section='chasing_info')
+        cls.info = get_configurations.get_target_section(section='guolian_info')
         print("here is info:\n", cls.info)
-        cls.url_prefix = urls_prefix.get("analysis_chasing_prefix")
-        cls.data = get_basic_paramaters(init_date=cls.info.get("init_date"),
-                                        fund_account=cls.info.get("fund_account"), interval=cls.info.get("interval"))
+        cls.url_prefix = urls_prefix.get("analysis_guolian_prefix")
+        cls.data = get_basic_paramaters(fund_account=cls.info.get("fund_account"))
 
     def test_normal(self):
         """"""
-        url = self.url_prefix + GetCashPageUserCurveData.INTERFACE_NAME
+        url = self.url_prefix + GetLastAsset.INTERFACE_NAME
         data = str(self.data.copy()).replace("'", '"')
         interface_result = interfaces.request(url=url, data=data, is_get_method=False)
 
-        # cashCurveDataList
-        hbase_result = {}
-        hbase_result_deal_list = []
-        init_date_base = special_date.get_init_date(self.info.get("init_date"), self.info.get("interval"))
-        for i in range(30):
-            init_date = special_date.get_date(init_date_base, i)
-            row_key = ",".join([self.data.get("fund_account_reversed"),
-                                init_date_to_cal_date(init_date)])
 
-            hbase_result_origin = hbase_client.getRow(tableName=GetCashPageUserCurveData.TABLE_NAME, row=row_key)
-            hbase_result_deal_dict = hbase_result_deal.hbase_result_to_dict(hbase_result=hbase_result_origin,
-                                                                            init_date=init_date,
-                                                                            cash_asset="cash_asset")
-            if len(hbase_result_deal_dict) > 0:
-                hbase_result_deal_list.append(hbase_result_deal_dict)
+        row_key = ",".join([self.data.get("fund_account_reversed"), init_date_to_cal_date(self.info.get("init_date"))])
 
-        hbase_result.setdefault("cashCurveDataList", hbase_result_deal_list)
+        hbase_result_origin = hbase_client.getRow(tableName=GetLastAsset.TABLE_NAME, row=row_key)
         # self.assertTrue(0, msg="{0}--".format(hbase_result))
-        hbase_command = """get "{0}", "{1}" """.format(GetCashPageUserCurveData.TABLE_NAME, row_key)
-        checking(self=self, class_name=GetCashPageUserCurveData, sql_result=hbase_result,
-                 interface_result=interface_result, is_hbase_result=True, is_json_content=True,
-                 sql=hbase_command, url=url, data=data, table_columns=GetCashPageUserCurveData.COLUMNS,
-                 list_name=["cashCurveDataList", "cashCurveDataList"])
+        hbase_command = """get "{0}", "{1}" """.format(GetLastAsset.TABLE_NAME, row_key)
+        checking(self=self, class_name=GetLastAsset, sql_result=hbase_result_origin,
+                 interface_result=interface_result, is_hbase_result=True, is_json_content=False,
+                 sql=hbase_command, url=url, data=data, table_columns=GetLastAsset.COLUMNS,
+                 special_column=["is_last"])
 
 
 class GetCfbPageUserCurveData(unittest.TestCase):
-    TABLE_NAME = "".join([get_configurations.get_target_section(section='database_chasing').get("database_prefix"),
+    TABLE_NAME = "".join([get_configurations.get_target_section(section='database_guolian').get("database_prefix"),
                           "cfb_page_user_daily_data"])
     INTERFACE_NAME = "general/get_cfb_page_user_curve_data"
     COLUMNS = ["cfbCurveDataList"]
@@ -221,9 +213,9 @@ class GetCfbPageUserCurveData(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         urls_prefix = get_configurations.get_target_section(section='url_prefix')
-        cls.info = get_configurations.get_target_section(section='chasing_info')
+        cls.info = get_configurations.get_target_section(section='guolian_info')
         print("here is info:\n", cls.info)
-        cls.url_prefix = urls_prefix.get("analysis_chasing_prefix")
+        cls.url_prefix = urls_prefix.get("analysis_guolian_prefix")
         cls.data = get_basic_paramaters(init_date=cls.info.get("init_date"),
                                         fund_account=cls.info.get("fund_account"), interval=cls.info.get("interval"))
 
@@ -260,7 +252,7 @@ class GetCfbPageUserCurveData(unittest.TestCase):
 
 
 class GetBondPageUserDailyData(unittest.TestCase):
-    TABLE_NAME = "".join([get_configurations.get_target_section(section='database_chasing').get("database_prefix"),
+    TABLE_NAME = "".join([get_configurations.get_target_section(section='database_guolian').get("database_prefix"),
                           "bond_page_user_daily_data"])
     INTERFACE_NAME = "general/get_bond_page_user_daily_data"
     COLUMNS = ["init_date", "bond_asset", "bond_daily_income", "bond_hold_data_list"]
@@ -268,9 +260,9 @@ class GetBondPageUserDailyData(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         urls_prefix = get_configurations.get_target_section(section='url_prefix')
-        cls.info = get_configurations.get_target_section(section='chasing_info')
+        cls.info = get_configurations.get_target_section(section='guolian_info')
         print("here is info:\n", cls.info)
-        cls.url_prefix = urls_prefix.get("analysis_chasing_prefix")
+        cls.url_prefix = urls_prefix.get("analysis_guolian_prefix")
         cls.data = get_basic_paramaters(init_date=cls.info.get("init_date"), fund_account=cls.info.get("fund_account"))
 
     def test_normal(self):
@@ -290,7 +282,7 @@ class GetBondPageUserDailyData(unittest.TestCase):
 
 
 class GetBondPageUserIntervalData(unittest.TestCase):
-    TABLE_NAME = "".join([get_configurations.get_target_section(section='database_chasing').get("database_prefix"),
+    TABLE_NAME = "".join([get_configurations.get_target_section(section='database_guolian').get("database_prefix"),
                           "bond_page_user_interval_data"])
     INTERFACE_NAME = "general/get_bond_page_user_interval_data"
     COLUMNS = ["bond_income", "bond_hold_num", "bond_win_num", "bond_win_rate", "most_profit_bond_code",
@@ -301,9 +293,9 @@ class GetBondPageUserIntervalData(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         urls_prefix = get_configurations.get_target_section(section='url_prefix')
-        cls.info = get_configurations.get_target_section(section='chasing_info')
+        cls.info = get_configurations.get_target_section(section='guolian_info')
         print("here is info:\n", cls.info)
-        cls.url_prefix = urls_prefix.get("analysis_chasing_prefix")
+        cls.url_prefix = urls_prefix.get("analysis_guolian_prefix")
         cls.data = get_basic_paramaters(option_info=cls.info)
 
     def test_normal(self):
@@ -324,7 +316,7 @@ class GetBondPageUserIntervalData(unittest.TestCase):
 
 
 class GetFinancialPageUserDailyData(unittest.TestCase):
-    TABLE_NAME = "".join([get_configurations.get_target_section(section='database_chasing').get("database_prefix"),
+    TABLE_NAME = "".join([get_configurations.get_target_section(section='database_guolian').get("database_prefix"),
                           "financial_page_user_daily_data"])
     INTERFACE_NAME = "general/get_financial_page_user_daily_data"
     COLUMNS = ["init_date", "financial_asset", "financial_daily_income", "financial_hold_data_list"]
@@ -332,9 +324,9 @@ class GetFinancialPageUserDailyData(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         urls_prefix = get_configurations.get_target_section(section='url_prefix')
-        cls.info = get_configurations.get_target_section(section='chasing_info')
+        cls.info = get_configurations.get_target_section(section='guolian_info')
         print("here is info:\n", cls.info)
-        cls.url_prefix = urls_prefix.get("analysis_chasing_prefix")
+        cls.url_prefix = urls_prefix.get("analysis_guolian_prefix")
         cls.data = get_basic_paramaters(init_date=cls.info.get("init_date"), fund_account=cls.info.get("fund_account"))
 
     def test_normal(self):
@@ -356,7 +348,7 @@ class GetFinancialPageUserDailyData(unittest.TestCase):
 
 
 class GetFinancialPageUserIntervalData(unittest.TestCase):
-    TABLE_NAME = "".join([get_configurations.get_target_section(section='database_chasing').get("database_prefix"),
+    TABLE_NAME = "".join([get_configurations.get_target_section(section='database_guolian').get("database_prefix"),
                           "financial_page_user_interval_data"])
     INTERFACE_NAME = "general/get_financial_page_user_interval_data"
     COLUMNS = ["financial_income_balance", "financial_hold_num", "financial_win_num", "most_profit_financial_code",
@@ -367,9 +359,9 @@ class GetFinancialPageUserIntervalData(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         urls_prefix = get_configurations.get_target_section(section='url_prefix')
-        cls.info = get_configurations.get_target_section(section='chasing_info')
+        cls.info = get_configurations.get_target_section(section='guolian_info')
         print("here is info:\n", cls.info)
-        cls.url_prefix = urls_prefix.get("analysis_chasing_prefix")
+        cls.url_prefix = urls_prefix.get("analysis_guolian_prefix")
         cls.data = get_basic_paramaters(init_date=cls.info.get("init_date"),
                                         fund_account=cls.info.get("fund_account"),
                                         interval=cls.info.get("interval"))
@@ -391,7 +383,7 @@ class GetFinancialPageUserIntervalData(unittest.TestCase):
 
 
 class GetStockPageUserDailyData(unittest.TestCase):
-    TABLE_NAME = "".join([get_configurations.get_target_section(section='database_chasing').get("database_prefix"),
+    TABLE_NAME = "".join([get_configurations.get_target_section(section='database_guolian').get("database_prefix"),
                           "stock_page_user_daily_data"])
     INTERFACE_NAME = "general/get_stock_page_user_daily_data"
     COLUMNS = ["init_date", "stock_asset", "stock_daily_income", "stock_daily_income_ratio",
@@ -400,9 +392,9 @@ class GetStockPageUserDailyData(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         urls_prefix = get_configurations.get_target_section(section='url_prefix')
-        cls.info = get_configurations.get_target_section(section='chasing_info')
+        cls.info = get_configurations.get_target_section(section='guolian_info')
         print("here is info:\n", cls.info)
-        cls.url_prefix = urls_prefix.get("analysis_chasing_prefix")
+        cls.url_prefix = urls_prefix.get("analysis_guolian_prefix")
         cls.data = get_basic_paramaters(init_date=cls.info.get("init_date"), fund_account=cls.info.get("fund_account"))
 
     def test_normal(self):
@@ -425,7 +417,7 @@ class GetStockPageUserDailyData(unittest.TestCase):
 
 
 class GetStockPageUserIntervalData(unittest.TestCase):
-    TABLE_NAME = "".join([get_configurations.get_target_section(section='database_chasing').get("database_prefix"),
+    TABLE_NAME = "".join([get_configurations.get_target_section(section='database_guolian').get("database_prefix"),
                           "stock_page_user_interval_data"])
     INTERFACE_NAME = "general/get_stock_page_user_interval_data"
     COLUMNS = ['stock_income', 'stock_hold_num', 'stock_win_num', 'stock_win_rate', 'most_profit_stock_code',
@@ -438,9 +430,9 @@ class GetStockPageUserIntervalData(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         urls_prefix = get_configurations.get_target_section(section='url_prefix')
-        cls.info = get_configurations.get_target_section(section='chasing_info')
+        cls.info = get_configurations.get_target_section(section='guolian_info')
         print("here is info:\n", cls.info)
-        cls.url_prefix = urls_prefix.get("analysis_chasing_prefix")
+        cls.url_prefix = urls_prefix.get("analysis_guolian_prefix")
         cls.data = get_basic_paramaters(option_info=cls.info)
 
     def test_normal(self):
@@ -461,7 +453,7 @@ class GetStockPageUserIntervalData(unittest.TestCase):
 
 
 class GetStockDetailPageData(unittest.TestCase):
-    TABLE_NAME = "".join([get_configurations.get_target_section(section='database_chasing').get("database_prefix"),
+    TABLE_NAME = "".join([get_configurations.get_target_section(section='database_guolian').get("database_prefix"),
                           "stock_detail_page_data"])
     INTERFACE_NAME = "general/get_stock_detail_page_data"
     COLUMNS = ['stock_data_list', 'bond_data_list']
@@ -469,9 +461,9 @@ class GetStockDetailPageData(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         urls_prefix = get_configurations.get_target_section(section='url_prefix')
-        cls.info = get_configurations.get_target_section(section='chasing_info')
+        cls.info = get_configurations.get_target_section(section='guolian_info')
         print("here is info:\n", cls.info)
-        cls.url_prefix = urls_prefix.get("analysis_chasing_prefix")
+        cls.url_prefix = urls_prefix.get("analysis_guolian_prefix")
         cls.data = get_basic_paramaters(option_info=cls.info)
 
     def test_normal(self):
@@ -492,7 +484,7 @@ class GetStockDetailPageData(unittest.TestCase):
 
 
 class GetNewStockPageUserIntervalData(unittest.TestCase):
-    TABLE_NAME = "".join([get_configurations.get_target_section(section='database_chasing').get("database_prefix"),
+    TABLE_NAME = "".join([get_configurations.get_target_section(section='database_guolian').get("database_prefix"),
                           "new_stock_page_data"])
     INTERFACE_NAME = "general/get_new_stock_page_user_interval_data"
     COLUMNS = ['income_balance', 'stock_data_list']
@@ -500,9 +492,9 @@ class GetNewStockPageUserIntervalData(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         urls_prefix = get_configurations.get_target_section(section='url_prefix')
-        cls.info = get_configurations.get_target_section(section='chasing_info')
+        cls.info = get_configurations.get_target_section(section='guolian_info')
         print("here is info:\n", cls.info)
-        cls.url_prefix = urls_prefix.get("analysis_chasing_prefix")
+        cls.url_prefix = urls_prefix.get("analysis_guolian_prefix")
         cls.data = get_basic_paramaters(option_info=cls.info)
 
     def test_normal(self):
@@ -534,11 +526,14 @@ def checking(self, class_name, sql_result, interface_result, is_fetchone=True, *
     url which current test requested. 
     data is the params in interface requesting.
     count is the num of return list.
-    list_name: is a list name of response. 
+    list_name: is a list name of response. The index zero is the old colunm name which is in hbase database,
+            the index one is the new column name which is in the response of interface.
     table_columns:  is a list like ["init_date", "bond_num"]. The column in list need to be checking.
     special_column is a list like ["int_date", "bond_num"]. The column in list need to be filter when checking.
     deal_column is a list like ["bond_num", int]. The fisrt index is the name of column, 
     the second is the function which column need to be dealed specially.
+    calculation is a list like ["new_column", "column1", "+", "column2"]. The first one is the new column which will
+        returned in interface. The others can be joined together as a arithmetic expressions. 
     :return: 
     """
     # 统一日志信息
@@ -546,26 +541,42 @@ def checking(self, class_name, sql_result, interface_result, is_fetchone=True, *
     Hbase result is\n{4}".format(params.get("sql"), params.get("url"), params.get("data"), interface_result, sql_result)
     # SQL 执行结果为一条数据时，对比每一条记录里面的字段值
     if params.get("is_hbase_result"):
-        if "get_stock_detail_page_data" in params.get("url"):
-            a = []
         sql_result = hbase_result_deal.deal(sql_result, is_json_content=params.get("is_json_content"),
                                             list_name=params.get("list_name"))
+
+        # 根据传入的数据进行计算， 列表中第一个为输出的字段，其他个数为计算表达式的一部分
+        if params.get("calculation"):
+            expression = ""
+            new_column = params.get("calculation")[0]
+            for i, each in enumerate(params.get("calculation")[1:]):
+                if i % 2 == 0:
+                    expression += sql_result.get(each)
+                else:
+                    expression += each
+            sql_result.setdefault(new_column, round(eval(expression), 4))
+
+        # 处理接口输出字段与hbase查询出的输出字段不一致的情况
+        if len(params.get("list_name", [])) > 1:
+            for column in params.get("list_name"):
+                if not sql_result.get(column, False):
+                    origin_column = column
+                    # list_name 允许存在多组数据， eg: [old_1, new_1, old_2, new_2]
+                    if params.get("list_name").index(column) / 2 == 0:
+                        tmp = params.get("list_name").index(column) + 1
+                    else:
+                        tmp = params.get("list_name").index(column) - 1
+                    new_column = params.get("list_name")[tmp]
+                    sql_result.setdefault(new_column, sql_result.get(origin_column))
+
         # params.get("cal_column")
+        # self.assertTrue(0, msg="new sql_result: {0}".format(sql_result))
         try:
             for column in params.get("table_columns"):
                 if column not in params.get("list_name", []):
                     if column not in params.get("special_column", []):
                         self.assertEqual(str(sql_result.get(column)), str(interface_result.get(column)), msg=msg_model)
-                else:
-                    # 处理接口输出字段与hbase查询出的输出字段不一致的情况
-                    if not sql_result.get(column, False):
-                        origin_column = column
-                        if params.get("list_name").index(column) / 2 == 0:
-                            tmp = params.get("list_name").index(column) + 1
-                        else:
-                            tmp = params.get("list_name").index(column) - 1
-                        column = params.get("list_name")[tmp]
-                        # self.assertTrue(0, msg="{0}-{1}-{2}".format(origin_column, column, sql_result))
+                        continue
+                elif isinstance(sql_result.get(column), list):
                     for i, info in enumerate(sql_result.get(column)):
                         for k, v in info.items():
                             deal_column = params.get("deal_column", [False])
@@ -655,25 +666,25 @@ def get_basic_paramaters(option_info={}, **params):
 if __name__ == "__main__":
     # create unittest tests
     tests = unittest.TestSuite()
-    tests.addTest(unittest.makeSuite(testCaseClass=GetHomePageUserDailyData, prefix='test'))
-    tests.addTest(unittest.makeSuite(testCaseClass=GetHomePageUserIntervalData, prefix='test'))
-    tests.addTest(unittest.makeSuite(testCaseClass=GetHomePageUserCurveData, prefix='test'))
-    tests.addTest(unittest.makeSuite(testCaseClass=GetCashPageUserCurveData, prefix='test'))
-    tests.addTest(unittest.makeSuite(testCaseClass=GetCfbPageUserCurveData, prefix='test'))
-    tests.addTest(unittest.makeSuite(testCaseClass=GetFinancialPageUserIntervalData, prefix='test'))
-    tests.addTest(unittest.makeSuite(testCaseClass=GetBondPageUserDailyData, prefix='test'))
-    tests.addTest(unittest.makeSuite(testCaseClass=GetBondPageUserIntervalData, prefix='test'))
-    tests.addTest(unittest.makeSuite(testCaseClass=GetFinancialPageUserDailyData, prefix='test'))
-    tests.addTest(unittest.makeSuite(testCaseClass=GetStockPageUserDailyData, prefix='test'))
-    tests.addTest(unittest.makeSuite(testCaseClass=GetStockPageUserIntervalData, prefix='test'))
-    tests.addTest(unittest.makeSuite(testCaseClass=GetStockDetailPageData, prefix='test'))
-    tests.addTest(unittest.makeSuite(testCaseClass=GetNewStockPageUserIntervalData, prefix='test'))
+    tests.addTest(unittest.makeSuite(testCaseClass=GetAccountYield, prefix='test'))
+    tests.addTest(unittest.makeSuite(testCaseClass=GetIncomeAnalyze, prefix='test'))
+    # tests.addTest(unittest.makeSuite(testCaseClass=GetHomePageUserCurveData, prefix='test'))
+    tests.addTest(unittest.makeSuite(testCaseClass=GetLastAsset, prefix='test'))
+    # tests.addTest(unittest.makeSuite(testCaseClass=GetCfbPageUserCurveData, prefix='test'))
+    # tests.addTest(unittest.makeSuite(testCaseClass=GetFinancialPageUserIntervalData, prefix='test'))
+    # tests.addTest(unittest.makeSuite(testCaseClass=GetBondPageUserDailyData, prefix='test'))
+    # tests.addTest(unittest.makeSuite(testCaseClass=GetBondPageUserIntervalData, prefix='test'))
+    # tests.addTest(unittest.makeSuite(testCaseClass=GetFinancialPageUserDailyData, prefix='test'))
+    # tests.addTest(unittest.makeSuite(testCaseClass=GetStockPageUserDailyData, prefix='test'))
+    # tests.addTest(unittest.makeSuite(testCaseClass=GetStockPageUserIntervalData, prefix='test'))
+    # tests.addTest(unittest.makeSuite(testCaseClass=GetStockDetailPageData, prefix='test'))
+    # tests.addTest(unittest.makeSuite(testCaseClass=GetNewStockPageUserIntervalData, prefix='test'))
     # tests.addTest(unittest.makeSuite(testCaseClass=ListMonthStockTradeStockCode, prefix='test'))
     # tests.addTest(unittest.makeSuite(testCaseClass=GetMonthStockTradeDetail, prefix='test'))
     # tests.addTest(unittest.makeSuite(testCaseClass=GetMonthAccountYield, prefix='test'))
     # tests.addTest(unittest.makeSuite(testCaseClass=GetMonthIndexAcYield, prefix='test'))
 
     # write unittest result to a file
-    with open(r"result_chasing.html", "wb") as f:
+    with open(r"../export/result_guolian.html", "wb") as f:
         HTMLTestRunner(stream=f, title='测试报告', description='单元测试报告：', verbosity=2).run(tests)
 

@@ -83,7 +83,10 @@ def get_month_account_yield(data):
 class HbaseResultDeal:
     """处理hbase业务数据处理"""
     def deal(self, hbase_result, is_json_content=False, list_name=["list_name_old", "list_name_new"]):
-        """hbase_result is the result from hbase."""
+        """hbase_result is the result from hbase.
+        is_json_content: if True, then transfer data from str to list.
+        list_name: the index zero is the old colunm name which is in hbase database,
+            the index one is the new column name which is in the response of interface."""
         if not isinstance(hbase_result, list):
             return hbase_result
         hbase_dict = {}
@@ -95,6 +98,7 @@ class HbaseResultDeal:
             for column, value in each_row.columns.items():
                 hbase_dict.setdefault(column.split(":")[1], value.value)
                 json_content_list = []
+                # 如果字段数据是一个列表数据
                 if is_json_content and column.split(":")[1] in list_name:
                     # str -->  list, '[{0},{1}]' --> [{0}, {1}]
                     data = eval(value.value.replace("[", "").replace("]", ""))
@@ -115,8 +119,6 @@ class HbaseResultDeal:
         if not hbase_result:
             return {}
         hbase_dict = {}
-        if "ac_daily_income_ratio" in columns.keys():
-            aaaa = "ac_daily_income_ratio"
         for column, value in columns.items():
             # 处理hbase 获取出来的column
             if ":" in column:
