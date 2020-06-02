@@ -379,7 +379,7 @@ class GuoLianAnalysis:
             element = {
                        "init_date": kwargs.get("init_date"),
                        "business_time": "{0}{1}{1}".format(random.randint(9, 11), random.randint(0, 60)),
-                       "serial_no": "{0}".format(base_num + self.get_random_num(12345, 0, 1)),
+                       "serial_no": "{0}".format(int(base_num + self.get_random_num(12345, 0, 1))),
                        "business_flag": GuoLianAnalysis.BUSINESS_FLAG.get(business_name),
                        "business_amount": self.get_random_num(123000, 2, 1),
                        "post_amount": self.get_random_num(123000, 2, 1),
