@@ -1,6 +1,7 @@
 import decimal
 import json
 import datetime
+import calendar
 
 class CumulativeRate:
 
@@ -87,6 +88,7 @@ class HbaseResultDeal:
         is_json_content: if True, then transfer data from str to list.
         list_name: the index zero is the old colunm name which is in hbase database,
             the index one is the new column name which is in the response of interface."""
+        # 若已经是字典项了而不是hbase 返回的结果， 那么不做处理；
         if not isinstance(hbase_result, list):
             return hbase_result
         hbase_dict = {}
@@ -114,7 +116,7 @@ class HbaseResultDeal:
                     hbase_dict.setdefault(list_name[list_name.index(column.split(":")[1])+1], json_content_list)
         return hbase_dict
 
-    def hbase_result_to_dict(self, hbase_result, **columns):
+    def hbase_result_to_dict(self, hbase_result, func={}, **columns):
         """hbase 获取的数据 hbase data，转化成一个字典项"""
         if not hbase_result:
             return {}
@@ -134,7 +136,10 @@ class HbaseResultDeal:
                     continue
                 d = c.value
                 # tmp = hbase_result[0].columns.get(column).value
-                hbase_dict.setdefault(column, d)
+                if column in func.keys():
+                    hbase_dict.setdefault(column, func.get(column)(d))
+                else:
+                    hbase_dict.setdefault(column, d)
 
         return hbase_dict
 
@@ -201,7 +206,35 @@ class SpecialDate:
             # print(init_date)
             yield init_date
 
+    def month_add(self, init_date, interval=0, month_add=0):
+        """同 mysql date_add 函数处理方式, 返回日期加减N个月后的日期
+        init_date is a date like 20200603.
+        month is a integer. Can greater than 0 or less than 0.
+        """
+        interval = int(interval)
+        if interval == 1:
+            month_add = -1
+        elif interval == 2:
+            month_add = -3
+        elif interval == 3:
+            month_add = -6
+        elif interval == 4:
+            month_add = -12
+        year = int(init_date[:4])
+        month = int(init_date[4:6])
+        day = int(init_date[6:])
+        month = month + month_add
+        if month > 12:
+            year = year + 1
+            month = month - 12
+        while True:
+            try:
+                new_date = datetime.date(year, month, day)
+                return "".join([str(new_date.year), str(new_date.month), str(new_date.day)])
+            except ValueError:
+                day -= 1
 
 cumulative_rate = CumulativeRate()
 hbase_result_deal = HbaseResultDeal()
 special_date = SpecialDate()
+# print(special_date.month_add(init_date="20200430", month_add=-1))

@@ -189,9 +189,9 @@ function showOutput(id, name) {
 
 <div class='heading'>
 <h1>测试报告</h1>
-<p class='attribute'><strong>Start Time:</strong> 2020-06-02 20:52:11</p>
-<p class='attribute'><strong>Duration:</strong> 0:00:00.107021</p>
-<p class='attribute'><strong>Status:</strong> Pass 2 Failure 1</p>
+<p class='attribute'><strong>Start Time:</strong> 2020-06-03 20:33:17</p>
+<p class='attribute'><strong>Duration:</strong> 0:00:00.433000</p>
+<p class='attribute'><strong>Status:</strong> Pass 10 Failure 2</p>
 
 <p class='description'>单元测试报告：</p>
 </div>
@@ -248,7 +248,7 @@ function showOutput(id, name) {
 ft1.1: Traceback (most recent call last):
   File "analysis_guolian.py", line 44, in test_normal
     special_column=["accumulative_yield"])
-  File "analysis_guolian.py", line 577, in checking
+  File "analysis_guolian.py", line 666, in checking
     self.assertEqual(str(sql_result.get(column)), str(interface_result.get(column)), msg=msg_model)
 AssertionError: '20200430' != 'None'
 - 20200430
@@ -267,7 +267,7 @@ Interface response is
 Traceback (most recent call last):
   File "analysis_guolian.py", line 44, in test_normal
     special_column=["accumulative_yield"])
-  File "analysis_guolian.py", line 577, in checking
+  File "analysis_guolian.py", line 666, in checking
     self.assertEqual(str(sql_result.get(column)), str(interface_result.get(column)), msg=msg_model)
 AssertionError: '20200430' != 'None'
 - 20200430
@@ -307,24 +307,185 @@ Interface response is
 </tr>
 
 <tr class='passClass'>
+    <td>GetInvestAnalyze</td>
+    <td>2</td>
+    <td>2</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c3',2)">Detail</a></td>
+</tr>
+
+<tr id='pt3.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_avg_ability</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt3.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_my_ability</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr class='passClass'>
+    <td>GetReplayAnalyze</td>
+    <td>2</td>
+    <td>2</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c4',2)">Detail</a></td>
+</tr>
+
+<tr id='pt4.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_avg_ability</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt4.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_my_ability</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr class='passClass'>
     <td>GetLastAsset</td>
     <td>1</td>
     <td>1</td>
     <td>0</td>
     <td>0</td>
-    <td><a href="javascript:showClassDetail('c3',1)">Detail</a></td>
+    <td><a href="javascript:showClassDetail('c5',1)">Detail</a></td>
 </tr>
 
-<tr id='pt3.1' class='hiddenRow'>
+<tr id='pt5.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr class='passClass'>
+    <td>GetPosition</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c6',1)">Detail</a></td>
+</tr>
+
+<tr id='pt6.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr class='passClass'>
+    <td>GetStockPreference</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c7',1)">Detail</a></td>
+</tr>
+
+<tr id='pt7.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr class='passClass'>
+    <td>CreditGetStockPreference</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c8',1)">Detail</a></td>
+</tr>
+
+<tr id='pt8.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr class='failClass'>
+    <td>GetTop3Data</td>
+    <td>1</td>
+    <td>0</td>
+    <td>1</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c9',1)">Detail</a></td>
+</tr>
+
+<tr id='ft9.1' class='none'>
+    <td class='failCase'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft9.1')" >
+        fail</a>
+
+    <div id='div_ft9.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft9.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft9.1: Traceback (most recent call last):
+  File "analysis_guolian.py", line 381, in test_normal
+    sql=hbase_command, url=url, data=data, table_columns=GetTop3Data.COLUMNS)
+  File "analysis_guolian.py", line 666, in checking
+    self.assertEqual(str(sql_result.get(column)), str(interface_result.get(column)), msg=msg_model)
+AssertionError: '["{\'stock_name\': \'立讯精密\', \'stock_cod[363 chars]'}"]' != "[{'stock_code': '002475', 'stock_name': [687 chars]0'}]"
+Diff is 1085 characters long. Set self.maxDiff to None to see it. : 
+SQL is
+ get "zhfx_gl_chenk:home_page_data", "88888,1,0,79799569" 
+ Interface is
+ http://10.20.18.174:18083/guolian/general/get_top3_data
+ params is
+ {"fund_account": "88888", "init_date": "20200430", "page_size": "100", "interval": "1", "asset_prop": "0", "cal_init_date": "20200430", "stock_code": "002415", "exchange_type": "2", "trade_type": "0", "fund_account_reversed": "88888"}
+Interface response is
+ {'error_no': '0', 'error_info': '执行成功', 'profitList': [{'stock_code': '002475', 'stock_name': '立讯精密', 'exchange_type': None, 'stock_type': None, 'income': 99588.03, 'hold_day': None, 'status': None, 'income_rate': 0.7054, 'amount': None, 'hold_status': None, 'money_type': None, 'trade_type': '1'}, {'stock_code': '002415', 'stock_name': '海康威视', 'exchange_type': None, 'stock_type': None, 'income': 72646.7, 'hold_day': None, 'status': None, 'income_rate': 0.1695, 'amount': None, 'hold_status': None, 'money_type': None, 'trade_type': '0'}, {'stock_code': '002415', 'stock_name': '海康威视', 'exchange_type': None, 'stock_type': None, 'income': 46000.56, 'hold_day': None, 'status': None, 'income_rate': 0.8798, 'amount': None, 'hold_status': None, 'money_type': None, 'trade_type': '0'}], 'lossList': [{'stock_code': '601668', 'stock_name': '中国建筑', 'exchange_type': None, 'stock_type': None, 'income': -57782.13, 'hold_day': None, 'status': None, 'income_rate': -0.1528, 'amount': None, 'hold_status': None, 'money_type': None, 'trade_type': '0'}, {'stock_code': '002142', 'stock_name': '宁波银行', 'exchange_type': None, 'stock_type': None, 'income': -89465.22, 'hold_day': None, 'status': None, 'income_rate': -0.1798, 'amount': None, 'hold_status': None, 'money_type': None, 'trade_type': '1'}, {'stock_code': '601628', 'stock_name': '中国人寿', 'exchange_type': None, 'stock_type': None, 'income': -41814.17, 'hold_day': None, 'status': None, 'income_rate': -0.5991, 'amount': None, 'hold_status': None, 'money_type': None, 'trade_type': '1'}]}
+    Hbase result is
+{'profitList': ["{'stock_name': '立讯精密', 'stock_code': '002475', 'income': '99588.03', 'income_rate': '0.7054', 'trade_type': '1'}", "{'stock_name': '海康威视', 'stock_code': '002415', 'income': '72646.7', 'income_rate': '0.1695', 'trade_type': '0'}", "{'stock_name': '海康威视', 'stock_code': '002415', 'income': '46000.56', 'income_rate': '0.8798', 'trade_type': '0'}"], 'lossList': ["{'stock_name': '中国建筑', 'stock_code': '601668', 'income': '-57782.13', 'income_rate': '-0.1528', 'trade_type': '0'}", "{'stock_name': '宁波银行', 'stock_code': '002142', 'income': '-89465.22', 'income_rate': '-0.1798', 'trade_type': '1'}", "{'stock_name': '中国人寿', 'stock_code': '601628', 'income': '-41814.17', 'income_rate': '-0.5991', 'trade_type': '1'}"]}
+Traceback (most recent call last):
+  File "analysis_guolian.py", line 381, in test_normal
+    sql=hbase_command, url=url, data=data, table_columns=GetTop3Data.COLUMNS)
+  File "analysis_guolian.py", line 666, in checking
+    self.assertEqual(str(sql_result.get(column)), str(interface_result.get(column)), msg=msg_model)
+AssertionError: '["{\'stock_name\': \'立讯精密\', \'stock_cod[363 chars]'}"]' != "[{'stock_code': '002475', 'stock_name': [687 chars]0'}]"
+Diff is 1085 characters long. Set self.maxDiff to None to see it. : 
+SQL is
+ get "zhfx_gl_chenk:home_page_data", "88888,1,0,79799569" 
+ Interface is
+ http://10.20.18.174:18083/guolian/general/get_top3_data
+ params is
+ {"fund_account": "88888", "init_date": "20200430", "page_size": "100", "interval": "1", "asset_prop": "0", "cal_init_date": "20200430", "stock_code": "002415", "exchange_type": "2", "trade_type": "0", "fund_account_reversed": "88888"}
+Interface response is
+ {'error_no': '0', 'error_info': '执行成功', 'profitList': [{'stock_code': '002475', 'stock_name': '立讯精密', 'exchange_type': None, 'stock_type': None, 'income': 99588.03, 'hold_day': None, 'status': None, 'income_rate': 0.7054, 'amount': None, 'hold_status': None, 'money_type': None, 'trade_type': '1'}, {'stock_code': '002415', 'stock_name': '海康威视', 'exchange_type': None, 'stock_type': None, 'income': 72646.7, 'hold_day': None, 'status': None, 'income_rate': 0.1695, 'amount': None, 'hold_status': None, 'money_type': None, 'trade_type': '0'}, {'stock_code': '002415', 'stock_name': '海康威视', 'exchange_type': None, 'stock_type': None, 'income': 46000.56, 'hold_day': None, 'status': None, 'income_rate': 0.8798, 'amount': None, 'hold_status': None, 'money_type': None, 'trade_type': '0'}], 'lossList': [{'stock_code': '601668', 'stock_name': '中国建筑', 'exchange_type': None, 'stock_type': None, 'income': -57782.13, 'hold_day': None, 'status': None, 'income_rate': -0.1528, 'amount': None, 'hold_status': None, 'money_type': None, 'trade_type': '0'}, {'stock_code': '002142', 'stock_name': '宁波银行', 'exchange_type': None, 'stock_type': None, 'income': -89465.22, 'hold_day': None, 'status': None, 'income_rate': -0.1798, 'amount': None, 'hold_status': None, 'money_type': None, 'trade_type': '1'}, {'stock_code': '601628', 'stock_name': '中国人寿', 'exchange_type': None, 'stock_type': None, 'income': -41814.17, 'hold_day': None, 'status': None, 'income_rate': -0.5991, 'amount': None, 'hold_status': None, 'money_type': None, 'trade_type': '1'}]}
+    Hbase result is
+{'profitList': ["{'stock_name': '立讯精密', 'stock_code': '002475', 'income': '99588.03', 'income_rate': '0.7054', 'trade_type': '1'}", "{'stock_name': '海康威视', 'stock_code': '002415', 'income': '72646.7', 'income_rate': '0.1695', 'trade_type': '0'}", "{'stock_name': '海康威视', 'stock_code': '002415', 'income': '46000.56', 'income_rate': '0.8798', 'trade_type': '0'}"], 'lossList': ["{'stock_name': '中国建筑', 'stock_code': '601668', 'income': '-57782.13', 'income_rate': '-0.1528', 'trade_type': '0'}", "{'stock_name': '宁波银行', 'stock_code': '002142', 'income': '-89465.22', 'income_rate': '-0.1798', 'trade_type': '1'}", "{'stock_name': '中国人寿', 'stock_code': '601628', 'income': '-41814.17', 'income_rate': '-0.5991', 'trade_type': '1'}"]}
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>GetTradeAnalyze</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c10',1)">Detail</a></td>
+</tr>
+
+<tr id='pt10.1' class='hiddenRow'>
     <td class='none'><div class='testcase'>test_normal</div></td>
     <td colspan='5' align='center'>pass</td>
 </tr>
 
 <tr id='total_row'>
     <td>Total</td>
-    <td>3</td>
+    <td>12</td>
+    <td>10</td>
     <td>2</td>
-    <td>1</td>
     <td>0</td>
     <td>&nbsp;</td>
 </tr>
