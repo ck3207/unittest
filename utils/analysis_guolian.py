@@ -433,14 +433,15 @@ class GetTradeAnalyze(unittest.TestCase):
                  table_columns=GetTradeAnalyze.COLUMNS, )
 
 
-class GetFinancialPageUserIntervalData(unittest.TestCase):
+class GetTradeDistribution(unittest.TestCase):
     TABLE_NAME = "".join([get_configurations.get_target_section(section='database_guolian').get("database_prefix"),
-                          "financial_page_user_interval_data"])
-    INTERFACE_NAME = "general/get_financial_page_user_interval_data"
-    COLUMNS = ["financial_income_balance", "financial_hold_num", "financial_win_num", "most_profit_financial_code",
+                          "trade_distribution"])
+    INTERFACE_NAME = "general/get_trade_distribution"
+    COLUMNS = ["data_list", "financial_hold_num", "financial_win_num", "most_profit_financial_code",
                "most_profit_financial_name", "most_profit_financial_income", "most_loss_financial_code",
                "most_loss_financial_name", "most_loss_financial_income", "financial_buy_num", "financial_sell_num",
                "financial_trade_data_list"]
+    COLUMNS = ["distribute_type", "distribute_mode", "distribute_value", "distribute_name"]
 
     @classmethod
     def setUpClass(cls):
@@ -448,24 +449,22 @@ class GetFinancialPageUserIntervalData(unittest.TestCase):
         cls.info = get_configurations.get_target_section(section='guolian_info')
         print("here is info:\n", cls.info)
         cls.url_prefix = urls_prefix.get("analysis_guolian_prefix")
-        cls.data = get_basic_paramaters(init_date=cls.info.get("init_date"),
-                                        fund_account=cls.info.get("fund_account"),
-                                        interval=cls.info.get("interval"))
+        cls.data = get_basic_paramaters(option_info=cls.info)
 
     def test_normal(self):
         """"""
-        url = self.url_prefix + GetFinancialPageUserIntervalData.INTERFACE_NAME
+        url = self.url_prefix + GetTradeDistribution.INTERFACE_NAME
         data = str(self.data.copy()).replace("'", '"')
         interface_result = interfaces.request(url=url, data=data, is_get_method=False)
-        row_key = ",".join([self.data.get("fund_account_reversed"), self.data.get("interval"), "0",
-                            init_date_to_cal_date(self.info.get("init_date"))])
-        hbase_result_origin = hbase_client.getRow(tableName=GetFinancialPageUserIntervalData.TABLE_NAME, row=row_key)
-        hbase_command = """get "{0}", "{1}" """.format(GetFinancialPageUserIntervalData.TABLE_NAME, row_key)
-
-        checking(self=self, class_name=GetFinancialPageUserIntervalData, sql_result=hbase_result_origin,
+        row_key = ",".join([self.data.get("fund_account_reversed"), self.data.get("interval"),
+                            "0", init_date_to_cal_date(self.info.get("init_date"))])
+        hbase_result_origin = hbase_client.getRow(tableName=GetTradeDistribution.TABLE_NAME, row=row_key)
+        hbase_command = """get "{0}", "{1}" """.format(GetTradeDistribution.TABLE_NAME, row_key)
+        # self.assertTrue(0, msg="hbase:{0}\nresult:{1}\ncommand:{2}".format(hbase_result_origin, interface_result, hbase_command))
+        checking(self=self, class_name=GetTradeDistribution, sql_result=hbase_result_origin,
                  interface_result=interface_result, is_hbase_result=True, is_json_content=True,
-                 sql=hbase_command, url=url, data=data, table_columns=GetFinancialPageUserIntervalData.COLUMNS,
-                 list_name=["json_content", "financial_trade_data_list"], deal_column=["hold_days", int])
+                 sql=hbase_command, url=url, data=data, table_columns=GetTradeDistribution.COLUMNS,
+                 list_name=["distribute_content", "data_list"])
 
 
 class GetStockPageUserDailyData(unittest.TestCase):
@@ -623,9 +622,7 @@ def checking(self, class_name, sql_result, interface_result, is_fetchone=True, *
     The others can be joined together as a arithmetic expressions. 
     :return: 
     """
-    # 统一日志信息
-    msg_model = "\nSQL is\n {0}\n Interface is\n {1}\n params is\n {2}\nInterface response is\n {3}\n\
-    Hbase result is\n{4}".format(params.get("sql"), params.get("url"), params.get("data"), interface_result, sql_result)
+
     # SQL 执行结果为一条数据时，对比每一条记录里面的字段值
     if params.get("is_hbase_result"):
         sql_result = hbase_result_deal.deal(sql_result, is_json_content=params.get("is_json_content"),
@@ -655,16 +652,16 @@ def checking(self, class_name, sql_result, interface_result, is_fetchone=True, *
                     new_column = params.get("list_name")[tmp]
                     sql_result.setdefault(new_column, sql_result.get(origin_column))
 
-        # params.get("cal_column")
-        # self.assertTrue(0, msg="new sql_result: {0}".format(sql_result))
         try:
             for column in params.get("table_columns"):
-                if column not in params.get("list_name", []):
-                    if column not in params.get("special_column", []):
-                        self.assertEqual(str(sql_result.get(column)), str(interface_result.get(column)), msg=msg_model)
-                        continue
-                elif isinstance(sql_result.get(column), list):
+                # 统一日志信息
+                msg_model = "\nSQL is\n {0}\n Interface is\n {1}\n params is\n {2}\nInterface response is\n {3}\n\
+                Hbase result is\n{4}\n column is [{5}]".format(params.get("sql"), params.get("url"), params.get("data"),
+                                                               interface_result, sql_result, column)
+                # 检验字段在 是一个list 类型 list 中的每个元素是一个dict， 那么对比list 里面每一个 dict 中的元素的数据
+                if isinstance(sql_result.get(column), list):
                     for i, info in enumerate(sql_result.get(column)):
+                        info = eval(info)
                         for k, v in info.items():
                             deal_column = params.get("deal_column", [False])
                             # 需要过滤的字段，即无需验证字段
@@ -680,6 +677,14 @@ def checking(self, class_name, sql_result, interface_result, is_fetchone=True, *
                             # 其他
                             else:
                                 self.assertEqual(str(v), str(interface_result.get(column)[i].get(k)), msg=msg_model)
+                # 若不是过滤字段，需验证； 否则，不验证
+                elif column not in params.get("special_column", []):
+                    # 若字段已被重新命名
+                    # if column in params.get("list_name"):
+                    #     self.assertEqual(str(sql_result.get(column)), str(interface_result.get(column)), msg=msg_model)
+                    self.assertEqual(str(sql_result.get(column)), str(interface_result.get(column)), msg=msg_model)
+                    continue
+
         except TypeError:
             if not locals().get(column):
                 column = "cant get."
@@ -759,7 +764,7 @@ if __name__ == "__main__":
     tests.addTest(unittest.makeSuite(testCaseClass=GetReplayAnalyze, prefix='test'))
     tests.addTest(unittest.makeSuite(testCaseClass=GetLastAsset, prefix='test'))
     tests.addTest(unittest.makeSuite(testCaseClass=GetPosition, prefix='test'))
-    # tests.addTest(unittest.makeSuite(testCaseClass=GetFinancialPageUserIntervalData, prefix='test'))
+    tests.addTest(unittest.makeSuite(testCaseClass=GetTradeDistribution, prefix='test'))
     tests.addTest(unittest.makeSuite(testCaseClass=GetStockPreference, prefix='test'))
     tests.addTest(unittest.makeSuite(testCaseClass=CreditGetStockPreference, prefix='test'))
     tests.addTest(unittest.makeSuite(testCaseClass=GetTop3Data, prefix='test'))

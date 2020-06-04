@@ -82,9 +82,11 @@ def get_month_account_yield(data):
     
 
 class HbaseResultDeal:
-    """处理hbase业务数据处理"""
+    """处理hbase业务数据处理, 将hbase中某字段存的list数据转化成接口响应的list格式；    
+    若hbase存放是对应hbase字段名为column1, 接口响应数据对应字段为 data_list；
+    则接口 deal 的list_name = [column1, data_list]"""
     def deal(self, hbase_result, is_json_content=False, list_name=["list_name_old", "list_name_new"]):
-        """hbase_result is the result from hbase.
+        """hbase_result is the result from hbase. 
         is_json_content: if True, then transfer data from str to list.
         list_name: the index zero is the old colunm name which is in hbase database,
             the index one is the new column name which is in the response of interface."""
