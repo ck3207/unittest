@@ -312,9 +312,9 @@ class GuoLianAnalysis:
                         sql += sql_model.format(",".join([fund_account, interval_type, random.choice(["0", "1"]),
                                                           str(self.init_date_special_deal_num-int(init_date))]),
                                                 stock_name, stock_code, "0", exchange_type,
-                                                self.get_random_num(100, 2, 1), self.get_random_num(123456, 2, 0),
-                                                self.get_random_num(1234567, 2, 1), self.get_random_num(100, 2, 1),
-                                                self.get_random_num(1000, 2, 1), self.get_random_num(1000, 2, 1),
+                                                self.get_random_num(100, 0, 1), self.get_random_num(123456, 2, 0),
+                                                self.get_random_num(1234567, 2, 1), self.get_random_num(100, 0, 1),
+                                                self.get_random_num(1000, 0, 1), self.get_random_num(1000, 0, 1),
                                                 self.get_random_num(100, 2, 1), self.get_random_num(100, 2, 1),
                                                 self.get_random_num(1, 4, 1), self.get_random_num(1, 4, 1),
                                                 self.get_random_num(1, 4, 1), self.get_random_num(1, 4, 1),
@@ -442,14 +442,14 @@ if __name__ == "__main__":
     guolian_analysis.write_to_file("guolian_analysis.sql")
     # guolian_analysis.user_daily_asset()
     # guolian_analysis.user_daily_data()
-    guolian_analysis.his_deliver()
+    # guolian_analysis.his_deliver()
     # guolian_analysis.credit_user_daily_data()
     # guolian_analysis.basic_data()
     # guolian_analysis.credit_basic_data()
     # guolian_analysis.daily_basic_data()
     # guolian_analysis.home_page_data()
     # guolian_analysis.interval_trade_distribution()
-    # guolian_analysis.trade_statistics()
+    guolian_analysis.trade_statistics()
     # guolian_analysis.interval_stock()
     # guolian_analysis.interval_fund_rank()
     # guolian_analysis.cal_record()

@@ -467,50 +467,13 @@ class GetTradeDistribution(unittest.TestCase):
                  list_name=["distribute_content", "data_list"])
 
 
-class GetStockPageUserDailyData(unittest.TestCase):
+class GetTradeStyle(unittest.TestCase):
     TABLE_NAME = "".join([get_configurations.get_target_section(section='database_guolian').get("database_prefix"),
-                          "stock_page_user_daily_data"])
-    INTERFACE_NAME = "general/get_stock_page_user_daily_data"
-    COLUMNS = ["init_date", "stock_asset", "stock_daily_income", "stock_daily_income_ratio",
-               "stock_hs_asset", "stock_hk_asset", "infund_asset", "stock_day_position", "stock_hold_data_list"]
-
-    @classmethod
-    def setUpClass(cls):
-        urls_prefix = get_configurations.get_target_section(section='url_prefix')
-        cls.info = get_configurations.get_target_section(section='guolian_info')
-        print("here is info:\n", cls.info)
-        cls.url_prefix = urls_prefix.get("analysis_guolian_prefix")
-        cls.data = get_basic_paramaters(init_date=cls.info.get("init_date"), fund_account=cls.info.get("fund_account"))
-
-    def test_normal(self):
-        """"""
-        url = self.url_prefix + GetStockPageUserDailyData.INTERFACE_NAME
-        data = str(self.data.copy()).replace("'", '"')
-        interface_result = interfaces.request(url=url, data=data, is_get_method=False)
-        row_key = ",".join([self.data.get("fund_account_reversed"), init_date_to_cal_date(self.info.get("init_date"))])
-        if self.data.get("interval"):
-            row_key = ",".join([self.data.get("fund_account_reversed"), self.data.get("fund_account_reversed"),
-                                init_date_to_cal_date(self.info.get("init_date"))])
-        hbase_result_origin = hbase_client.getRow(tableName=GetStockPageUserDailyData.TABLE_NAME, row=row_key)
-        hbase_command = """get "{0}", "{1}" """.format(GetStockPageUserDailyData.TABLE_NAME, row_key)
-
-        checking(self=self, class_name=GetStockPageUserDailyData, sql_result=hbase_result_origin,
-                 interface_result=interface_result, is_hbase_result=True, is_json_content=True,
-                 sql=hbase_command, url=url, data=data, list_name=["stock_hold_data", "stock_hold_data_list"],
-                 table_columns=GetStockPageUserDailyData.COLUMNS, special_column=["stock_market_value", "cost_price"],
-                 deal_column=["hold_amount", int])
-
-
-class GetStockPageUserIntervalData(unittest.TestCase):
-    TABLE_NAME = "".join([get_configurations.get_target_section(section='database_guolian').get("database_prefix"),
-                          "stock_page_user_interval_data"])
-    INTERFACE_NAME = "general/get_stock_page_user_interval_data"
-    COLUMNS = ['stock_income', 'stock_hold_num', 'stock_win_num', 'stock_win_rate', 'most_profit_stock_code',
-               'most_profit_stock_name', 'most_profit_stock_income', 'most_loss_stock_code', 'most_loss_stock_name',
-               'most_loss_stock_income', 'stock_avg_position', 'stock_profit_sell_rate', 'stock_profit_sell_times',
-               'stock_loss_sell_times', 'stock_buy_times', 'stock_sell_times', 'stock_trade_times',
-               'stock_avg_hold_days', 'stock_allsell_times', 'stock_new_times', 'fund_buy_balance',
-               'fund_sell_balance', 'fund_buy_times', 'fund_sell_times', 'trade_rate', 'trade_stock_count']
+                          "trade_statistics"])
+    INTERFACE_NAME = "general/get_trade_style"
+    COLUMNS = ['avg_hold_day', 'avg_hold_day_rank', 'draw_back', 'draw_back_rank', 'avg_position',
+               'avg_position_rank', 'win_ratio', 'win_ratio_rank', 'fund_utilize', 'fund_utilize_rank',
+               'avg_market_value', 'avg_market_value_rank']
 
     @classmethod
     def setUpClass(cls):
@@ -522,19 +485,48 @@ class GetStockPageUserIntervalData(unittest.TestCase):
 
     def test_normal(self):
         """"""
-        url = self.url_prefix + GetStockPageUserIntervalData.INTERFACE_NAME
+        url = self.url_prefix + GetTradeStyle.INTERFACE_NAME
+        data = str(self.data.copy()).replace("'", '"')
+        interface_result = interfaces.request(url=url, data=data, is_get_method=False)
+        row_key = ",".join([self.data.get("fund_account_reversed"), self.data.get("interval"), "0",
+                            init_date_to_cal_date(self.info.get("init_date"))])
+        hbase_result_origin = hbase_client.getRow(tableName=GetTradeStyle.TABLE_NAME, row=row_key)
+        hbase_command = """get "{0}", "{1}" """.format(GetTradeStyle.TABLE_NAME, row_key)
+        # self.assertTrue(0, msg="command {0}".format(hbase_command))
+        checking(self=self, class_name=GetTradeStyle, sql_result=hbase_result_origin,
+                 interface_result=interface_result, is_hbase_result=True, is_json_content=False,
+                 sql=hbase_command, url=url, data=data, table_columns=GetTradeStyle.COLUMNS, )
+
+
+class GetTradeStatistics(unittest.TestCase):
+    TABLE_NAME = "".join([get_configurations.get_target_section(section='database_guolian').get("database_prefix"),
+                          "trade_statistics"])
+    INTERFACE_NAME = "general/get_trade_statistics"
+    COLUMNS = ['trade_balance', 'buy_count', 'sell_count', 'trade_stock_count', 'trade_frequency',
+               'buy_amount', 'sell_amount', 'stock_count']
+
+    @classmethod
+    def setUpClass(cls):
+        urls_prefix = get_configurations.get_target_section(section='url_prefix')
+        cls.info = get_configurations.get_target_section(section='guolian_info')
+        print("here is info:\n", cls.info)
+        cls.url_prefix = urls_prefix.get("analysis_guolian_prefix")
+        cls.data = get_basic_paramaters(option_info=cls.info)
+
+    def test_normal(self):
+        """"""
+        url = self.url_prefix + GetTradeStatistics.INTERFACE_NAME
         data = str(self.data.copy()).replace("'", '"')
         interface_result = interfaces.request(url=url, data=data, is_get_method=False)
         row_key = ",".join([self.data.get("fund_account_reversed"), self.info.get("interval"),
-                            self.info.get("asset_prop"), init_date_to_cal_date(self.info.get("init_date"))])
+                            "0", init_date_to_cal_date(self.info.get("init_date"))])
 
-        hbase_result_origin = hbase_client.getRow(tableName=GetStockPageUserIntervalData.TABLE_NAME, row=row_key)
-        hbase_command = """get "{0}", "{1}" """.format(GetStockPageUserIntervalData.TABLE_NAME, row_key)
+        hbase_result_origin = hbase_client.getRow(tableName=GetTradeStatistics.TABLE_NAME, row=row_key)
+        hbase_command = """get "{0}", "{1}" """.format(GetTradeStatistics.TABLE_NAME, row_key)
 
-        checking(self=self, class_name=GetStockPageUserIntervalData, sql_result=hbase_result_origin,
+        checking(self=self, class_name=GetTradeStatistics, sql_result=hbase_result_origin,
                  interface_result=interface_result, is_hbase_result=True, is_json_content=False,
-                 sql=hbase_command, url=url, data=data, table_columns=GetStockPageUserIntervalData.COLUMNS,
-                 special_column=["stock_trade_times"])
+                 sql=hbase_command, url=url, data=data, table_columns=GetTradeStatistics.COLUMNS)
 
 
 class GetStockDetailPageData(unittest.TestCase):
@@ -622,7 +614,6 @@ def checking(self, class_name, sql_result, interface_result, is_fetchone=True, *
     The others can be joined together as a arithmetic expressions. 
     :return: 
     """
-
     # SQL 执行结果为一条数据时，对比每一条记录里面的字段值
     if params.get("is_hbase_result"):
         sql_result = hbase_result_deal.deal(sql_result, is_json_content=params.get("is_json_content"),
@@ -661,7 +652,8 @@ def checking(self, class_name, sql_result, interface_result, is_fetchone=True, *
                 # 检验字段在 是一个list 类型 list 中的每个元素是一个dict， 那么对比list 里面每一个 dict 中的元素的数据
                 if isinstance(sql_result.get(column), list):
                     for i, info in enumerate(sql_result.get(column)):
-                        info = eval(info)
+                        if not isinstance(info, dict):
+                            info = eval(info)
                         for k, v in info.items():
                             deal_column = params.get("deal_column", [False])
                             # 需要过滤的字段，即无需验证字段
@@ -693,6 +685,10 @@ def checking(self, class_name, sql_result, interface_result, is_fetchone=True, *
                                                                    params.get("data"), column))
 
     else:
+        # 统一日志信息
+        msg_model = "\nSQL is\n {0}\n Interface is\n {1}\n params is\n {2}\nInterface response is\n {3}\n\
+        Hbase result is\n{4}\n ".format(params.get("sql"), params.get("url"), params.get("data"),
+                                                       interface_result, sql_result)
         if is_fetchone:
             for i, column in enumerate(class_name.COLUMNS):
                 try:
@@ -769,8 +765,8 @@ if __name__ == "__main__":
     tests.addTest(unittest.makeSuite(testCaseClass=CreditGetStockPreference, prefix='test'))
     tests.addTest(unittest.makeSuite(testCaseClass=GetTop3Data, prefix='test'))
     tests.addTest(unittest.makeSuite(testCaseClass=GetTradeAnalyze, prefix='test'))
-    # tests.addTest(unittest.makeSuite(testCaseClass=GetStockPageUserDailyData, prefix='test'))
-    # tests.addTest(unittest.makeSuite(testCaseClass=GetStockPageUserIntervalData, prefix='test'))
+    tests.addTest(unittest.makeSuite(testCaseClass=GetTradeStyle, prefix='test'))
+    tests.addTest(unittest.makeSuite(testCaseClass=GetTradeStatistics, prefix='test'))
     # tests.addTest(unittest.makeSuite(testCaseClass=GetStockDetailPageData, prefix='test'))
     # tests.addTest(unittest.makeSuite(testCaseClass=GetNewStockPageUserIntervalData, prefix='test'))
     # tests.addTest(unittest.makeSuite(testCaseClass=ListMonthStockTradeStockCode, prefix='test'))
