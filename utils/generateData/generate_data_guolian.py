@@ -243,8 +243,11 @@ class GuoLianAnalysis:
             init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
                           datetime.timedelta(days=init_date_delay)).strftime('%Y%m%d')
             for fund_account_num in range(self.fund_account):
+                if int(self.start_fund_account + fund_account_num) % 2 == 0:
+                    asset_prop = "0"
+                else:
+                    asset_prop = "7"
                 fund_account = "".join(reversed(str(self.start_fund_account + fund_account_num)))
-
                 for interval_type in self.interval_types:
                     begin_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
                           datetime.timedelta(days=-init_date_delay*30-30)).strftime('%Y%m%d')
@@ -265,7 +268,7 @@ class GuoLianAnalysis:
                                                "trade_type": str(random.choice([0, 1])),
                                                })
 
-                    sql += sql_model.format(",".join([fund_account, interval_type, "0",
+                    sql += sql_model.format(",".join([fund_account, interval_type, asset_prop,
                                                       str(self.init_date_special_deal_num-int(init_date))]),
                                             self.get_random_num(123456, 2, 0), self.get_random_num(123456, 2, 0),
                                             self.get_random_num(123456, 2, 0), self.get_random_num(123456, 2, 0),
@@ -447,9 +450,9 @@ if __name__ == "__main__":
     # guolian_analysis.basic_data()
     # guolian_analysis.credit_basic_data()
     # guolian_analysis.daily_basic_data()
-    # guolian_analysis.home_page_data()
+    guolian_analysis.home_page_data()
     # guolian_analysis.interval_trade_distribution()
-    guolian_analysis.trade_statistics()
+    # guolian_analysis.trade_statistics()
     # guolian_analysis.interval_stock()
     # guolian_analysis.interval_fund_rank()
     # guolian_analysis.cal_record()

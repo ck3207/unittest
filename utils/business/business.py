@@ -147,7 +147,7 @@ class HbaseResultDeal:
             # 处理hbase 获取出来的column
             if ":" in column:
                 column = column.split(":")[1]
-            if column != value:
+            if column != value and value != "yield":
                 hbase_dict.setdefault(column, value)
             else:
                 # 若 hbase 返回的数据为 list， 即使只有一条数据
@@ -161,6 +161,9 @@ class HbaseResultDeal:
                 if column in func.keys():
                     hbase_dict.setdefault(column, func.get(column)(d))
                 else:
+                    # 特殊处理出参字段为 yield 但是为python 关键字， 不能传入的问题
+                    if value == "yield":
+                        column = value
                     hbase_dict.setdefault(column, d)
 
         return hbase_dict
