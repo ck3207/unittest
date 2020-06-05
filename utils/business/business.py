@@ -100,7 +100,27 @@ class HbaseResultDeal:
         for i, each_row in enumerate(hbase_result):
             row_key = each_row.row
             for column, value in each_row.columns.items():
-                hbase_dict.setdefault(column.split(":")[1], value.value)
+                # if isinstance(value.value, tuple) or isinstance(value.value):
+                #     pass
+                column_value = value.value
+                try:
+                    if isinstance(eval(column_value), list):
+                        data = eval(value.value.replace("[", "").replace("]", ""))
+                    else:
+                        data = column_value
+                except NameError:
+                    data = column_value
+                if isinstance(data, tuple):
+                    data = list(data)
+                real_column = column.split(":")[1]
+                try:
+                    if real_column in list_name:
+                        real_column = list_name[list_name.index(real_column)+1]
+                except TypeError:
+                    pass
+                hbase_dict.setdefault(real_column, data)
+                continue
+                # hbase_dict.setdefault(column.split(":")[1], value.value)
                 json_content_list = []
                 # 如果字段数据是一个列表数据
                 if is_json_content and column.split(":")[1] in list_name:

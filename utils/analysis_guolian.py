@@ -437,11 +437,7 @@ class GetTradeDistribution(unittest.TestCase):
     TABLE_NAME = "".join([get_configurations.get_target_section(section='database_guolian').get("database_prefix"),
                           "trade_distribution"])
     INTERFACE_NAME = "general/get_trade_distribution"
-    COLUMNS = ["data_list", "financial_hold_num", "financial_win_num", "most_profit_financial_code",
-               "most_profit_financial_name", "most_profit_financial_income", "most_loss_financial_code",
-               "most_loss_financial_name", "most_loss_financial_income", "financial_buy_num", "financial_sell_num",
-               "financial_trade_data_list"]
-    COLUMNS = ["distribute_type", "distribute_mode", "distribute_value", "distribute_name"]
+    COLUMNS = ["data_list", "count"]
 
     @classmethod
     def setUpClass(cls):
@@ -459,9 +455,12 @@ class GetTradeDistribution(unittest.TestCase):
         row_key = ",".join([self.data.get("fund_account_reversed"), self.data.get("interval"),
                             "0", init_date_to_cal_date(self.info.get("init_date"))])
         hbase_result_origin = hbase_client.getRow(tableName=GetTradeDistribution.TABLE_NAME, row=row_key)
+        hbase_result = hbase_result_deal.deal(hbase_result=hbase_result_origin, is_json_content=True,
+                               list_name=["distribute_content", "data_list"])
+        hbase_result.setdefault("count", len(hbase_result.get("data_list", 0))+7)
         hbase_command = """get "{0}", "{1}" """.format(GetTradeDistribution.TABLE_NAME, row_key)
         # self.assertTrue(0, msg="hbase:{0}\nresult:{1}\ncommand:{2}".format(hbase_result_origin, interface_result, hbase_command))
-        checking(self=self, class_name=GetTradeDistribution, sql_result=hbase_result_origin,
+        checking(self=self, class_name=GetTradeDistribution, sql_result=hbase_result,
                  interface_result=interface_result, is_hbase_result=True, is_json_content=True,
                  sql=hbase_command, url=url, data=data, table_columns=GetTradeDistribution.COLUMNS,
                  list_name=["distribute_content", "data_list"])
@@ -495,7 +494,8 @@ class GetTradeStyle(unittest.TestCase):
         # self.assertTrue(0, msg="command {0}".format(hbase_command))
         checking(self=self, class_name=GetTradeStyle, sql_result=hbase_result_origin,
                  interface_result=interface_result, is_hbase_result=True, is_json_content=False,
-                 sql=hbase_command, url=url, data=data, table_columns=GetTradeStyle.COLUMNS, )
+                 sql=hbase_command, url=url, data=data, table_columns=GetTradeStyle.COLUMNS,
+                 list_name=["avg_market_value", "avg_position", "avg_market_value_rank", "avg_position_rank"])
 
 
 class GetTradeStatistics(unittest.TestCase):
@@ -618,7 +618,6 @@ def checking(self, class_name, sql_result, interface_result, is_fetchone=True, *
     if params.get("is_hbase_result"):
         sql_result = hbase_result_deal.deal(sql_result, is_json_content=params.get("is_json_content"),
                                             list_name=params.get("list_name"))
-
         # 根据传入的数据进行计算， 列表中第一个为输出的字段，其他个数为计算表达式的一部分
         if params.get("calculation"):
             expression = ""
@@ -634,13 +633,15 @@ def checking(self, class_name, sql_result, interface_result, is_fetchone=True, *
         if len(params.get("list_name", [])) > 1:
             for column in params.get("list_name"):
                 if not sql_result.get(column, False):
-                    origin_column = column
+                    # origin_column = column
+                    new_column = column
                     # list_name 允许存在多组数据， eg: [old_1, new_1, old_2, new_2]
                     if params.get("list_name").index(column) / 2 == 0:
                         tmp = params.get("list_name").index(column) + 1
                     else:
                         tmp = params.get("list_name").index(column) - 1
-                    new_column = params.get("list_name")[tmp]
+                    # new_column = params.get("list_name")[tmp]
+                    origin_column = params.get("list_name")[tmp]
                     sql_result.setdefault(new_column, sql_result.get(origin_column))
 
         try:
@@ -674,7 +675,7 @@ def checking(self, class_name, sql_result, interface_result, is_fetchone=True, *
                     # 若字段已被重新命名
                     # if column in params.get("list_name"):
                     #     self.assertEqual(str(sql_result.get(column)), str(interface_result.get(column)), msg=msg_model)
-                    self.assertEqual(str(sql_result.get(column)), str(interface_result.get(column)), msg=msg_model)
+                    self.assertEqual(str(sql_result.get(column, '')), str(interface_result.get(column)), msg=msg_model)
                     continue
 
         except TypeError:
