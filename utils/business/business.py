@@ -50,6 +50,23 @@ class CumulativeRate:
 
         return data_dealed
 
+    def cal_cumulative_rate_for_element_is_dict(self, data, ratio_column_name, cumulative_ratio_column_name,
+                                                decimal=4):
+        """
+        Calculate rate.
+        :param data: data is [{}, {}, {}] 
+        :param ratio_column: ratio_column is {yield: cumulative_rate}
+        :return: 
+        """
+        data_dealed = []
+        cumulative_rate = 0
+        for num_index, element in enumerate(data):
+            day_ratio = eval(element.get(ratio_column_name))
+            cumulative_rate = round((1 + cumulative_rate) * (1 + day_ratio) - 1, decimal)
+            element.setdefault(cumulative_ratio_column_name, cumulative_rate)
+            data_dealed.append(element)
+        return data_dealed
+
 def get_month_account_yield(data):
     """处理此接口的业务计算数据
     sql 结果字段顺序为： b.init_date, a.asset, b.income, (abs(b.fund_in) - abs(b.fund_out)) as net_fund_in, b.position
@@ -147,6 +164,9 @@ class HbaseResultDeal:
             # 处理hbase 获取出来的column
             if ":" in column:
                 column = column.split(":")[1]
+            # 特殊处理出参字段为 yield 但是为python 关键字， 不能传入的问题
+            if value == "yield":
+                column = value
             if column != value and value != "yield":
                 hbase_dict.setdefault(column, value)
             else:
@@ -161,9 +181,6 @@ class HbaseResultDeal:
                 if column in func.keys():
                     hbase_dict.setdefault(column, func.get(column)(d))
                 else:
-                    # 特殊处理出参字段为 yield 但是为python 关键字， 不能传入的问题
-                    if value == "yield":
-                        column = value
                     hbase_dict.setdefault(column, d)
 
         return hbase_dict

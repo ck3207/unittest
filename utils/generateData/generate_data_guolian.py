@@ -140,11 +140,15 @@ class GuoLianAnalysis:
             init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
                           datetime.timedelta(days=init_date_delay)).strftime('%Y%m%d')
             for fund_account_num in range(self.fund_account):
+                if fund_account_num % 2 == 0:
+                    trade_type = "0"
+                else:
+                    trade_type = "1"
                 fund_account = "".join(reversed(str(self.start_fund_account + fund_account_num)))
 
                 for interval_type in self.interval_types:
                     distribute_content = self.__get_stock_code_info_list(interval_trade_distribution=1)
-                    sql += sql_model.format(",".join([fund_account, interval_type, random.choice(["0", "1"]),
+                    sql += sql_model.format(",".join([fund_account, interval_type, trade_type,
                                                       str(self.init_date_special_deal_num-int(init_date))]),
                                             distribute_content)
 
@@ -384,8 +388,8 @@ class GuoLianAnalysis:
                        "business_time": "{0}{1}{1}".format(random.randint(9, 11), random.randint(0, 60)),
                        "serial_no": "{0}".format(int(base_num + self.get_random_num(12345, 0, 1))),
                        "business_flag": GuoLianAnalysis.BUSINESS_FLAG.get(business_name),
-                       "business_amount": self.get_random_num(123000, 2, 1),
-                       "post_amount": self.get_random_num(123000, 2, 1),
+                       "business_amount": self.get_random_num(1230, 0, 1),
+                       "post_amount": self.get_random_num(1230, 0, 1),
                        "business_price": self.get_random_num(100, 4, 1),
                        "business_balance": self.get_random_num(123456, 2, 0),
                        "money_type": "0"}
@@ -445,15 +449,15 @@ if __name__ == "__main__":
     guolian_analysis.write_to_file("guolian_analysis.sql")
     # guolian_analysis.user_daily_asset()
     # guolian_analysis.user_daily_data()
-    # guolian_analysis.his_deliver()
+    guolian_analysis.his_deliver()
     # guolian_analysis.credit_user_daily_data()
     # guolian_analysis.basic_data()
     # guolian_analysis.credit_basic_data()
     # guolian_analysis.daily_basic_data()
-    guolian_analysis.home_page_data()
+    # guolian_analysis.home_page_data()
     # guolian_analysis.interval_trade_distribution()
     # guolian_analysis.trade_statistics()
-    # guolian_analysis.interval_stock()
+    # guolian_analysis.interval_stock()nihaowoshinigegellllll
     # guolian_analysis.interval_fund_rank()
     # guolian_analysis.cal_record()
 

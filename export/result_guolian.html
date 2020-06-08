@@ -189,9 +189,9 @@ function showOutput(id, name) {
 
 <div class='heading'>
 <h1>测试报告</h1>
-<p class='attribute'><strong>Start Time:</strong> 2020-06-05 17:31:40</p>
-<p class='attribute'><strong>Duration:</strong> 0:00:01.109000</p>
-<p class='attribute'><strong>Status:</strong> Pass 15 Failure 4 Error 1</p>
+<p class='attribute'><strong>Start Time:</strong> 2020-06-08 19:35:18</p>
+<p class='attribute'><strong>Duration:</strong> 0:00:01.342000</p>
+<p class='attribute'><strong>Status:</strong> Pass 21 Failure 3</p>
 
 <p class='description'>单元测试报告：</p>
 </div>
@@ -221,81 +221,22 @@ function showOutput(id, name) {
     <td>View</td>
 </tr>
 
-<tr class='failClass'>
+<tr class='passClass'>
     <td>GetAccountYield</td>
     <td>1</td>
-    <td>0</td>
     <td>1</td>
+    <td>0</td>
     <td>0</td>
     <td><a href="javascript:showClassDetail('c1',1)">Detail</a></td>
 </tr>
 
-<tr id='ft1.1' class='none'>
-    <td class='failCase'><div class='testcase'>test_normal</div></td>
-    <td colspan='5' align='center'>
-
-    <!--css div popup start-->
-    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft1.1')" >
-        fail</a>
-
-    <div id='div_ft1.1' class="popup_window">
-        <div style='text-align: right; color:red;cursor:pointer'>
-        <a onfocus='this.blur();' onclick="document.getElementById('div_ft1.1').style.display = 'none' " >
-           [x]</a>
-        </div>
-        <pre>
-        
-ft1.1: Traceback (most recent call last):
-  File "analysis_guolian.py", line 45, in test_normal
-    special_column=["accumulative_yield"])
-  File "analysis_guolian.py", line 878, in checking
-    self.assertEqual(str(sql_result.get(column, '')), str(interface_result.get(column)), msg=msg_model)
-AssertionError: '20200430' != 'None'
-- 20200430
-+ None
- : 
-SQL is
- get "zhfx_gl_chenk:user_daily_data", "88888,79799569" 
- Interface is
- http://10.20.18.174:18083/guolian/general/get_account_yield
- params is
- {"init_date": "20200430", "fund_account": "88888", "interval": "1", "fund_account_reversed": "88888"}
-Interface response is
- {'error_no': '0', 'error_info': '执行成功', 'data_list': [{'init_date': 20200331, 'income': -51233.92, 'yield': -0.5116, 'accumulative_yield': -0.5116, 'position': 0.57, 'daily_income': -51233.92, 'daily_income_ratio': -0.5116}, {'init_date': 20200401, 'income': 56549.95, 'yield': 0.8406, 'accumulative_yield': -0.1011, 'position': 0.2309, 'daily_income': 56549.95, 'daily_income_ratio': 0.8406}, {'init_date': 20200402, 'income': 11642.72, 'yield': 0.4361, 'accumulative_yield': 0.2909, 'position': 0.9303, 'daily_income': 11642.72, 'daily_income_ratio': 0.4361}, {'init_date': 20200403, 'income': 49235.64, 'yield': 0.0338, 'accumulative_yield': 0.3345, 'position': 0.3309, 'daily_income': 49235.64, 'daily_income_ratio': 0.0338}, {'init_date': 20200404, 'income': -17502.57, 'yield': 0.651, 'accumulative_yield': 1.2033, 'position': 0.2636, 'daily_income': -17502.57, 'daily_income_ratio': 0.651}, {'init_date': 20200405, 'income': -122428.14, 'yield': -0.1103, 'accumulative_yield': 0.9603, 'position': 0.6609, 'daily_income': -122428.14, 'daily_income_ratio': -0.1103}, {'init_date': 20200406, 'income': 70166.79, 'yield': 0.1223, 'accumulative_yield': 1.2, 'position': 0.8688, 'daily_income': 70166.79, 'daily_income_ratio': 0.1223}, {'init_date': 20200407, 'income': -13257.33, 'yield': -0.2253, 'accumulative_yield': 0.7043, 'position': 0.0747, 'daily_income': -13257.33, 'daily_income_ratio': -0.2253}, {'init_date': 20200408, 'income': 27365.87, 'yield': 0.8762, 'accumulative_yield': 2.1976, 'position': 0.0527, 'daily_income': 27365.87, 'daily_income_ratio': 0.8762}, {'init_date': 20200409, 'income': 5165.99, 'yield': 0.9658, 'accumulative_yield': 5.2858, 'position': 0.7522, 'daily_income': 5165.99, 'daily_income_ratio': 0.9658}, {'init_date': 20200410, 'income': -16769.1, 'yield': 0.7811, 'accumulative_yield': 10.1956, 'position': 0.7699, 'daily_income': -16769.1, 'daily_income_ratio': 0.7811}, {'init_date': 20200411, 'income': -1976.4, 'yield': 0.4862, 'accumulative_yield': 15.6389, 'position': 0.7577, 'daily_income': -1976.4, 'daily_income_ratio': 0.4862}, {'init_date': 20200412, 'income': 74246.26, 'yield': 0.2132, 'accumulative_yield': 19.1863, 'position': 0.2503, 'daily_income': 74246.26, 'daily_income_ratio': 0.2132}, {'init_date': 20200413, 'income': -20731.48, 'yield': 0.8221, 'accumulative_yield': 35.7815, 'position': 0.0779, 'daily_income': -20731.48, 'daily_income_ratio': 0.8221}, {'init_date': 20200414, 'income': -108689.88, 'yield': 0.7905, 'accumulative_yield': 64.8573, 'position': 0.0437, 'daily_income': -108689.88, 'daily_income_ratio': 0.7905}, {'init_date': 20200415, 'income': -41972.17, 'yield': -0.9122, 'accumulative_yield': 4.7823, 'position': 0.8604, 'daily_income': -41972.17, 'daily_income_ratio': -0.9122}, {'init_date': 20200416, 'income': -44977.68, 'yield': -0.0581, 'accumulative_yield': 4.4463, 'position': 0.188, 'daily_income': -44977.68, 'daily_income_ratio': -0.0581}, {'init_date': 20200417, 'income': 101460.93, 'yield': -0.1276, 'accumulative_yield': 3.7514, 'position': 0.9785, 'daily_income': 101460.93, 'daily_income_ratio': -0.1276}, {'init_date': 20200418, 'income': -11863.52, 'yield': -0.9353, 'accumulative_yield': -0.6926, 'position': 0.7097, 'daily_income': -11863.52, 'daily_income_ratio': -0.9353}, {'init_date': 20200419, 'income': -117652.99, 'yield': 0.3618, 'accumulative_yield': -0.5814, 'position': 0.6695, 'daily_income': -117652.99, 'daily_income_ratio': 0.3618}, {'init_date': 20200420, 'income': -86283.71, 'yield': -0.5583, 'accumulative_yield': -0.8151, 'position': 0.1418, 'daily_income': -86283.71, 'daily_income_ratio': -0.5583}, {'init_date': 20200421, 'income': -51975.15, 'yield': -0.8041, 'accumulative_yield': -0.9638, 'position': 0.3896, 'daily_income': -51975.15, 'daily_income_ratio': -0.8041}, {'init_date': 20200422, 'income': 105788.03, 'yield': -0.7167, 'accumulative_yield': -0.9897, 'position': 0.6349, 'daily_income': 105788.03, 'daily_income_ratio': -0.7167}, {'init_date': 20200423, 'income': 103170.4, 'yield': 0.4513, 'accumulative_yield': -0.9851, 'position': 0.0832, 'daily_income': 103170.4, 'daily_income_ratio': 0.4513}, {'init_date': 20200424, 'income': -54223.87, 'yield': 0.5862, 'accumulative_yield': -0.9764, 'position': 0.8164, 'daily_income': -54223.87, 'daily_income_ratio': 0.5862}, {'init_date': 20200425, 'income': 31802.65, 'yield': 0.5849, 'accumulative_yield': -0.9626, 'position': 0.8838, 'daily_income': 31802.65, 'daily_income_ratio': 0.5849}, {'init_date': 20200426, 'income': 15834.26, 'yield': 0.8544, 'accumulative_yield': -0.9306, 'position': 0.2526, 'daily_income': 15834.26, 'daily_income_ratio': 0.8544}, {'init_date': 20200427, 'income': 21550.14, 'yield': -0.5857, 'accumulative_yield': -0.9712, 'position': 0.8184, 'daily_income': 21550.14, 'daily_income_ratio': -0.5857}, {'init_date': 20200428, 'income': 95508.24, 'yield': 0.0843, 'accumulative_yield': -0.9688, 'position': 0.8891, 'daily_income': 95508.24, 'daily_income_ratio': 0.0843}, {'init_date': 20200429, 'income': -64728.38, 'yield': -0.9159, 'accumulative_yield': -0.9974, 'position': 0.0889, 'daily_income': -64728.38, 'daily_income_ratio': -0.9159}, {'init_date': 20200430, 'income': 22078.19, 'yield': -0.4973, 'accumulative_yield': -0.9987, 'position': 0.3328, 'daily_income': 22078.19, 'daily_income_ratio': -0.4973}], 'count': 31}
-                Hbase result is
-{'daily_income': '22078.19', 'daily_income_ratio': '-0.4973', 'daily_income_ratio_percent': '0.98', 'deliver_content': [{'stock_code': '002460', 'stock_name': '赣锋锂业', 'exchange_type': '1', 'init_date': '20200430', 'business_time': '9:18:18', 'business_flag': '4001', 'business_amount': 15529.09, 'business_price': 2.5978, 'business_status': 2, 'business_balance': 6308.9}, {'stock_code': '600388', 'stock_name': '龙净环保', 'exchange_type': '0', 'init_date': '20200430', 'business_time': '9:57:57', 'business_flag': '4016', 'business_amount': 103627.04, 'business_price': 38.6163, 'business_status': 4, 'business_balance': -64529.35}, {'stock_code': '601318', 'stock_name': '中国平安', 'exchange_type': '0', 'init_date': '20200430', 'business_time': '9:33:33', 'business_flag': '4002', 'business_amount': 1089.52, 'business_price': 4.5662, 'business_status': 4, 'business_balance': 82423.11}, {'stock_code': '002142', 'stock_name': '宁波银行', 'exchange_type': '1', 'init_date': '20200430', 'business_time': '10:34:34', 'business_flag': '4016', 'business_amount': 27266.91, 'business_price': 68.8382, 'business_status': 1, 'business_balance': 112369.08}, {'stock_code': '300498', 'stock_name': '温氏股份', 'exchange_type': '1', 'init_date': '20200430', 'business_time': '10:54:54', 'business_flag': '4015', 'business_amount': 7444.65, 'business_price': 14.3769, 'business_status': 4, 'business_balance': -36678.43}, {'stock_code': '002415', 'stock_name': '海康威视', 'exchange_type': '1', 'init_date': '20200430', 'business_time': '9:33:33', 'business_flag': '4002', 'business_amount': 99591.32, 'business_price': 43.0009, 'business_status': 1, 'business_balance': -44745.09}, {'stock_code': '002475', 'stock_name': '立讯精密', 'exchange_type': '1', 'init_date': '20200430', 'business_time': '11:30:30', 'business_flag': '4015', 'business_amount': 2601.3, 'business_price': 65.065, 'business_status': 4, 'business_balance': 9327.13}, {'stock_code': '601628', 'stock_name': '中国人寿', 'exchange_type': '0', 'init_date': '20200430', 'business_time': '10:22:22', 'business_flag': '4002', 'business_amount': 14824.71, 'business_price': 40.6389, 'business_status': 3, 'business_balance': -17358.41}, {'stock_code': '601328', 'stock_name': '交通银行', 'exchange_type': '0', 'init_date': '20200430', 'business_time': '9:30:30', 'business_flag': '4016', 'business_amount': 105194.52, 'business_price': 87.7963, 'business_status': 3, 'business_balance': -103578.04}, {'stock_code': '601668', 'stock_name': '中国建筑', 'exchange_type': '0', 'init_date': '20200430', 'business_time': '10:47:47', 'business_flag': '4002', 'business_amount': 70613.0, 'business_price': 75.2919, 'business_status': 2, 'business_balance': -74846.1}, {'stock_code': '603288', 'stock_name': '海天味业', 'exchange_type': '0', 'init_date': '20200430', 'business_time': '9:5:5', 'business_flag': '4015', 'business_amount': 40957.44, 'business_price': 83.5612, 'business_status': 4, 'business_balance': -51476.83}, {'stock_code': '300033', 'stock_name': '同花顺', 'exchange_type': '1', 'init_date': '20200430', 'business_time': '10:39:39', 'business_flag': '4016', 'business_amount': 39184.58, 'business_price': 63.3715, 'business_status': 2, 'business_balance': 210.88}], 'hs_daily_income_ratio': '-0.5159', 'in_balance': '25792.59', 'init_date': '20200430', 'out_balance': '36554.8', 'position': '0.3328', 'single_stock_content': [{'stock_code': '002460', 'stock_name': '赣锋锂业', 'exchange_type': '1', 'stock_market_value': 1062278.39, 'single_stock_day_income': 3673.19, 'business_status': 4, 'single_stock_day_ratio': -0.1384, 'asset_price': 63.6057}, {'stock_code': '600388', 'stock_name': '龙净环保', 'exchange_type': '0', 'stock_market_value': 1042710.58, 'single_stock_day_income': 6982.07, 'business_status': 3, 'single_stock_day_ratio': -0.8417, 'asset_price': 5.865}, {'stock_code': '601318', 'stock_name': '中国平安', 'exchange_type': '0', 'stock_market_value': 1014004.08, 'single_stock_day_income': 8803.88, 'business_status': 2, 'single_stock_day_ratio': -0.5402, 'asset_price': 24.622}, {'stock_code': '002142', 'stock_name': '宁波银行', 'exchange_type': '1', 'stock_market_value': 1032210.39, 'single_stock_day_income': 3280.0, 'business_status': 3, 'single_stock_day_ratio': -0.9761, 'asset_price': 6.6441}, {'stock_code': '300498', 'stock_name': '温氏股份', 'exchange_type': '1', 'stock_market_value': 1086862.65, 'single_stock_day_income': 3215.28, 'business_status': 2, 'single_stock_day_ratio': 0.8393, 'asset_price': 97.2492}, {'stock_code': '002415', 'stock_name': '海康威视', 'exchange_type': '1', 'stock_market_value': 1119046.63, 'single_stock_day_income': 3205.32, 'business_status': 4, 'single_stock_day_ratio': -0.7455, 'asset_price': 57.3868}, {'stock_code': '002475', 'stock_name': '立讯精密', 'exchange_type': '1', 'stock_market_value': 1094898.37, 'single_stock_day_income': 9204.06, 'business_status': 1, 'single_stock_day_ratio': -0.0436, 'asset_price': 56.7405}, {'stock_code': '601628', 'stock_name': '中国人寿', 'exchange_type': '0', 'stock_market_value': 1009398.68, 'single_stock_day_income': 8933.83, 'business_status': 2, 'single_stock_day_ratio': -0.4561, 'asset_price': 41.4944}, {'stock_code': '601328', 'stock_name': '交通银行', 'exchange_type': '0', 'stock_market_value': 1009424.71, 'single_stock_day_income': 921.47, 'business_status': 4, 'single_stock_day_ratio': 0.4978, 'asset_price': 63.4691}, {'stock_code': '601668', 'stock_name': '中国建筑', 'exchange_type': '0', 'stock_market_value': 1102303.01, 'single_stock_day_income': 6275.48, 'business_status': 3, 'single_stock_day_ratio': -0.1465, 'asset_price': 65.0653}, {'stock_code': '603288', 'stock_name': '海天味业', 'exchange_type': '0', 'stock_market_value': 1072748.03, 'single_stock_day_income': 4032.77, 'business_status': 2, 'single_stock_day_ratio': 0.12, 'asset_price': 13.477}, {'stock_code': '300033', 'stock_name': '同花顺', 'exchange_type': '1', 'stock_market_value': 1071564.07, 'single_stock_day_income': 4742.3, 'business_status': 1, 'single_stock_day_ratio': -0.323, 'asset_price': 41.9371}], 'total_asset': '11536993.57', 'trade_balance': '114329.67'}
- column is [init_date]
-Traceback (most recent call last):
-  File "analysis_guolian.py", line 45, in test_normal
-    special_column=["accumulative_yield"])
-  File "analysis_guolian.py", line 878, in checking
-    self.assertEqual(str(sql_result.get(column, '')), str(interface_result.get(column)), msg=msg_model)
-AssertionError: '20200430' != 'None'
-- 20200430
-+ None
- : 
-SQL is
- get "zhfx_gl_chenk:user_daily_data", "88888,79799569" 
- Interface is
- http://10.20.18.174:18083/guolian/general/get_account_yield
- params is
- {"init_date": "20200430", "fund_account": "88888", "interval": "1", "fund_account_reversed": "88888"}
-Interface response is
- {'error_no': '0', 'error_info': '执行成功', 'data_list': [{'init_date': 20200331, 'income': -51233.92, 'yield': -0.5116, 'accumulative_yield': -0.5116, 'position': 0.57, 'daily_income': -51233.92, 'daily_income_ratio': -0.5116}, {'init_date': 20200401, 'income': 56549.95, 'yield': 0.8406, 'accumulative_yield': -0.1011, 'position': 0.2309, 'daily_income': 56549.95, 'daily_income_ratio': 0.8406}, {'init_date': 20200402, 'income': 11642.72, 'yield': 0.4361, 'accumulative_yield': 0.2909, 'position': 0.9303, 'daily_income': 11642.72, 'daily_income_ratio': 0.4361}, {'init_date': 20200403, 'income': 49235.64, 'yield': 0.0338, 'accumulative_yield': 0.3345, 'position': 0.3309, 'daily_income': 49235.64, 'daily_income_ratio': 0.0338}, {'init_date': 20200404, 'income': -17502.57, 'yield': 0.651, 'accumulative_yield': 1.2033, 'position': 0.2636, 'daily_income': -17502.57, 'daily_income_ratio': 0.651}, {'init_date': 20200405, 'income': -122428.14, 'yield': -0.1103, 'accumulative_yield': 0.9603, 'position': 0.6609, 'daily_income': -122428.14, 'daily_income_ratio': -0.1103}, {'init_date': 20200406, 'income': 70166.79, 'yield': 0.1223, 'accumulative_yield': 1.2, 'position': 0.8688, 'daily_income': 70166.79, 'daily_income_ratio': 0.1223}, {'init_date': 20200407, 'income': -13257.33, 'yield': -0.2253, 'accumulative_yield': 0.7043, 'position': 0.0747, 'daily_income': -13257.33, 'daily_income_ratio': -0.2253}, {'init_date': 20200408, 'income': 27365.87, 'yield': 0.8762, 'accumulative_yield': 2.1976, 'position': 0.0527, 'daily_income': 27365.87, 'daily_income_ratio': 0.8762}, {'init_date': 20200409, 'income': 5165.99, 'yield': 0.9658, 'accumulative_yield': 5.2858, 'position': 0.7522, 'daily_income': 5165.99, 'daily_income_ratio': 0.9658}, {'init_date': 20200410, 'income': -16769.1, 'yield': 0.7811, 'accumulative_yield': 10.1956, 'position': 0.7699, 'daily_income': -16769.1, 'daily_income_ratio': 0.7811}, {'init_date': 20200411, 'income': -1976.4, 'yield': 0.4862, 'accumulative_yield': 15.6389, 'position': 0.7577, 'daily_income': -1976.4, 'daily_income_ratio': 0.4862}, {'init_date': 20200412, 'income': 74246.26, 'yield': 0.2132, 'accumulative_yield': 19.1863, 'position': 0.2503, 'daily_income': 74246.26, 'daily_income_ratio': 0.2132}, {'init_date': 20200413, 'income': -20731.48, 'yield': 0.8221, 'accumulative_yield': 35.7815, 'position': 0.0779, 'daily_income': -20731.48, 'daily_income_ratio': 0.8221}, {'init_date': 20200414, 'income': -108689.88, 'yield': 0.7905, 'accumulative_yield': 64.8573, 'position': 0.0437, 'daily_income': -108689.88, 'daily_income_ratio': 0.7905}, {'init_date': 20200415, 'income': -41972.17, 'yield': -0.9122, 'accumulative_yield': 4.7823, 'position': 0.8604, 'daily_income': -41972.17, 'daily_income_ratio': -0.9122}, {'init_date': 20200416, 'income': -44977.68, 'yield': -0.0581, 'accumulative_yield': 4.4463, 'position': 0.188, 'daily_income': -44977.68, 'daily_income_ratio': -0.0581}, {'init_date': 20200417, 'income': 101460.93, 'yield': -0.1276, 'accumulative_yield': 3.7514, 'position': 0.9785, 'daily_income': 101460.93, 'daily_income_ratio': -0.1276}, {'init_date': 20200418, 'income': -11863.52, 'yield': -0.9353, 'accumulative_yield': -0.6926, 'position': 0.7097, 'daily_income': -11863.52, 'daily_income_ratio': -0.9353}, {'init_date': 20200419, 'income': -117652.99, 'yield': 0.3618, 'accumulative_yield': -0.5814, 'position': 0.6695, 'daily_income': -117652.99, 'daily_income_ratio': 0.3618}, {'init_date': 20200420, 'income': -86283.71, 'yield': -0.5583, 'accumulative_yield': -0.8151, 'position': 0.1418, 'daily_income': -86283.71, 'daily_income_ratio': -0.5583}, {'init_date': 20200421, 'income': -51975.15, 'yield': -0.8041, 'accumulative_yield': -0.9638, 'position': 0.3896, 'daily_income': -51975.15, 'daily_income_ratio': -0.8041}, {'init_date': 20200422, 'income': 105788.03, 'yield': -0.7167, 'accumulative_yield': -0.9897, 'position': 0.6349, 'daily_income': 105788.03, 'daily_income_ratio': -0.7167}, {'init_date': 20200423, 'income': 103170.4, 'yield': 0.4513, 'accumulative_yield': -0.9851, 'position': 0.0832, 'daily_income': 103170.4, 'daily_income_ratio': 0.4513}, {'init_date': 20200424, 'income': -54223.87, 'yield': 0.5862, 'accumulative_yield': -0.9764, 'position': 0.8164, 'daily_income': -54223.87, 'daily_income_ratio': 0.5862}, {'init_date': 20200425, 'income': 31802.65, 'yield': 0.5849, 'accumulative_yield': -0.9626, 'position': 0.8838, 'daily_income': 31802.65, 'daily_income_ratio': 0.5849}, {'init_date': 20200426, 'income': 15834.26, 'yield': 0.8544, 'accumulative_yield': -0.9306, 'position': 0.2526, 'daily_income': 15834.26, 'daily_income_ratio': 0.8544}, {'init_date': 20200427, 'income': 21550.14, 'yield': -0.5857, 'accumulative_yield': -0.9712, 'position': 0.8184, 'daily_income': 21550.14, 'daily_income_ratio': -0.5857}, {'init_date': 20200428, 'income': 95508.24, 'yield': 0.0843, 'accumulative_yield': -0.9688, 'position': 0.8891, 'daily_income': 95508.24, 'daily_income_ratio': 0.0843}, {'init_date': 20200429, 'income': -64728.38, 'yield': -0.9159, 'accumulative_yield': -0.9974, 'position': 0.0889, 'daily_income': -64728.38, 'daily_income_ratio': -0.9159}, {'init_date': 20200430, 'income': 22078.19, 'yield': -0.4973, 'accumulative_yield': -0.9987, 'position': 0.3328, 'daily_income': 22078.19, 'daily_income_ratio': -0.4973}], 'count': 31}
-                Hbase result is
-{'daily_income': '22078.19', 'daily_income_ratio': '-0.4973', 'daily_income_ratio_percent': '0.98', 'deliver_content': [{'stock_code': '002460', 'stock_name': '赣锋锂业', 'exchange_type': '1', 'init_date': '20200430', 'business_time': '9:18:18', 'business_flag': '4001', 'business_amount': 15529.09, 'business_price': 2.5978, 'business_status': 2, 'business_balance': 6308.9}, {'stock_code': '600388', 'stock_name': '龙净环保', 'exchange_type': '0', 'init_date': '20200430', 'business_time': '9:57:57', 'business_flag': '4016', 'business_amount': 103627.04, 'business_price': 38.6163, 'business_status': 4, 'business_balance': -64529.35}, {'stock_code': '601318', 'stock_name': '中国平安', 'exchange_type': '0', 'init_date': '20200430', 'business_time': '9:33:33', 'business_flag': '4002', 'business_amount': 1089.52, 'business_price': 4.5662, 'business_status': 4, 'business_balance': 82423.11}, {'stock_code': '002142', 'stock_name': '宁波银行', 'exchange_type': '1', 'init_date': '20200430', 'business_time': '10:34:34', 'business_flag': '4016', 'business_amount': 27266.91, 'business_price': 68.8382, 'business_status': 1, 'business_balance': 112369.08}, {'stock_code': '300498', 'stock_name': '温氏股份', 'exchange_type': '1', 'init_date': '20200430', 'business_time': '10:54:54', 'business_flag': '4015', 'business_amount': 7444.65, 'business_price': 14.3769, 'business_status': 4, 'business_balance': -36678.43}, {'stock_code': '002415', 'stock_name': '海康威视', 'exchange_type': '1', 'init_date': '20200430', 'business_time': '9:33:33', 'business_flag': '4002', 'business_amount': 99591.32, 'business_price': 43.0009, 'business_status': 1, 'business_balance': -44745.09}, {'stock_code': '002475', 'stock_name': '立讯精密', 'exchange_type': '1', 'init_date': '20200430', 'business_time': '11:30:30', 'business_flag': '4015', 'business_amount': 2601.3, 'business_price': 65.065, 'business_status': 4, 'business_balance': 9327.13}, {'stock_code': '601628', 'stock_name': '中国人寿', 'exchange_type': '0', 'init_date': '20200430', 'business_time': '10:22:22', 'business_flag': '4002', 'business_amount': 14824.71, 'business_price': 40.6389, 'business_status': 3, 'business_balance': -17358.41}, {'stock_code': '601328', 'stock_name': '交通银行', 'exchange_type': '0', 'init_date': '20200430', 'business_time': '9:30:30', 'business_flag': '4016', 'business_amount': 105194.52, 'business_price': 87.7963, 'business_status': 3, 'business_balance': -103578.04}, {'stock_code': '601668', 'stock_name': '中国建筑', 'exchange_type': '0', 'init_date': '20200430', 'business_time': '10:47:47', 'business_flag': '4002', 'business_amount': 70613.0, 'business_price': 75.2919, 'business_status': 2, 'business_balance': -74846.1}, {'stock_code': '603288', 'stock_name': '海天味业', 'exchange_type': '0', 'init_date': '20200430', 'business_time': '9:5:5', 'business_flag': '4015', 'business_amount': 40957.44, 'business_price': 83.5612, 'business_status': 4, 'business_balance': -51476.83}, {'stock_code': '300033', 'stock_name': '同花顺', 'exchange_type': '1', 'init_date': '20200430', 'business_time': '10:39:39', 'business_flag': '4016', 'business_amount': 39184.58, 'business_price': 63.3715, 'business_status': 2, 'business_balance': 210.88}], 'hs_daily_income_ratio': '-0.5159', 'in_balance': '25792.59', 'init_date': '20200430', 'out_balance': '36554.8', 'position': '0.3328', 'single_stock_content': [{'stock_code': '002460', 'stock_name': '赣锋锂业', 'exchange_type': '1', 'stock_market_value': 1062278.39, 'single_stock_day_income': 3673.19, 'business_status': 4, 'single_stock_day_ratio': -0.1384, 'asset_price': 63.6057}, {'stock_code': '600388', 'stock_name': '龙净环保', 'exchange_type': '0', 'stock_market_value': 1042710.58, 'single_stock_day_income': 6982.07, 'business_status': 3, 'single_stock_day_ratio': -0.8417, 'asset_price': 5.865}, {'stock_code': '601318', 'stock_name': '中国平安', 'exchange_type': '0', 'stock_market_value': 1014004.08, 'single_stock_day_income': 8803.88, 'business_status': 2, 'single_stock_day_ratio': -0.5402, 'asset_price': 24.622}, {'stock_code': '002142', 'stock_name': '宁波银行', 'exchange_type': '1', 'stock_market_value': 1032210.39, 'single_stock_day_income': 3280.0, 'business_status': 3, 'single_stock_day_ratio': -0.9761, 'asset_price': 6.6441}, {'stock_code': '300498', 'stock_name': '温氏股份', 'exchange_type': '1', 'stock_market_value': 1086862.65, 'single_stock_day_income': 3215.28, 'business_status': 2, 'single_stock_day_ratio': 0.8393, 'asset_price': 97.2492}, {'stock_code': '002415', 'stock_name': '海康威视', 'exchange_type': '1', 'stock_market_value': 1119046.63, 'single_stock_day_income': 3205.32, 'business_status': 4, 'single_stock_day_ratio': -0.7455, 'asset_price': 57.3868}, {'stock_code': '002475', 'stock_name': '立讯精密', 'exchange_type': '1', 'stock_market_value': 1094898.37, 'single_stock_day_income': 9204.06, 'business_status': 1, 'single_stock_day_ratio': -0.0436, 'asset_price': 56.7405}, {'stock_code': '601628', 'stock_name': '中国人寿', 'exchange_type': '0', 'stock_market_value': 1009398.68, 'single_stock_day_income': 8933.83, 'business_status': 2, 'single_stock_day_ratio': -0.4561, 'asset_price': 41.4944}, {'stock_code': '601328', 'stock_name': '交通银行', 'exchange_type': '0', 'stock_market_value': 1009424.71, 'single_stock_day_income': 921.47, 'business_status': 4, 'single_stock_day_ratio': 0.4978, 'asset_price': 63.4691}, {'stock_code': '601668', 'stock_name': '中国建筑', 'exchange_type': '0', 'stock_market_value': 1102303.01, 'single_stock_day_income': 6275.48, 'business_status': 3, 'single_stock_day_ratio': -0.1465, 'asset_price': 65.0653}, {'stock_code': '603288', 'stock_name': '海天味业', 'exchange_type': '0', 'stock_market_value': 1072748.03, 'single_stock_day_income': 4032.77, 'business_status': 2, 'single_stock_day_ratio': 0.12, 'asset_price': 13.477}, {'stock_code': '300033', 'stock_name': '同花顺', 'exchange_type': '1', 'stock_market_value': 1071564.07, 'single_stock_day_income': 4742.3, 'business_status': 1, 'single_stock_day_ratio': -0.323, 'asset_price': 41.9371}], 'total_asset': '11536993.57', 'trade_balance': '114329.67'}
- column is [init_date]
-
-
-        </pre>
-    </div>
-    <!--css div popup end-->
-
-    </td>
+<tr id='pt1.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>pass</td>
 </tr>
 
 <tr class='failClass'>
-    <td>GetIncomeAnalyze</td>
+    <td>GetHisDeliver</td>
     <td>1</td>
     <td>0</td>
     <td>1</td>
@@ -319,9 +260,84 @@ Interface response is
         <pre>
         
 ft2.1: Traceback (most recent call last):
-  File "analysis_guolian.py", line 80, in test_normal
+  File "analysis_guolian.py", line 123, in test_normal
+    sql=hbase_command, url=url, data=data, table_columns=GetHisDeliver.COLUMNS,)
+  File "analysis_guolian.py", line 1138, in checking
+    self.assertEqual(str(v), str(interface_result.get(column)[i].get(k)), msg=msg_model)
+AssertionError: '112723.23' != '112723'
+- 112723.23
+?       ---
++ 112723
+ : 
+SQL is
+ get "zhfx_gl_chenk:his_deliver", "88888,79799569,002142,1" 
+ Interface is
+ http://10.20.18.174:18083/guolian/general/get_his_deliver
+ params is
+ {"fund_account": "88888", "credit_fund_account": "88889", "init_date": "20200430", "page_size": "100", "interval": "1", "asset_prop": "0", "cal_init_date": "20200430", "stock_code": "002142", "exchange_type": "1", "trade_type": "0", "fund_account_reversed": "88888", "credit_fund_account_reversed": "98888"}
+Interface response is
+ {'error_no': '0', 'error_info': '执行成功', 'data_list': [{'init_date': 20200331, 'business_time': 92323, 'serial_no': 1001668, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4001', 'business_amount': 112723, 'post_amount': 51910, 'business_price': 16.0076, 'business_balance': 79817.53}, {'init_date': 20200401, 'business_time': 104747, 'serial_no': 1011955, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4015', 'business_amount': 97632, 'post_amount': 19947, 'business_price': 3.4163, 'business_balance': 99080.2}, {'init_date': 20200402, 'business_time': 999, 'serial_no': 1009397, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4015', 'business_amount': 29224, 'post_amount': 9294, 'business_price': 5.6948, 'business_balance': 24358.17}, {'init_date': 20200403, 'business_time': 111515, 'serial_no': 1012229, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4016', 'business_amount': 88911, 'post_amount': 104659, 'business_price': 56.555, 'business_balance': 33238.54}, {'init_date': 20200404, 'business_time': 113535, 'serial_no': 1008271, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4015', 'business_amount': 94689, 'post_amount': 6754, 'business_price': 24.734, 'business_balance': -85761.09}, {'init_date': 20200405, 'business_time': 114747, 'serial_no': 1004888, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4015', 'business_amount': 60392, 'post_amount': 26860, 'business_price': 79.9801, 'business_balance': 19904.17}, {'init_date': 20200406, 'business_time': 91313, 'serial_no': 1002846, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4002', 'business_amount': 85361, 'post_amount': 69309, 'business_price': 9.7476, 'business_balance': -9546.83}, {'init_date': 20200407, 'business_time': 111414, 'serial_no': 1009851, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4002', 'business_amount': 75002, 'post_amount': 84997, 'business_price': 23.5018, 'business_balance': -8591.39}, {'init_date': 20200408, 'business_time': 95656, 'serial_no': 1000163, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4002', 'business_amount': 14109, 'post_amount': 59268, 'business_price': 44.971, 'business_balance': -74740.51}, {'init_date': 20200409, 'business_time': 102323, 'serial_no': 1006490, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4015', 'business_amount': 59586, 'post_amount': 17581, 'business_price': 89.0114, 'business_balance': 20457.64}, {'init_date': 20200410, 'business_time': 101010, 'serial_no': 1009076, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4015', 'business_amount': 3872, 'post_amount': 107146, 'business_price': 10.5552, 'business_balance': -113636.66}, {'init_date': 20200411, 'business_time': 112222, 'serial_no': 1004071, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4015', 'business_amount': 5109, 'post_amount': 357, 'business_price': 31.1925, 'business_balance': -92083.8}, {'init_date': 20200412, 'business_time': 92323, 'serial_no': 1001068, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4002', 'business_amount': 11058, 'post_amount': 67779, 'business_price': 25.4343, 'business_balance': 100950.48}, {'init_date': 20200413, 'business_time': 102020, 'serial_no': 1009757, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4015', 'business_amount': 102148, 'post_amount': 121508, 'business_price': 96.4955, 'business_balance': 44267.97}, {'init_date': 20200414, 'business_time': 94242, 'serial_no': 1002218, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4001', 'business_amount': 74140, 'post_amount': 98022, 'business_price': 5.8097, 'business_balance': 92566.79}, {'init_date': 20200415, 'business_time': 102626, 'serial_no': 1010835, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4016', 'business_amount': 121179, 'post_amount': 63669, 'business_price': 58.2424, 'business_balance': 24429.21}, {'init_date': 20200416, 'business_time': 102121, 'serial_no': 1012083, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4002', 'business_amount': 86868, 'post_amount': 59267, 'business_price': 47.4794, 'business_balance': 112158.33}, {'init_date': 20200417, 'business_time': 977, 'serial_no': 1002301, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4002', 'business_amount': 120002, 'post_amount': 45789, 'business_price': 17.9855, 'business_balance': 58448.21}, {'init_date': 20200418, 'business_time': 114545, 'serial_no': 1008957, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4002', 'business_amount': 42809, 'post_amount': 109274, 'business_price': 61.2987, 'business_balance': 116962.86}, {'init_date': 20200419, 'business_time': 1166, 'serial_no': 1006092, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4001', 'business_amount': 111308, 'post_amount': 119755, 'business_price': 57.9877, 'business_balance': -35700.14}, {'init_date': 20200420, 'business_time': 103030, 'serial_no': 1011285, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4015', 'business_amount': 84806, 'post_amount': 68929, 'business_price': 78.0812, 'business_balance': -22953.15}, {'init_date': 20200421, 'business_time': 104242, 'serial_no': 1002936, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4016', 'business_amount': 114319, 'post_amount': 98575, 'business_price': 35.7196, 'business_balance': -38075.35}, {'init_date': 20200422, 'business_time': 115050, 'serial_no': 1011209, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4015', 'business_amount': 31989, 'post_amount': 47791, 'business_price': 64.0332, 'business_balance': 39932.22}, {'init_date': 20200423, 'business_time': 113939, 'serial_no': 1001710, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4015', 'business_amount': 29989, 'post_amount': 26529, 'business_price': 76.4893, 'business_balance': -120730.53}, {'init_date': 20200424, 'business_time': 95151, 'serial_no': 1005654, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4015', 'business_amount': 120622, 'post_amount': 31755, 'business_price': 73.3279, 'business_balance': -72539.22}, {'init_date': 20200425, 'business_time': 112626, 'serial_no': 1001928, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4016', 'business_amount': 35226, 'post_amount': 27565, 'business_price': 72.2915, 'business_balance': 65027.71}, {'init_date': 20200426, 'business_time': 104949, 'serial_no': 1011392, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4002', 'business_amount': 33965, 'post_amount': 106361, 'business_price': 73.9367, 'business_balance': -76093.0}, {'init_date': 20200427, 'business_time': 104141, 'serial_no': 1005747, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4001', 'business_amount': 73203, 'post_amount': 70143, 'business_price': 18.6222, 'business_balance': -32297.08}, {'init_date': 20200428, 'business_time': 1066, 'serial_no': 1011847, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4001', 'business_amount': 110937, 'post_amount': 85860, 'business_price': 71.4524, 'business_balance': -52718.66}, {'init_date': 20200429, 'business_time': 111616, 'serial_no': 1006149, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4015', 'business_amount': 103455, 'post_amount': 10563, 'business_price': 45.1923, 'business_balance': -76362.69}, {'init_date': 20200430, 'business_time': 105050, 'serial_no': 1005167, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4015', 'business_amount': 13699, 'post_amount': 103236, 'business_price': 8.4547, 'business_balance': -44017.67}], 'count': 31, 'end_date': 20200430, 'begin_date': 20200331, 'info': [{'init_date': '20200331', 'type': '3'}, {'init_date': '20200401', 'type': '4'}, {'init_date': '20200402', 'type': '4'}, {'init_date': '20200403', 'type': '4'}, {'init_date': '20200404', 'type': '4'}, {'init_date': '20200405', 'type': '4'}, {'init_date': '20200406', 'type': '2'}, {'init_date': '20200407', 'type': '2'}, {'init_date': '20200408', 'type': '2'}, {'init_date': '20200409', 'type': '4'}, {'init_date': '20200410', 'type': '4'}, {'init_date': '20200411', 'type': '4'}, {'init_date': '20200412', 'type': '2'}, {'init_date': '20200413', 'type': '4'}, {'init_date': '20200414', 'type': '3'}, {'init_date': '20200415', 'type': '4'}, {'init_date': '20200416', 'type': '2'}, {'init_date': '20200417', 'type': '2'}, {'init_date': '20200418', 'type': '2'}, {'init_date': '20200419', 'type': '3'}, {'init_date': '20200420', 'type': '4'}, {'init_date': '20200421', 'type': '4'}, {'init_date': '20200422', 'type': '4'}, {'init_date': '20200423', 'type': '4'}, {'init_date': '20200424', 'type': '4'}, {'init_date': '20200425', 'type': '4'}, {'init_date': '20200426', 'type': '2'}, {'init_date': '20200427', 'type': '3'}, {'init_date': '20200428', 'type': '3'}, {'init_date': '20200429', 'type': '4'}, {'init_date': '20200430', 'type': '4'}]}
+                Hbase result is
+{'data_list': [{'init_date': '20200331', 'business_time': '92323', 'serial_no': '1001668', 'business_flag': '4001', 'business_amount': 112723.23, 'post_amount': 51910.71, 'business_price': 16.0076, 'business_balance': 79817.53, 'money_type': '0'}, {'init_date': '20200401', 'business_time': '104747', 'serial_no': '1011955', 'business_flag': '4015', 'business_amount': 97632.09, 'post_amount': 19947.6, 'business_price': 3.4163, 'business_balance': 99080.2, 'money_type': '0'}, {'init_date': '20200402', 'business_time': '999', 'serial_no': '1009397', 'business_flag': '4015', 'business_amount': 29224.57, 'post_amount': 9294.41, 'business_price': 5.6948, 'business_balance': 24358.17, 'money_type': '0'}, {'init_date': '20200403', 'business_time': '111515', 'serial_no': '1012229', 'business_flag': '4016', 'business_amount': 88911.57, 'post_amount': 104659.46, 'business_price': 56.555, 'business_balance': 33238.54, 'money_type': '0'}, {'init_date': '20200404', 'business_time': '113535', 'serial_no': '1008271', 'business_flag': '4015', 'business_amount': 94689.4, 'post_amount': 6754.23, 'business_price': 24.734, 'business_balance': -85761.09, 'money_type': '0'}, {'init_date': '20200405', 'business_time': '114747', 'serial_no': '1004888', 'business_flag': '4015', 'business_amount': 60392.32, 'post_amount': 26860.5, 'business_price': 79.9801, 'business_balance': 19904.17, 'money_type': '0'}, {'init_date': '20200406', 'business_time': '91313', 'serial_no': '1002846', 'business_flag': '4002', 'business_amount': 85361.27, 'post_amount': 69309.41, 'business_price': 9.7476, 'business_balance': -9546.83, 'money_type': '0'}, {'init_date': '20200407', 'business_time': '111414', 'serial_no': '1009851', 'business_flag': '4002', 'business_amount': 75002.38, 'post_amount': 84997.64, 'business_price': 23.5018, 'business_balance': -8591.39, 'money_type': '0'}, {'init_date': '20200408', 'business_time': '95656', 'serial_no': '1000163', 'business_flag': '4002', 'business_amount': 14109.96, 'post_amount': 59268.9, 'business_price': 44.971, 'business_balance': -74740.51, 'money_type': '0'}, {'init_date': '20200409', 'business_time': '102323', 'serial_no': '1006490', 'business_flag': '4015', 'business_amount': 59586.05, 'post_amount': 17581.51, 'business_price': 89.0114, 'business_balance': 20457.64, 'money_type': '0'}, {'init_date': '20200410', 'business_time': '101010', 'serial_no': '1009076', 'business_flag': '4015', 'business_amount': 3872.49, 'post_amount': 107146.95, 'business_price': 10.5552, 'business_balance': -113636.66, 'money_type': '0'}, {'init_date': '20200411', 'business_time': '112222', 'serial_no': '1004071', 'business_flag': '4015', 'business_amount': 5109.24, 'post_amount': 357.1, 'business_price': 31.1925, 'business_balance': -92083.8, 'money_type': '0'}, {'init_date': '20200412', 'business_time': '92323', 'serial_no': '1001068', 'business_flag': '4002', 'business_amount': 11058.54, 'post_amount': 67779.13, 'business_price': 25.4343, 'business_balance': 100950.48, 'money_type': '0'}, {'init_date': '20200413', 'business_time': '102020', 'serial_no': '1009757', 'business_flag': '4015', 'business_amount': 102148.01, 'post_amount': 121508.37, 'business_price': 96.4955, 'business_balance': 44267.97, 'money_type': '0'}, {'init_date': '20200414', 'business_time': '94242', 'serial_no': '1002218', 'business_flag': '4001', 'business_amount': 74140.21, 'post_amount': 98022.93, 'business_price': 5.8097, 'business_balance': 92566.79, 'money_type': '0'}, {'init_date': '20200415', 'business_time': '102626', 'serial_no': '1010835', 'business_flag': '4016', 'business_amount': 121179.7, 'post_amount': 63669.73, 'business_price': 58.2424, 'business_balance': 24429.21, 'money_type': '0'}, {'init_date': '20200416', 'business_time': '102121', 'serial_no': '1012083', 'business_flag': '4002', 'business_amount': 86868.52, 'post_amount': 59267.98, 'business_price': 47.4794, 'business_balance': 112158.33, 'money_type': '0'}, {'init_date': '20200417', 'business_time': '977', 'serial_no': '1002301', 'business_flag': '4002', 'business_amount': 120002.6, 'post_amount': 45789.11, 'business_price': 17.9855, 'business_balance': 58448.21, 'money_type': '0'}, {'init_date': '20200418', 'business_time': '114545', 'serial_no': '1008957', 'business_flag': '4002', 'business_amount': 42809.93, 'post_amount': 109274.14, 'business_price': 61.2987, 'business_balance': 116962.86, 'money_type': '0'}, {'init_date': '20200419', 'business_time': '1166', 'serial_no': '1006092', 'business_flag': '4001', 'business_amount': 111308.3, 'post_amount': 119755.17, 'business_price': 57.9877, 'business_balance': -35700.14, 'money_type': '0'}, {'init_date': '20200420', 'business_time': '103030', 'serial_no': '1011285', 'business_flag': '4015', 'business_amount': 84806.48, 'post_amount': 68929.23, 'business_price': 78.0812, 'business_balance': -22953.15, 'money_type': '0'}, {'init_date': '20200421', 'business_time': '104242', 'serial_no': '1002936', 'business_flag': '4016', 'business_amount': 114319.75, 'post_amount': 98575.89, 'business_price': 35.7196, 'business_balance': -38075.35, 'money_type': '0'}, {'init_date': '20200422', 'business_time': '115050', 'serial_no': '1011209', 'business_flag': '4015', 'business_amount': 31989.12, 'post_amount': 47791.03, 'business_price': 64.0332, 'business_balance': 39932.22, 'money_type': '0'}, {'init_date': '20200423', 'business_time': '113939', 'serial_no': '1001710', 'business_flag': '4015', 'business_amount': 29989.11, 'post_amount': 26529.7, 'business_price': 76.4893, 'business_balance': -120730.53, 'money_type': '0'}, {'init_date': '20200424', 'business_time': '95151', 'serial_no': '1005654', 'business_flag': '4015', 'business_amount': 120622.58, 'post_amount': 31755.23, 'business_price': 73.3279, 'business_balance': -72539.22, 'money_type': '0'}, {'init_date': '20200425', 'business_time': '112626', 'serial_no': '1001928', 'business_flag': '4016', 'business_amount': 35226.73, 'post_amount': 27565.86, 'business_price': 72.2915, 'business_balance': 65027.71, 'money_type': '0'}, {'init_date': '20200426', 'business_time': '104949', 'serial_no': '1011392', 'business_flag': '4002', 'business_amount': 33965.2, 'post_amount': 106361.22, 'business_price': 73.9367, 'business_balance': -76093.0, 'money_type': '0'}, {'init_date': '20200427', 'business_time': '104141', 'serial_no': '1005747', 'business_flag': '4001', 'business_amount': 73203.92, 'post_amount': 70143.49, 'business_price': 18.6222, 'business_balance': -32297.08, 'money_type': '0'}, {'init_date': '20200428', 'business_time': '1066', 'serial_no': '1011847', 'business_flag': '4001', 'business_amount': 110937.76, 'post_amount': 85860.63, 'business_price': 71.4524, 'business_balance': -52718.66, 'money_type': '0'}, {'init_date': '20200429', 'business_time': '111616', 'serial_no': '1006149', 'business_flag': '4015', 'business_amount': 103455.92, 'post_amount': 10563.76, 'business_price': 45.1923, 'business_balance': -76362.69, 'money_type': '0'}, {'init_date': '20200430', 'business_time': '105050', 'serial_no': '1005167', 'business_flag': '4015', 'business_amount': 13699.8, 'post_amount': 103236.92, 'business_price': 8.4547, 'business_balance': -44017.67, 'money_type': '0'}], 'count': 31, 'begin_date': '20200330', 'end_date': '20200430'}
+ column is [data_list]
+Traceback (most recent call last):
+  File "analysis_guolian.py", line 123, in test_normal
+    sql=hbase_command, url=url, data=data, table_columns=GetHisDeliver.COLUMNS,)
+  File "analysis_guolian.py", line 1138, in checking
+    self.assertEqual(str(v), str(interface_result.get(column)[i].get(k)), msg=msg_model)
+AssertionError: '112723.23' != '112723'
+- 112723.23
+?       ---
++ 112723
+ : 
+SQL is
+ get "zhfx_gl_chenk:his_deliver", "88888,79799569,002142,1" 
+ Interface is
+ http://10.20.18.174:18083/guolian/general/get_his_deliver
+ params is
+ {"fund_account": "88888", "credit_fund_account": "88889", "init_date": "20200430", "page_size": "100", "interval": "1", "asset_prop": "0", "cal_init_date": "20200430", "stock_code": "002142", "exchange_type": "1", "trade_type": "0", "fund_account_reversed": "88888", "credit_fund_account_reversed": "98888"}
+Interface response is
+ {'error_no': '0', 'error_info': '执行成功', 'data_list': [{'init_date': 20200331, 'business_time': 92323, 'serial_no': 1001668, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4001', 'business_amount': 112723, 'post_amount': 51910, 'business_price': 16.0076, 'business_balance': 79817.53}, {'init_date': 20200401, 'business_time': 104747, 'serial_no': 1011955, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4015', 'business_amount': 97632, 'post_amount': 19947, 'business_price': 3.4163, 'business_balance': 99080.2}, {'init_date': 20200402, 'business_time': 999, 'serial_no': 1009397, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4015', 'business_amount': 29224, 'post_amount': 9294, 'business_price': 5.6948, 'business_balance': 24358.17}, {'init_date': 20200403, 'business_time': 111515, 'serial_no': 1012229, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4016', 'business_amount': 88911, 'post_amount': 104659, 'business_price': 56.555, 'business_balance': 33238.54}, {'init_date': 20200404, 'business_time': 113535, 'serial_no': 1008271, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4015', 'business_amount': 94689, 'post_amount': 6754, 'business_price': 24.734, 'business_balance': -85761.09}, {'init_date': 20200405, 'business_time': 114747, 'serial_no': 1004888, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4015', 'business_amount': 60392, 'post_amount': 26860, 'business_price': 79.9801, 'business_balance': 19904.17}, {'init_date': 20200406, 'business_time': 91313, 'serial_no': 1002846, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4002', 'business_amount': 85361, 'post_amount': 69309, 'business_price': 9.7476, 'business_balance': -9546.83}, {'init_date': 20200407, 'business_time': 111414, 'serial_no': 1009851, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4002', 'business_amount': 75002, 'post_amount': 84997, 'business_price': 23.5018, 'business_balance': -8591.39}, {'init_date': 20200408, 'business_time': 95656, 'serial_no': 1000163, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4002', 'business_amount': 14109, 'post_amount': 59268, 'business_price': 44.971, 'business_balance': -74740.51}, {'init_date': 20200409, 'business_time': 102323, 'serial_no': 1006490, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4015', 'business_amount': 59586, 'post_amount': 17581, 'business_price': 89.0114, 'business_balance': 20457.64}, {'init_date': 20200410, 'business_time': 101010, 'serial_no': 1009076, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4015', 'business_amount': 3872, 'post_amount': 107146, 'business_price': 10.5552, 'business_balance': -113636.66}, {'init_date': 20200411, 'business_time': 112222, 'serial_no': 1004071, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4015', 'business_amount': 5109, 'post_amount': 357, 'business_price': 31.1925, 'business_balance': -92083.8}, {'init_date': 20200412, 'business_time': 92323, 'serial_no': 1001068, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4002', 'business_amount': 11058, 'post_amount': 67779, 'business_price': 25.4343, 'business_balance': 100950.48}, {'init_date': 20200413, 'business_time': 102020, 'serial_no': 1009757, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4015', 'business_amount': 102148, 'post_amount': 121508, 'business_price': 96.4955, 'business_balance': 44267.97}, {'init_date': 20200414, 'business_time': 94242, 'serial_no': 1002218, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4001', 'business_amount': 74140, 'post_amount': 98022, 'business_price': 5.8097, 'business_balance': 92566.79}, {'init_date': 20200415, 'business_time': 102626, 'serial_no': 1010835, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4016', 'business_amount': 121179, 'post_amount': 63669, 'business_price': 58.2424, 'business_balance': 24429.21}, {'init_date': 20200416, 'business_time': 102121, 'serial_no': 1012083, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4002', 'business_amount': 86868, 'post_amount': 59267, 'business_price': 47.4794, 'business_balance': 112158.33}, {'init_date': 20200417, 'business_time': 977, 'serial_no': 1002301, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4002', 'business_amount': 120002, 'post_amount': 45789, 'business_price': 17.9855, 'business_balance': 58448.21}, {'init_date': 20200418, 'business_time': 114545, 'serial_no': 1008957, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4002', 'business_amount': 42809, 'post_amount': 109274, 'business_price': 61.2987, 'business_balance': 116962.86}, {'init_date': 20200419, 'business_time': 1166, 'serial_no': 1006092, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4001', 'business_amount': 111308, 'post_amount': 119755, 'business_price': 57.9877, 'business_balance': -35700.14}, {'init_date': 20200420, 'business_time': 103030, 'serial_no': 1011285, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4015', 'business_amount': 84806, 'post_amount': 68929, 'business_price': 78.0812, 'business_balance': -22953.15}, {'init_date': 20200421, 'business_time': 104242, 'serial_no': 1002936, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4016', 'business_amount': 114319, 'post_amount': 98575, 'business_price': 35.7196, 'business_balance': -38075.35}, {'init_date': 20200422, 'business_time': 115050, 'serial_no': 1011209, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4015', 'business_amount': 31989, 'post_amount': 47791, 'business_price': 64.0332, 'business_balance': 39932.22}, {'init_date': 20200423, 'business_time': 113939, 'serial_no': 1001710, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4015', 'business_amount': 29989, 'post_amount': 26529, 'business_price': 76.4893, 'business_balance': -120730.53}, {'init_date': 20200424, 'business_time': 95151, 'serial_no': 1005654, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4015', 'business_amount': 120622, 'post_amount': 31755, 'business_price': 73.3279, 'business_balance': -72539.22}, {'init_date': 20200425, 'business_time': 112626, 'serial_no': 1001928, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4016', 'business_amount': 35226, 'post_amount': 27565, 'business_price': 72.2915, 'business_balance': 65027.71}, {'init_date': 20200426, 'business_time': 104949, 'serial_no': 1011392, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4002', 'business_amount': 33965, 'post_amount': 106361, 'business_price': 73.9367, 'business_balance': -76093.0}, {'init_date': 20200427, 'business_time': 104141, 'serial_no': 1005747, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4001', 'business_amount': 73203, 'post_amount': 70143, 'business_price': 18.6222, 'business_balance': -32297.08}, {'init_date': 20200428, 'business_time': 1066, 'serial_no': 1011847, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4001', 'business_amount': 110937, 'post_amount': 85860, 'business_price': 71.4524, 'business_balance': -52718.66}, {'init_date': 20200429, 'business_time': 111616, 'serial_no': 1006149, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4015', 'business_amount': 103455, 'post_amount': 10563, 'business_price': 45.1923, 'business_balance': -76362.69}, {'init_date': 20200430, 'business_time': 105050, 'serial_no': 1005167, 'fund_account': None, 'money_type': '0', 'stock_code': None, 'stock_type': None, 'exchange_type': None, 'stock_name': None, 'business_flag': '4015', 'business_amount': 13699, 'post_amount': 103236, 'business_price': 8.4547, 'business_balance': -44017.67}], 'count': 31, 'end_date': 20200430, 'begin_date': 20200331, 'info': [{'init_date': '20200331', 'type': '3'}, {'init_date': '20200401', 'type': '4'}, {'init_date': '20200402', 'type': '4'}, {'init_date': '20200403', 'type': '4'}, {'init_date': '20200404', 'type': '4'}, {'init_date': '20200405', 'type': '4'}, {'init_date': '20200406', 'type': '2'}, {'init_date': '20200407', 'type': '2'}, {'init_date': '20200408', 'type': '2'}, {'init_date': '20200409', 'type': '4'}, {'init_date': '20200410', 'type': '4'}, {'init_date': '20200411', 'type': '4'}, {'init_date': '20200412', 'type': '2'}, {'init_date': '20200413', 'type': '4'}, {'init_date': '20200414', 'type': '3'}, {'init_date': '20200415', 'type': '4'}, {'init_date': '20200416', 'type': '2'}, {'init_date': '20200417', 'type': '2'}, {'init_date': '20200418', 'type': '2'}, {'init_date': '20200419', 'type': '3'}, {'init_date': '20200420', 'type': '4'}, {'init_date': '20200421', 'type': '4'}, {'init_date': '20200422', 'type': '4'}, {'init_date': '20200423', 'type': '4'}, {'init_date': '20200424', 'type': '4'}, {'init_date': '20200425', 'type': '4'}, {'init_date': '20200426', 'type': '2'}, {'init_date': '20200427', 'type': '3'}, {'init_date': '20200428', 'type': '3'}, {'init_date': '20200429', 'type': '4'}, {'init_date': '20200430', 'type': '4'}]}
+                Hbase result is
+{'data_list': [{'init_date': '20200331', 'business_time': '92323', 'serial_no': '1001668', 'business_flag': '4001', 'business_amount': 112723.23, 'post_amount': 51910.71, 'business_price': 16.0076, 'business_balance': 79817.53, 'money_type': '0'}, {'init_date': '20200401', 'business_time': '104747', 'serial_no': '1011955', 'business_flag': '4015', 'business_amount': 97632.09, 'post_amount': 19947.6, 'business_price': 3.4163, 'business_balance': 99080.2, 'money_type': '0'}, {'init_date': '20200402', 'business_time': '999', 'serial_no': '1009397', 'business_flag': '4015', 'business_amount': 29224.57, 'post_amount': 9294.41, 'business_price': 5.6948, 'business_balance': 24358.17, 'money_type': '0'}, {'init_date': '20200403', 'business_time': '111515', 'serial_no': '1012229', 'business_flag': '4016', 'business_amount': 88911.57, 'post_amount': 104659.46, 'business_price': 56.555, 'business_balance': 33238.54, 'money_type': '0'}, {'init_date': '20200404', 'business_time': '113535', 'serial_no': '1008271', 'business_flag': '4015', 'business_amount': 94689.4, 'post_amount': 6754.23, 'business_price': 24.734, 'business_balance': -85761.09, 'money_type': '0'}, {'init_date': '20200405', 'business_time': '114747', 'serial_no': '1004888', 'business_flag': '4015', 'business_amount': 60392.32, 'post_amount': 26860.5, 'business_price': 79.9801, 'business_balance': 19904.17, 'money_type': '0'}, {'init_date': '20200406', 'business_time': '91313', 'serial_no': '1002846', 'business_flag': '4002', 'business_amount': 85361.27, 'post_amount': 69309.41, 'business_price': 9.7476, 'business_balance': -9546.83, 'money_type': '0'}, {'init_date': '20200407', 'business_time': '111414', 'serial_no': '1009851', 'business_flag': '4002', 'business_amount': 75002.38, 'post_amount': 84997.64, 'business_price': 23.5018, 'business_balance': -8591.39, 'money_type': '0'}, {'init_date': '20200408', 'business_time': '95656', 'serial_no': '1000163', 'business_flag': '4002', 'business_amount': 14109.96, 'post_amount': 59268.9, 'business_price': 44.971, 'business_balance': -74740.51, 'money_type': '0'}, {'init_date': '20200409', 'business_time': '102323', 'serial_no': '1006490', 'business_flag': '4015', 'business_amount': 59586.05, 'post_amount': 17581.51, 'business_price': 89.0114, 'business_balance': 20457.64, 'money_type': '0'}, {'init_date': '20200410', 'business_time': '101010', 'serial_no': '1009076', 'business_flag': '4015', 'business_amount': 3872.49, 'post_amount': 107146.95, 'business_price': 10.5552, 'business_balance': -113636.66, 'money_type': '0'}, {'init_date': '20200411', 'business_time': '112222', 'serial_no': '1004071', 'business_flag': '4015', 'business_amount': 5109.24, 'post_amount': 357.1, 'business_price': 31.1925, 'business_balance': -92083.8, 'money_type': '0'}, {'init_date': '20200412', 'business_time': '92323', 'serial_no': '1001068', 'business_flag': '4002', 'business_amount': 11058.54, 'post_amount': 67779.13, 'business_price': 25.4343, 'business_balance': 100950.48, 'money_type': '0'}, {'init_date': '20200413', 'business_time': '102020', 'serial_no': '1009757', 'business_flag': '4015', 'business_amount': 102148.01, 'post_amount': 121508.37, 'business_price': 96.4955, 'business_balance': 44267.97, 'money_type': '0'}, {'init_date': '20200414', 'business_time': '94242', 'serial_no': '1002218', 'business_flag': '4001', 'business_amount': 74140.21, 'post_amount': 98022.93, 'business_price': 5.8097, 'business_balance': 92566.79, 'money_type': '0'}, {'init_date': '20200415', 'business_time': '102626', 'serial_no': '1010835', 'business_flag': '4016', 'business_amount': 121179.7, 'post_amount': 63669.73, 'business_price': 58.2424, 'business_balance': 24429.21, 'money_type': '0'}, {'init_date': '20200416', 'business_time': '102121', 'serial_no': '1012083', 'business_flag': '4002', 'business_amount': 86868.52, 'post_amount': 59267.98, 'business_price': 47.4794, 'business_balance': 112158.33, 'money_type': '0'}, {'init_date': '20200417', 'business_time': '977', 'serial_no': '1002301', 'business_flag': '4002', 'business_amount': 120002.6, 'post_amount': 45789.11, 'business_price': 17.9855, 'business_balance': 58448.21, 'money_type': '0'}, {'init_date': '20200418', 'business_time': '114545', 'serial_no': '1008957', 'business_flag': '4002', 'business_amount': 42809.93, 'post_amount': 109274.14, 'business_price': 61.2987, 'business_balance': 116962.86, 'money_type': '0'}, {'init_date': '20200419', 'business_time': '1166', 'serial_no': '1006092', 'business_flag': '4001', 'business_amount': 111308.3, 'post_amount': 119755.17, 'business_price': 57.9877, 'business_balance': -35700.14, 'money_type': '0'}, {'init_date': '20200420', 'business_time': '103030', 'serial_no': '1011285', 'business_flag': '4015', 'business_amount': 84806.48, 'post_amount': 68929.23, 'business_price': 78.0812, 'business_balance': -22953.15, 'money_type': '0'}, {'init_date': '20200421', 'business_time': '104242', 'serial_no': '1002936', 'business_flag': '4016', 'business_amount': 114319.75, 'post_amount': 98575.89, 'business_price': 35.7196, 'business_balance': -38075.35, 'money_type': '0'}, {'init_date': '20200422', 'business_time': '115050', 'serial_no': '1011209', 'business_flag': '4015', 'business_amount': 31989.12, 'post_amount': 47791.03, 'business_price': 64.0332, 'business_balance': 39932.22, 'money_type': '0'}, {'init_date': '20200423', 'business_time': '113939', 'serial_no': '1001710', 'business_flag': '4015', 'business_amount': 29989.11, 'post_amount': 26529.7, 'business_price': 76.4893, 'business_balance': -120730.53, 'money_type': '0'}, {'init_date': '20200424', 'business_time': '95151', 'serial_no': '1005654', 'business_flag': '4015', 'business_amount': 120622.58, 'post_amount': 31755.23, 'business_price': 73.3279, 'business_balance': -72539.22, 'money_type': '0'}, {'init_date': '20200425', 'business_time': '112626', 'serial_no': '1001928', 'business_flag': '4016', 'business_amount': 35226.73, 'post_amount': 27565.86, 'business_price': 72.2915, 'business_balance': 65027.71, 'money_type': '0'}, {'init_date': '20200426', 'business_time': '104949', 'serial_no': '1011392', 'business_flag': '4002', 'business_amount': 33965.2, 'post_amount': 106361.22, 'business_price': 73.9367, 'business_balance': -76093.0, 'money_type': '0'}, {'init_date': '20200427', 'business_time': '104141', 'serial_no': '1005747', 'business_flag': '4001', 'business_amount': 73203.92, 'post_amount': 70143.49, 'business_price': 18.6222, 'business_balance': -32297.08, 'money_type': '0'}, {'init_date': '20200428', 'business_time': '1066', 'serial_no': '1011847', 'business_flag': '4001', 'business_amount': 110937.76, 'post_amount': 85860.63, 'business_price': 71.4524, 'business_balance': -52718.66, 'money_type': '0'}, {'init_date': '20200429', 'business_time': '111616', 'serial_no': '1006149', 'business_flag': '4015', 'business_amount': 103455.92, 'post_amount': 10563.76, 'business_price': 45.1923, 'business_balance': -76362.69, 'money_type': '0'}, {'init_date': '20200430', 'business_time': '105050', 'serial_no': '1005167', 'business_flag': '4015', 'business_amount': 13699.8, 'post_amount': 103236.92, 'business_price': 8.4547, 'business_balance': -44017.67, 'money_type': '0'}], 'count': 31, 'begin_date': '20200330', 'end_date': '20200430'}
+ column is [data_list]
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='failClass'>
+    <td>GetIncomeAnalyze</td>
+    <td>1</td>
+    <td>0</td>
+    <td>1</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c3',1)">Detail</a></td>
+</tr>
+
+<tr id='ft3.1' class='none'>
+    <td class='failCase'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft3.1')" >
+        fail</a>
+
+    <div id='div_ft3.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft3.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft3.1: Traceback (most recent call last):
+  File "analysis_guolian.py", line 209, in test_normal
     "other_assets_income", "other_income"])
-  File "analysis_guolian.py", line 878, in checking
+  File "analysis_guolian.py", line 1151, in checking
     self.assertEqual(str(sql_result.get(column, '')), str(interface_result.get(column)), msg=msg_model)
 AssertionError: '-0.9443' != '-0.9987'
 - -0.9443
@@ -339,9 +355,9 @@ Interface response is
 {'ability_rank': '0.5716', 'asset_income': '7019.77', 'assure_income': '-99396.57', 'asset_yield': '-0.9443', 'begin_asset': '2678091.65', 'begin_date': '19890509', 'begin_debt': '95950.13', 'wit_income': '-79393.3', 'bshare_income': '-52216.2', 'choose_ability': '36.94', 'debit_change': '-120685.4', 'discipline_ability': '7.19', 'end_date': '20200430', 'fare': '1052.15', 'first_loss': "{'stock_name': '赣锋锂业', 'stock_code': '002460', 'income': '-118666.1', 'income_rate': '-0.9526', 'trade_type': '1'}", 'first_profit': "{'stock_name': '海天味业', 'stock_code': '603288', 'income': '20259.21', 'income_rate': '0.3314', 'trade_type': '0'}", 'fund_in': '31074.68', 'fund_out': '91749.4', 'higher_bail_count': '30', 'hit_flat_count': '22', 'income_ability': '32.93', 'last_asset': '10842169.95', 'last_debt': '90372.6', 'loan_income': '-121807.2', 'loan_yield': '-0.859', 'lower_bail_count': '96', 'lower_vigilance_count': '29', 'new_debt': '117191.87', 'fund_income': '-105744.29', 'other_income': '11268.1', 'profit_count': '37', 'return_debt': '55323.36', 'risk_control_ability': '28.56', 'second_loss': "{'stock_name': '中国人寿', 'stock_code': '601628', 'income': '-57980.61', 'income_rate': '-0.5513', 'trade_type': '1'}", 'second_profit': "{'stock_name': '海康威视', 'stock_code': '002415', 'income': '94243.42', 'income_rate': '0.6227', 'trade_type': '0'}", 'slo_profit_count': '435', 'slo_stock_count': '634', 'slo_win_ratio': '0.3067', 'slo_win_ratio_rank': '0.8062', 'stock_count': '24', 'stock_exhcange_right': '0', 'stock_income': '59554.07', 'stock_yield': '0.3541', 'third_loss': "{'stock_name': '交通银行', 'stock_code': '601328', 'income': '-24296.99', 'income_rate': '-0.5176', 'trade_type': '1'}", 'third_profit': "{'stock_name': '中国建筑', 'stock_code': '601668', 'income': '115317.74', 'income_rate': '0.047', 'trade_type': '0'}", 'timing_ability': '31.01', 'trans_ability': '41.2', 'win_ratio': '0.6294', 'win_ratio_rank': '0.0918', 'net_inflow': -60674.72, 'assure_yield': '-0.9443', 'bond_income': '-0.9443', 'otc_income': '-79393.3', 'other_assets_income': '-105744.29'}
  column is [asset_yield]
 Traceback (most recent call last):
-  File "analysis_guolian.py", line 80, in test_normal
+  File "analysis_guolian.py", line 209, in test_normal
     "other_assets_income", "other_income"])
-  File "analysis_guolian.py", line 878, in checking
+  File "analysis_guolian.py", line 1151, in checking
     self.assertEqual(str(sql_result.get(column, '')), str(interface_result.get(column)), msg=msg_model)
 AssertionError: '-0.9443' != '-0.9987'
 - -0.9443
@@ -367,42 +383,70 @@ Interface response is
     </td>
 </tr>
 
-<tr class='errorClass'>
+<tr class='failClass'>
     <td>CreditGetIncomeAnalyze</td>
     <td>1</td>
     <td>0</td>
-    <td>0</td>
     <td>1</td>
-    <td><a href="javascript:showClassDetail('c3',1)">Detail</a></td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c4',1)">Detail</a></td>
 </tr>
 
-<tr id='ft3.1' class='none'>
-    <td class='errorCase'><div class='testcase'>test_normal</div></td>
+<tr id='ft4.1' class='none'>
+    <td class='failCase'><div class='testcase'>test_normal</div></td>
     <td colspan='5' align='center'>
 
     <!--css div popup start-->
-    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft3.1')" >
-        error</a>
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft4.1')" >
+        fail</a>
 
-    <div id='div_ft3.1' class="popup_window">
+    <div id='div_ft4.1' class="popup_window">
         <div style='text-align: right; color:red;cursor:pointer'>
-        <a onfocus='this.blur();' onclick="document.getElementById('div_ft3.1').style.display = 'none' " >
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft4.1').style.display = 'none' " >
            [x]</a>
         </div>
         <pre>
         
-ft3.1: Traceback (most recent call last):
-  File "analysis_guolian.py", line 115, in test_normal
-    calculation=["net_inflow", "fund_in", "-", "fund_out"],)
-  File "analysis_guolian.py", line 827, in checking
-    expression += sql_result.get(each)
-TypeError: must be str, not NoneType
+ft4.1: Traceback (most recent call last):
+  File "analysis_guolian.py", line 244, in test_normal
+    "other_assets_income", "other_income"])
+  File "analysis_guolian.py", line 1151, in checking
+    self.assertEqual(str(sql_result.get(column, '')), str(interface_result.get(column)), msg=msg_model)
+AssertionError: '91749.4' != 'None'
+- 91749.4
++ None
+ : 
+SQL is
+ get "zhfx_gl_chenk:home_page_data", "88888,1,0,79799569" 
+ Interface is
+ http://10.20.18.174:18083/guolian/credit/get_income_analyze
+ params is
+ {"init_date": "20200430", "fund_account": "88888", "interval": "1", "asset_prop": "0", "fund_account_reversed": "88888"}
+Interface response is
+ {'error_no': '0', 'error_info': '执行成功', 'asset_income': None, 'asset_yield': -0.8231, 'assure_income': None, 'assure_yield': None, 'loan_income': None, 'loan_yield': None, 'fare': None, 'fund_out': None, 'fund_in': None, 'begin_asset': None, 'last_asset': None, 'net_inflow': None, 'return_debt': None, 'new_debt': None, 'begin_debt': None, 'last_debt': None, 'debt_change': None, 'higher_bail_count': None, 'lower_bail_count': None, 'lower_vigilance_count': None, 'hit_flat_count': None, 'fund_rank': None, 'assure_rank': None, 'loan_rank': None}
+                Hbase result is
+{'ability_rank': '0.5716', 'asset_income': '7019.77', 'assure_income': '-99396.57', 'asset_yield': '-0.9443', 'begin_asset': '2678091.65', 'begin_date': '19890509', 'begin_debt': '95950.13', 'wit_income': '-79393.3', 'bshare_income': '-52216.2', 'choose_ability': '36.94', 'debit_change': '-120685.4', 'discipline_ability': '7.19', 'end_date': '20200430', 'fare': '1052.15', 'first_loss': "{'stock_name': '赣锋锂业', 'stock_code': '002460', 'income': '-118666.1', 'income_rate': '-0.9526', 'trade_type': '1'}", 'first_profit': "{'stock_name': '海天味业', 'stock_code': '603288', 'income': '20259.21', 'income_rate': '0.3314', 'trade_type': '0'}", 'fund_in': '31074.68', 'fund_out': '91749.4', 'higher_bail_count': '30', 'hit_flat_count': '22', 'income_ability': '32.93', 'last_asset': '10842169.95', 'last_debt': '90372.6', 'loan_income': '-121807.2', 'loan_yield': '-0.859', 'lower_bail_count': '96', 'lower_vigilance_count': '29', 'new_debt': '117191.87', 'fund_income': '-105744.29', 'other_income': '11268.1', 'profit_count': '37', 'return_debt': '55323.36', 'risk_control_ability': '28.56', 'second_loss': "{'stock_name': '中国人寿', 'stock_code': '601628', 'income': '-57980.61', 'income_rate': '-0.5513', 'trade_type': '1'}", 'second_profit': "{'stock_name': '海康威视', 'stock_code': '002415', 'income': '94243.42', 'income_rate': '0.6227', 'trade_type': '0'}", 'slo_profit_count': '435', 'slo_stock_count': '634', 'slo_win_ratio': '0.3067', 'slo_win_ratio_rank': '0.8062', 'stock_count': '24', 'stock_exhcange_right': '0', 'stock_income': '59554.07', 'stock_yield': '0.3541', 'third_loss': "{'stock_name': '交通银行', 'stock_code': '601328', 'income': '-24296.99', 'income_rate': '-0.5176', 'trade_type': '1'}", 'third_profit': "{'stock_name': '中国建筑', 'stock_code': '601668', 'income': '115317.74', 'income_rate': '0.047', 'trade_type': '0'}", 'timing_ability': '31.01', 'trans_ability': '41.2', 'win_ratio': '0.6294', 'win_ratio_rank': '0.0918', 'net_inflow': -60674.72, 'assure_yield': '-0.9443', 'bond_income': '-0.9443', 'otc_income': '-79393.3', 'other_assets_income': '-105744.29'}
+ column is [fund_out]
 Traceback (most recent call last):
-  File "analysis_guolian.py", line 115, in test_normal
-    calculation=["net_inflow", "fund_in", "-", "fund_out"],)
-  File "analysis_guolian.py", line 827, in checking
-    expression += sql_result.get(each)
-TypeError: must be str, not NoneType
+  File "analysis_guolian.py", line 244, in test_normal
+    "other_assets_income", "other_income"])
+  File "analysis_guolian.py", line 1151, in checking
+    self.assertEqual(str(sql_result.get(column, '')), str(interface_result.get(column)), msg=msg_model)
+AssertionError: '91749.4' != 'None'
+- 91749.4
++ None
+ : 
+SQL is
+ get "zhfx_gl_chenk:home_page_data", "88888,1,0,79799569" 
+ Interface is
+ http://10.20.18.174:18083/guolian/credit/get_income_analyze
+ params is
+ {"init_date": "20200430", "fund_account": "88888", "interval": "1", "asset_prop": "0", "fund_account_reversed": "88888"}
+Interface response is
+ {'error_no': '0', 'error_info': '执行成功', 'asset_income': None, 'asset_yield': -0.8231, 'assure_income': None, 'assure_yield': None, 'loan_income': None, 'loan_yield': None, 'fare': None, 'fund_out': None, 'fund_in': None, 'begin_asset': None, 'last_asset': None, 'net_inflow': None, 'return_debt': None, 'new_debt': None, 'begin_debt': None, 'last_debt': None, 'debt_change': None, 'higher_bail_count': None, 'lower_bail_count': None, 'lower_vigilance_count': None, 'hit_flat_count': None, 'fund_rank': None, 'assure_rank': None, 'loan_rank': None}
+                Hbase result is
+{'ability_rank': '0.5716', 'asset_income': '7019.77', 'assure_income': '-99396.57', 'asset_yield': '-0.9443', 'begin_asset': '2678091.65', 'begin_date': '19890509', 'begin_debt': '95950.13', 'wit_income': '-79393.3', 'bshare_income': '-52216.2', 'choose_ability': '36.94', 'debit_change': '-120685.4', 'discipline_ability': '7.19', 'end_date': '20200430', 'fare': '1052.15', 'first_loss': "{'stock_name': '赣锋锂业', 'stock_code': '002460', 'income': '-118666.1', 'income_rate': '-0.9526', 'trade_type': '1'}", 'first_profit': "{'stock_name': '海天味业', 'stock_code': '603288', 'income': '20259.21', 'income_rate': '0.3314', 'trade_type': '0'}", 'fund_in': '31074.68', 'fund_out': '91749.4', 'higher_bail_count': '30', 'hit_flat_count': '22', 'income_ability': '32.93', 'last_asset': '10842169.95', 'last_debt': '90372.6', 'loan_income': '-121807.2', 'loan_yield': '-0.859', 'lower_bail_count': '96', 'lower_vigilance_count': '29', 'new_debt': '117191.87', 'fund_income': '-105744.29', 'other_income': '11268.1', 'profit_count': '37', 'return_debt': '55323.36', 'risk_control_ability': '28.56', 'second_loss': "{'stock_name': '中国人寿', 'stock_code': '601628', 'income': '-57980.61', 'income_rate': '-0.5513', 'trade_type': '1'}", 'second_profit': "{'stock_name': '海康威视', 'stock_code': '002415', 'income': '94243.42', 'income_rate': '0.6227', 'trade_type': '0'}", 'slo_profit_count': '435', 'slo_stock_count': '634', 'slo_win_ratio': '0.3067', 'slo_win_ratio_rank': '0.8062', 'stock_count': '24', 'stock_exhcange_right': '0', 'stock_income': '59554.07', 'stock_yield': '0.3541', 'third_loss': "{'stock_name': '交通银行', 'stock_code': '601328', 'income': '-24296.99', 'income_rate': '-0.5176', 'trade_type': '1'}", 'third_profit': "{'stock_name': '中国建筑', 'stock_code': '601668', 'income': '115317.74', 'income_rate': '0.047', 'trade_type': '0'}", 'timing_ability': '31.01', 'trans_ability': '41.2', 'win_ratio': '0.6294', 'win_ratio_rank': '0.0918', 'net_inflow': -60674.72, 'assure_yield': '-0.9443', 'bond_income': '-0.9443', 'otc_income': '-79393.3', 'other_assets_income': '-105744.29'}
+ column is [fund_out]
 
 
         </pre>
@@ -418,35 +462,16 @@ TypeError: must be str, not NoneType
     <td>1</td>
     <td>0</td>
     <td>0</td>
-    <td><a href="javascript:showClassDetail('c4',1)">Detail</a></td>
+    <td><a href="javascript:showClassDetail('c5',1)">Detail</a></td>
 </tr>
 
-<tr id='pt4.1' class='hiddenRow'>
+<tr id='pt5.1' class='hiddenRow'>
     <td class='none'><div class='testcase'>test_my_ability</div></td>
     <td colspan='5' align='center'>pass</td>
 </tr>
 
 <tr class='passClass'>
     <td>CreditGetInvestAnalyze</td>
-    <td>2</td>
-    <td>2</td>
-    <td>0</td>
-    <td>0</td>
-    <td><a href="javascript:showClassDetail('c5',2)">Detail</a></td>
-</tr>
-
-<tr id='pt5.1' class='hiddenRow'>
-    <td class='none'><div class='testcase'>test_avg_ability</div></td>
-    <td colspan='5' align='center'>pass</td>
-</tr>
-
-<tr id='pt5.2' class='hiddenRow'>
-    <td class='none'><div class='testcase'>test_my_ability</div></td>
-    <td colspan='5' align='center'>pass</td>
-</tr>
-
-<tr class='passClass'>
-    <td>GetReplayAnalyze</td>
     <td>2</td>
     <td>2</td>
     <td>0</td>
@@ -464,77 +489,27 @@ TypeError: must be str, not NoneType
     <td colspan='5' align='center'>pass</td>
 </tr>
 
-<tr class='failClass'>
-    <td>GetLastAsset</td>
-    <td>1</td>
+<tr class='passClass'>
+    <td>GetReplayAnalyze</td>
+    <td>2</td>
+    <td>2</td>
     <td>0</td>
-    <td>1</td>
     <td>0</td>
-    <td><a href="javascript:showClassDetail('c7',1)">Detail</a></td>
+    <td><a href="javascript:showClassDetail('c7',2)">Detail</a></td>
 </tr>
 
-<tr id='ft7.1' class='none'>
-    <td class='failCase'><div class='testcase'>test_normal</div></td>
-    <td colspan='5' align='center'>
+<tr id='pt7.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_avg_ability</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
 
-    <!--css div popup start-->
-    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft7.1')" >
-        fail</a>
-
-    <div id='div_ft7.1' class="popup_window">
-        <div style='text-align: right; color:red;cursor:pointer'>
-        <a onfocus='this.blur();' onclick="document.getElementById('div_ft7.1').style.display = 'none' " >
-           [x]</a>
-        </div>
-        <pre>
-        
-ft7.1: Traceback (most recent call last):
-  File "analysis_guolian.py", line 294, in test_normal
-    special_column=["is_last"])
-  File "analysis_guolian.py", line 878, in checking
-    self.assertEqual(str(sql_result.get(column, '')), str(interface_result.get(column)), msg=msg_model)
-AssertionError: '' != 'None'
-+ None : 
-SQL is
- get "zhfx_gl_chenk:user_daily_asset", "88888,79799569" 
- Interface is
- http://10.20.18.174:18083/guolian/general/get_last_asset
- params is
- {"fund_account": "88888", "fund_account_reversed": "88888"}
-Interface response is
- {'error_no': '0', 'error_info': '执行成功', 'asset': None, 'init_date': 20200430, 'is_last': True, 'begin_RMB_asset': 10069705.08, 'end_RMB_asset': 21180.24, 'begin_HKD_asset': 9649609.36, 'end_HKD_asset': 6667583.16, 'begin_doller_asset': 2920436.36, 'end_doller_asset': 7325077.08}
-                Hbase result is
-{'begin_HKD_asset': '9649609.36', 'begin_RMB_asset': '10069705.08', 'begin_doller_asset': '2920436.36', 'end_HKD_asset': '6667583.16', 'end_RMB_asset': '21180.24', 'end_doller_asset': '7325077.08', 'init_date': '20200430'}
- column is [asset]
-Traceback (most recent call last):
-  File "analysis_guolian.py", line 294, in test_normal
-    special_column=["is_last"])
-  File "analysis_guolian.py", line 878, in checking
-    self.assertEqual(str(sql_result.get(column, '')), str(interface_result.get(column)), msg=msg_model)
-AssertionError: '' != 'None'
-+ None : 
-SQL is
- get "zhfx_gl_chenk:user_daily_asset", "88888,79799569" 
- Interface is
- http://10.20.18.174:18083/guolian/general/get_last_asset
- params is
- {"fund_account": "88888", "fund_account_reversed": "88888"}
-Interface response is
- {'error_no': '0', 'error_info': '执行成功', 'asset': None, 'init_date': 20200430, 'is_last': True, 'begin_RMB_asset': 10069705.08, 'end_RMB_asset': 21180.24, 'begin_HKD_asset': 9649609.36, 'end_HKD_asset': 6667583.16, 'begin_doller_asset': 2920436.36, 'end_doller_asset': 7325077.08}
-                Hbase result is
-{'begin_HKD_asset': '9649609.36', 'begin_RMB_asset': '10069705.08', 'begin_doller_asset': '2920436.36', 'end_HKD_asset': '6667583.16', 'end_RMB_asset': '21180.24', 'end_doller_asset': '7325077.08', 'init_date': '20200430'}
- column is [asset]
-
-
-        </pre>
-    </div>
-    <!--css div popup end-->
-
-    </td>
+<tr id='pt7.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_my_ability</div></td>
+    <td colspan='5' align='center'>pass</td>
 </tr>
 
 <tr class='passClass'>
-    <td>CreditGetLastAsset</td>
+    <td>GetLastAsset</td>
     <td>1</td>
     <td>1</td>
     <td>0</td>
@@ -548,7 +523,7 @@ Interface response is
 </tr>
 
 <tr class='passClass'>
-    <td>GetPosition</td>
+    <td>CreditGetLastAsset</td>
     <td>1</td>
     <td>1</td>
     <td>0</td>
@@ -562,7 +537,7 @@ Interface response is
 </tr>
 
 <tr class='passClass'>
-    <td>GetTradeDistribution</td>
+    <td>GetPosition</td>
     <td>1</td>
     <td>1</td>
     <td>0</td>
@@ -576,7 +551,7 @@ Interface response is
 </tr>
 
 <tr class='passClass'>
-    <td>GetStockPreference</td>
+    <td>GetTradeDistribution</td>
     <td>1</td>
     <td>1</td>
     <td>0</td>
@@ -590,7 +565,7 @@ Interface response is
 </tr>
 
 <tr class='passClass'>
-    <td>CreditGetStockPreference</td>
+    <td>CreditGetTradeDistribution</td>
     <td>1</td>
     <td>1</td>
     <td>0</td>
@@ -604,7 +579,7 @@ Interface response is
 </tr>
 
 <tr class='passClass'>
-    <td>GetTop3Data</td>
+    <td>GetStockPreference</td>
     <td>1</td>
     <td>1</td>
     <td>0</td>
@@ -618,7 +593,7 @@ Interface response is
 </tr>
 
 <tr class='passClass'>
-    <td>CreditGetTop3Data</td>
+    <td>CreditGetStockPreference</td>
     <td>1</td>
     <td>1</td>
     <td>0</td>
@@ -632,7 +607,7 @@ Interface response is
 </tr>
 
 <tr class='passClass'>
-    <td>GetTradeAnalyze</td>
+    <td>GetTop3Data</td>
     <td>1</td>
     <td>1</td>
     <td>0</td>
@@ -645,77 +620,22 @@ Interface response is
     <td colspan='5' align='center'>pass</td>
 </tr>
 
-<tr class='failClass'>
-    <td>GetTradeStyle</td>
+<tr class='passClass'>
+    <td>CreditGetTop3Data</td>
+    <td>1</td>
     <td>1</td>
     <td>0</td>
-    <td>1</td>
     <td>0</td>
     <td><a href="javascript:showClassDetail('c16',1)">Detail</a></td>
 </tr>
 
-<tr id='ft16.1' class='none'>
-    <td class='failCase'><div class='testcase'>test_normal</div></td>
-    <td colspan='5' align='center'>
-
-    <!--css div popup start-->
-    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft16.1')" >
-        fail</a>
-
-    <div id='div_ft16.1' class="popup_window">
-        <div style='text-align: right; color:red;cursor:pointer'>
-        <a onfocus='this.blur();' onclick="document.getElementById('div_ft16.1').style.display = 'none' " >
-           [x]</a>
-        </div>
-        <pre>
-        
-ft16.1: Traceback (most recent call last):
-  File "analysis_guolian.py", line 684, in test_normal
-    special_column=["fund_utilize", "fund_utilize_rank"])
-  File "analysis_guolian.py", line 878, in checking
-    self.assertEqual(str(sql_result.get(column, '')), str(interface_result.get(column)), msg=msg_model)
-AssertionError: '' != '0.3046'
-+ 0.3046 : 
-SQL is
- get "zhfx_gl_chenk:trade_statistics", "88888,1,0,79799569" 
- Interface is
- http://10.20.18.174:18083/guolian/general/get_trade_style
- params is
- {"fund_account": "88888", "credit_fund_account": "88889", "init_date": "20200430", "page_size": "100", "interval": "1", "asset_prop": "0", "cal_init_date": "20200430", "stock_code": "002415", "exchange_type": "2", "trade_type": "0", "fund_account_reversed": "88888", "credit_fund_account_reversed": "98888"}
-Interface response is
- {'error_no': '0', 'error_info': '执行成功', 'avg_hold_day': 15, 'avg_hold_day_rank': 0.2932, 'draw_back': 0.9118, 'draw_back_rank': 0.5487, 'avg_position': 0.3046, 'avg_position_rank': 0.2176, 'win_ratio': 0.7213, 'win_ratio_rank': 0.151, 'fund_utilize': None, 'fund_utilize_rank': None, 'avg_market_value': 0.3046, 'avg_market_value_rank': 0.2176}
-                Hbase result is
-{'avg_assure_ratio': '0.485', 'avg_assure_ratio_rank': '0.1837', 'avg_hold_day': '15', 'avg_hold_day_rank': '0.2932', 'avg_market_value': '0.3046', 'avg_market_value_rank': '0.2176', 'buy_amount': '261', 'draw_back': '0.9118', 'draw_back_rank': '0.5487', 'exchange_type': '1', 'hold_day': '49', 'income': '54360.45', 'sell_amount': '704', 'stock_code': '601328', 'stock_count': '3', 'stock_name': '交通银行', 'stock_type': '0', 'trade_balance': '537131.91', 'trade_frequency': '33.74', 'win_ratio': '0.7213', 'win_ratio_rank': '0.151'}
- column is [avg_position]
-Traceback (most recent call last):
-  File "analysis_guolian.py", line 684, in test_normal
-    special_column=["fund_utilize", "fund_utilize_rank"])
-  File "analysis_guolian.py", line 878, in checking
-    self.assertEqual(str(sql_result.get(column, '')), str(interface_result.get(column)), msg=msg_model)
-AssertionError: '' != '0.3046'
-+ 0.3046 : 
-SQL is
- get "zhfx_gl_chenk:trade_statistics", "88888,1,0,79799569" 
- Interface is
- http://10.20.18.174:18083/guolian/general/get_trade_style
- params is
- {"fund_account": "88888", "credit_fund_account": "88889", "init_date": "20200430", "page_size": "100", "interval": "1", "asset_prop": "0", "cal_init_date": "20200430", "stock_code": "002415", "exchange_type": "2", "trade_type": "0", "fund_account_reversed": "88888", "credit_fund_account_reversed": "98888"}
-Interface response is
- {'error_no': '0', 'error_info': '执行成功', 'avg_hold_day': 15, 'avg_hold_day_rank': 0.2932, 'draw_back': 0.9118, 'draw_back_rank': 0.5487, 'avg_position': 0.3046, 'avg_position_rank': 0.2176, 'win_ratio': 0.7213, 'win_ratio_rank': 0.151, 'fund_utilize': None, 'fund_utilize_rank': None, 'avg_market_value': 0.3046, 'avg_market_value_rank': 0.2176}
-                Hbase result is
-{'avg_assure_ratio': '0.485', 'avg_assure_ratio_rank': '0.1837', 'avg_hold_day': '15', 'avg_hold_day_rank': '0.2932', 'avg_market_value': '0.3046', 'avg_market_value_rank': '0.2176', 'buy_amount': '261', 'draw_back': '0.9118', 'draw_back_rank': '0.5487', 'exchange_type': '1', 'hold_day': '49', 'income': '54360.45', 'sell_amount': '704', 'stock_code': '601328', 'stock_count': '3', 'stock_name': '交通银行', 'stock_type': '0', 'trade_balance': '537131.91', 'trade_frequency': '33.74', 'win_ratio': '0.7213', 'win_ratio_rank': '0.151'}
- column is [avg_position]
-
-
-        </pre>
-    </div>
-    <!--css div popup end-->
-
-    </td>
+<tr id='pt16.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>pass</td>
 </tr>
 
 <tr class='passClass'>
-    <td>GetTradeStatistics</td>
+    <td>GetTradeAnalyze</td>
     <td>1</td>
     <td>1</td>
     <td>0</td>
@@ -729,7 +649,7 @@ Interface response is
 </tr>
 
 <tr class='passClass'>
-    <td>GetAssureRatio</td>
+    <td>GetTradeStyle</td>
     <td>1</td>
     <td>1</td>
     <td>0</td>
@@ -742,12 +662,68 @@ Interface response is
     <td colspan='5' align='center'>pass</td>
 </tr>
 
+<tr class='passClass'>
+    <td>CreditGetTradeStyle</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c19',1)">Detail</a></td>
+</tr>
+
+<tr id='pt19.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr class='passClass'>
+    <td>GetTradeStatistics</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c20',1)">Detail</a></td>
+</tr>
+
+<tr id='pt20.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr class='passClass'>
+    <td>CreditGetTradeStatistics</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c21',1)">Detail</a></td>
+</tr>
+
+<tr id='pt21.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr class='passClass'>
+    <td>GetAssureRatio</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c22',1)">Detail</a></td>
+</tr>
+
+<tr id='pt22.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
 <tr id='total_row'>
     <td>Total</td>
-    <td>20</td>
-    <td>15</td>
-    <td>4</td>
-    <td>1</td>
+    <td>24</td>
+    <td>21</td>
+    <td>3</td>
+    <td>0</td>
     <td>&nbsp;</td>
 </tr>
 </table>
