@@ -69,7 +69,7 @@ class GetHisDeliver(unittest.TestCase):
     TABLE_NAME = "".join([get_configurations.get_target_section(section='database_guolian').get("database_prefix"),
                           "his_deliver"])
     INTERFACE_NAME = "general/get_his_deliver"
-    COLUMNS = ["data_list", "count", "end_date", "begin_date"]
+    COLUMNS = ["data_list", "count", "end_date", "begin_date", "info"]
 
     @classmethod
     def setUpClass(cls):
@@ -87,6 +87,7 @@ class GetHisDeliver(unittest.TestCase):
         hbase_result_list = []
         hbase_result = {}
         init_date_base = special_date.month_add(init_date=self.data.get("init_date"), interval=self.data.get("interval"))
+        init_date_base = special_date.get_date(init_date=init_date_base, delay=1)
         for i, init_date_num in enumerate(range(32 * int(self.data.get("interval")))):
             init_date = special_date.get_date(init_date=init_date_base, delay=init_date_num)
             if i == 0:
@@ -108,12 +109,13 @@ class GetHisDeliver(unittest.TestCase):
                                                                        deliver_content="deliver_content")
             if len(hbase_result_dict) > 0:
                 hbase_result_list.append(hbase_result_dict.get("deliver_content")[0])
+
             if init_date == self.data.get("init_date"):
                 end_date = init_date
                 break
 
-        hbase_result.setdefault("data_list", hbase_result_list[1:])
-        hbase_result.setdefault("count", len(hbase_result_list[1:]))
+        hbase_result.setdefault("data_list", hbase_result_list)
+        hbase_result.setdefault("count", len(hbase_result_list))
         hbase_result.setdefault("begin_date", begin_date)
         hbase_result.setdefault("end_date", end_date)
         hbase_command = """get "{0}", "{1}" """.format(GetHisDeliver.TABLE_NAME, row_key)

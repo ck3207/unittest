@@ -388,9 +388,9 @@ class GuoLianAnalysis:
                        "business_time": "{0}{1}{1}".format(random.randint(9, 11), random.randint(0, 60)),
                        "serial_no": "{0}".format(int(base_num + self.get_random_num(12345, 0, 1))),
                        "business_flag": GuoLianAnalysis.BUSINESS_FLAG.get(business_name),
-                       "business_amount": self.get_random_num(1230, 0, 1),
-                       "post_amount": self.get_random_num(1230, 0, 1),
-                       "business_price": self.get_random_num(100, 4, 1),
+                       "business_amount": int(self.get_random_num(1230, 0, 1)),
+                       "post_amount": int(self.get_random_num(1230, 0, 1)),
+                       "business_price": self.get_random_num(100, 2, 1),
                        "business_balance": self.get_random_num(123456, 2, 0),
                        "money_type": "0"}
             stock_hold_data.append(element)

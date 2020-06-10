@@ -26,7 +26,7 @@ class GetHomePageUserDailyData(unittest.TestCase):
         cls.info = get_configurations.get_target_section(section='chasing_info')
         print("here is info:\n", cls.info)
         cls.url_prefix = urls_prefix.get("analysis_chasing_prefix")
-        cls.data = get_basic_paramaters(init_date=cls.info.get("init_date"), fund_account=cls.info.get("fund_account"))
+        cls.data = get_basic_paramaters(option_info=cls.info)
 
     def test_normal(self):
         """"""
@@ -56,8 +56,7 @@ class GetHomePageUserIntervalData(unittest.TestCase):
         cls.info = get_configurations.get_target_section(section='chasing_info')
         print("here is info:\n", cls.info)
         cls.url_prefix = urls_prefix.get("analysis_chasing_prefix")
-        cls.data = get_basic_paramaters(init_date=cls.info.get("init_date"), fund_account=cls.info.get("fund_account"),
-                                        interval=cls.info.get("interval"), asset_prop=cls.info.get("asset_prop"))
+        cls.data = get_basic_paramaters(option_info=cls.info)
 
     def test_normal(self):
         """"""
@@ -86,8 +85,7 @@ class GetHomePageUserCurveData(unittest.TestCase):
         cls.info = get_configurations.get_target_section(section='chasing_info')
         print("here is info:\n", cls.info)
         cls.url_prefix = urls_prefix.get("analysis_chasing_prefix")
-        cls.data = get_basic_paramaters(init_date=cls.info.get("init_date"),
-                                        fund_account=cls.info.get("fund_account"), interval=cls.info.get("interval"))
+        cls.data = get_basic_paramaters(option_info=cls.info)
 
     def test_normal(self):
         """"""
@@ -178,8 +176,7 @@ class GetCashPageUserCurveData(unittest.TestCase):
         cls.info = get_configurations.get_target_section(section='chasing_info')
         print("here is info:\n", cls.info)
         cls.url_prefix = urls_prefix.get("analysis_chasing_prefix")
-        cls.data = get_basic_paramaters(init_date=cls.info.get("init_date"),
-                                        fund_account=cls.info.get("fund_account"), interval=cls.info.get("interval"))
+        cls.data = get_basic_paramaters(option_info=cls.info)
 
     def test_normal(self):
         """"""
@@ -224,8 +221,7 @@ class GetCfbPageUserCurveData(unittest.TestCase):
         cls.info = get_configurations.get_target_section(section='chasing_info')
         print("here is info:\n", cls.info)
         cls.url_prefix = urls_prefix.get("analysis_chasing_prefix")
-        cls.data = get_basic_paramaters(init_date=cls.info.get("init_date"),
-                                        fund_account=cls.info.get("fund_account"), interval=cls.info.get("interval"))
+        cls.data = get_basic_paramaters(option_info=cls.info)
 
     def test_normal(self):
         """"""
@@ -271,7 +267,7 @@ class GetBondPageUserDailyData(unittest.TestCase):
         cls.info = get_configurations.get_target_section(section='chasing_info')
         print("here is info:\n", cls.info)
         cls.url_prefix = urls_prefix.get("analysis_chasing_prefix")
-        cls.data = get_basic_paramaters(init_date=cls.info.get("init_date"), fund_account=cls.info.get("fund_account"))
+        cls.data = get_basic_paramaters(option_info=cls.info)
 
     def test_normal(self):
         """"""
@@ -335,7 +331,7 @@ class GetFinancialPageUserDailyData(unittest.TestCase):
         cls.info = get_configurations.get_target_section(section='chasing_info')
         print("here is info:\n", cls.info)
         cls.url_prefix = urls_prefix.get("analysis_chasing_prefix")
-        cls.data = get_basic_paramaters(init_date=cls.info.get("init_date"), fund_account=cls.info.get("fund_account"))
+        cls.data = get_basic_paramaters(option_info=cls.info)
 
     def test_normal(self):
         """"""
@@ -344,7 +340,7 @@ class GetFinancialPageUserDailyData(unittest.TestCase):
         interface_result = interfaces.request(url=url, data=data, is_get_method=False)
         row_key = ",".join([self.data.get("fund_account_reversed"), init_date_to_cal_date(self.info.get("init_date"))])
         if self.data.get("interval"):
-            row_key = ",".join([self.data.get("fund_account_reversed"), self.data.get("fund_account_reversed"),
+            row_key = ",".join([self.data.get("fund_account_reversed"),
                                 init_date_to_cal_date(self.info.get("init_date"))])
         hbase_result_origin = hbase_client.getRow(tableName=GetFinancialPageUserDailyData.TABLE_NAME, row=row_key)
         hbase_command = """get "{0}", "{1}" """.format(GetFinancialPageUserDailyData.TABLE_NAME, row_key)
@@ -370,9 +366,7 @@ class GetFinancialPageUserIntervalData(unittest.TestCase):
         cls.info = get_configurations.get_target_section(section='chasing_info')
         print("here is info:\n", cls.info)
         cls.url_prefix = urls_prefix.get("analysis_chasing_prefix")
-        cls.data = get_basic_paramaters(init_date=cls.info.get("init_date"),
-                                        fund_account=cls.info.get("fund_account"),
-                                        interval=cls.info.get("interval"))
+        cls.data = get_basic_paramaters(option_info=cls.info)
 
     def test_normal(self):
         """"""
@@ -403,7 +397,7 @@ class GetStockPageUserDailyData(unittest.TestCase):
         cls.info = get_configurations.get_target_section(section='chasing_info')
         print("here is info:\n", cls.info)
         cls.url_prefix = urls_prefix.get("analysis_chasing_prefix")
-        cls.data = get_basic_paramaters(init_date=cls.info.get("init_date"), fund_account=cls.info.get("fund_account"))
+        cls.data = get_basic_paramaters(option_info=cls.info)
 
     def test_normal(self):
         """"""
@@ -411,9 +405,6 @@ class GetStockPageUserDailyData(unittest.TestCase):
         data = str(self.data.copy()).replace("'", '"')
         interface_result = interfaces.request(url=url, data=data, is_get_method=False)
         row_key = ",".join([self.data.get("fund_account_reversed"), init_date_to_cal_date(self.info.get("init_date"))])
-        if self.data.get("interval"):
-            row_key = ",".join([self.data.get("fund_account_reversed"), self.data.get("fund_account_reversed"),
-                                init_date_to_cal_date(self.info.get("init_date"))])
         hbase_result_origin = hbase_client.getRow(tableName=GetStockPageUserDailyData.TABLE_NAME, row=row_key)
         hbase_command = """get "{0}", "{1}" """.format(GetStockPageUserDailyData.TABLE_NAME, row_key)
 
@@ -668,12 +659,8 @@ if __name__ == "__main__":
     tests.addTest(unittest.makeSuite(testCaseClass=GetStockPageUserIntervalData, prefix='test'))
     tests.addTest(unittest.makeSuite(testCaseClass=GetStockDetailPageData, prefix='test'))
     tests.addTest(unittest.makeSuite(testCaseClass=GetNewStockPageUserIntervalData, prefix='test'))
-    # tests.addTest(unittest.makeSuite(testCaseClass=ListMonthStockTradeStockCode, prefix='test'))
-    # tests.addTest(unittest.makeSuite(testCaseClass=GetMonthStockTradeDetail, prefix='test'))
-    # tests.addTest(unittest.makeSuite(testCaseClass=GetMonthAccountYield, prefix='test'))
-    # tests.addTest(unittest.makeSuite(testCaseClass=GetMonthIndexAcYield, prefix='test'))
 
     # write unittest result to a file
-    with open(r"result_chasing.html", "wb") as f:
+    with open(r"../export/result_chasing.html", "wb") as f:
         HTMLTestRunner(stream=f, title='测试报告', description='单元测试报告：', verbosity=2).run(tests)
 

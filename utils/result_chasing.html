@@ -189,9 +189,9 @@ function showOutput(id, name) {
 
 <div class='heading'>
 <h1>测试报告</h1>
-<p class='attribute'><strong>Start Time:</strong> 2020-05-15 20:10:22</p>
-<p class='attribute'><strong>Duration:</strong> 0:00:00.911000</p>
-<p class='attribute'><strong>Status:</strong> Pass 13</p>
+<p class='attribute'><strong>Start Time:</strong> 2020-06-10 19:49:32</p>
+<p class='attribute'><strong>Duration:</strong> 0:00:00.661000</p>
+<p class='attribute'><strong>Status:</strong> Failure 11 Error 2</p>
 
 <p class='description'>单元测试报告：</p>
 </div>
@@ -221,194 +221,885 @@ function showOutput(id, name) {
     <td>View</td>
 </tr>
 
-<tr class='passClass'>
+<tr class='failClass'>
     <td>GetHomePageUserDailyData</td>
     <td>1</td>
-    <td>1</td>
     <td>0</td>
+    <td>1</td>
     <td>0</td>
     <td><a href="javascript:showClassDetail('c1',1)">Detail</a></td>
 </tr>
 
-<tr id='pt1.1' class='hiddenRow'>
-    <td class='none'><div class='testcase'>test_normal</div></td>
-    <td colspan='5' align='center'>pass</td>
+<tr id='ft1.1' class='none'>
+    <td class='failCase'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft1.1')" >
+        fail</a>
+
+    <div id='div_ft1.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft1.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft1.1: Traceback (most recent call last):
+  File "analysis_fortune.py", line 42, in test_normal
+    sql=hbase_command, url=url, data=data, table_columns=GetHomePageUserDailyData.COLUMNS)
+  File "analysis_fortune.py", line 558, in checking
+    self.assertEqual(str(sql_result.get(column)), str(interface_result.get(column)), msg=msg_model)
+AssertionError: '20200426' != 'None'
+- 20200426
++ None
+ : 
+SQL is
+ get "chenk_zhfx:home_page_user_daily_data", "88888,79799573" 
+ Interface is
+ http://10.20.18.174:9007/chasing/general/get_home_page_user_daily_data
+ params is
+ {"init_date": "20200426", "fund_account": "88888", "fund_account_reversed": "88888"}
+Interface response is
+ {'error_info': 'user_token 不能为null', 'error_no': '1001'}
+    Hbase result is
+[TRowResult(row='88888,79799573', columns={'tag_base:bond_asset': TCell(value='123127.55', timestamp=1587727751305), 'tag_base:cash_asset': TCell(value='59965.41', timestamp=1587727751305), 'tag_base:cfb_asset': TCell(value='21002.72', timestamp=1587727751305), 'tag_base:daily_income': TCell(value='116265.11', timestamp=1587727751305), 'tag_base:daily_income_ratio': TCell(value='0.6906', timestamp=1587727751305), 'tag_base:financial_asset': TCell(value='74547.91', timestamp=1587727751305), 'tag_base:fund_in': TCell(value='18025.67', timestamp=1587727751305), 'tag_base:fund_out': TCell(value='2109.18', timestamp=1587727751305), 'tag_base:init_date': TCell(value='20200426', timestamp=1587727751305), 'tag_base:other_asset': TCell(value='85086.85', timestamp=1587727751305), 'tag_base:stock_asset': TCell(value='115463.74', timestamp=1587727751305), 'tag_base:total_asset': TCell(value='30836.22', timestamp=1587727751305)})]
+Traceback (most recent call last):
+  File "analysis_fortune.py", line 42, in test_normal
+    sql=hbase_command, url=url, data=data, table_columns=GetHomePageUserDailyData.COLUMNS)
+  File "analysis_fortune.py", line 558, in checking
+    self.assertEqual(str(sql_result.get(column)), str(interface_result.get(column)), msg=msg_model)
+AssertionError: '20200426' != 'None'
+- 20200426
++ None
+ : 
+SQL is
+ get "chenk_zhfx:home_page_user_daily_data", "88888,79799573" 
+ Interface is
+ http://10.20.18.174:9007/chasing/general/get_home_page_user_daily_data
+ params is
+ {"init_date": "20200426", "fund_account": "88888", "fund_account_reversed": "88888"}
+Interface response is
+ {'error_info': 'user_token 不能为null', 'error_no': '1001'}
+    Hbase result is
+[TRowResult(row='88888,79799573', columns={'tag_base:bond_asset': TCell(value='123127.55', timestamp=1587727751305), 'tag_base:cash_asset': TCell(value='59965.41', timestamp=1587727751305), 'tag_base:cfb_asset': TCell(value='21002.72', timestamp=1587727751305), 'tag_base:daily_income': TCell(value='116265.11', timestamp=1587727751305), 'tag_base:daily_income_ratio': TCell(value='0.6906', timestamp=1587727751305), 'tag_base:financial_asset': TCell(value='74547.91', timestamp=1587727751305), 'tag_base:fund_in': TCell(value='18025.67', timestamp=1587727751305), 'tag_base:fund_out': TCell(value='2109.18', timestamp=1587727751305), 'tag_base:init_date': TCell(value='20200426', timestamp=1587727751305), 'tag_base:other_asset': TCell(value='85086.85', timestamp=1587727751305), 'tag_base:stock_asset': TCell(value='115463.74', timestamp=1587727751305), 'tag_base:total_asset': TCell(value='30836.22', timestamp=1587727751305)})]
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
 </tr>
 
-<tr class='passClass'>
+<tr class='failClass'>
     <td>GetHomePageUserIntervalData</td>
     <td>1</td>
-    <td>1</td>
     <td>0</td>
+    <td>1</td>
     <td>0</td>
     <td><a href="javascript:showClassDetail('c2',1)">Detail</a></td>
 </tr>
 
-<tr id='pt2.1' class='hiddenRow'>
-    <td class='none'><div class='testcase'>test_normal</div></td>
-    <td colspan='5' align='center'>pass</td>
+<tr id='ft2.1' class='none'>
+    <td class='failCase'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft2.1')" >
+        fail</a>
+
+    <div id='div_ft2.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft2.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft2.1: Traceback (most recent call last):
+  File "analysis_fortune.py", line 74, in test_normal
+    sql=hbase_command, url=url, data=data, table_columns=GetHomePageUserIntervalData.COLUMNS)
+  File "analysis_fortune.py", line 558, in checking
+    self.assertEqual(str(sql_result.get(column)), str(interface_result.get(column)), msg=msg_model)
+AssertionError: '9866.23' != 'None'
+- 9866.23
++ None
+ : 
+SQL is
+ get "chenk_zhfx:home_page_user_interval_data", "88888,1,0,79799573" 
+ Interface is
+ http://10.20.18.174:9007/chasing/general/get_home_page_user_interval_data
+ params is
+ {"init_date": "20200426", "fund_account": "88888", "interval": "1", "asset_prop": "0", "fund_account_reversed": "88888"}
+Interface response is
+ {'error_info': 'user_token 不能为空', 'error_no': '1001'}
+    Hbase result is
+[TRowResult(row='88888,1,0,79799573', columns={'tag_base:asset_income': TCell(value='9866.23', timestamp=1591702452088), 'tag_base:asset_yield': TCell(value='-0.86', timestamp=1591702452088), 'tag_base:begin_asset': TCell(value='1213231.24', timestamp=1591702452088), 'tag_base:bond_income': TCell(value='72666.29', timestamp=1591702452088), 'tag_base:cfb_income': TCell(value='107336.5', timestamp=1591702452088), 'tag_base:draw_down': TCell(value='0.6778', timestamp=1591702452088), 'tag_base:financial_income': TCell(value='115815.67', timestamp=1591702452088), 'tag_base:fund_in': TCell(value='6024.94', timestamp=1591702452088), 'tag_base:fund_out': TCell(value='90984.79', timestamp=1591702452088), 'tag_base:income_loss_per': TCell(value='0.6119', timestamp=1591702452088), 'tag_base:income_risk_per': TCell(value='0.5575', timestamp=1591702452088), 'tag_base:last_asset': TCell(value='1118364.37', timestamp=1591702452088), 'tag_base:other_income': TCell(value='98917.03', timestamp=1591702452088), 'tag_base:sharpe': TCell(value='0.4085', timestamp=1591702452088), 'tag_base:stock_income': TCell(value='-109049.98', timestamp=1591702452088)})]
+Traceback (most recent call last):
+  File "analysis_fortune.py", line 74, in test_normal
+    sql=hbase_command, url=url, data=data, table_columns=GetHomePageUserIntervalData.COLUMNS)
+  File "analysis_fortune.py", line 558, in checking
+    self.assertEqual(str(sql_result.get(column)), str(interface_result.get(column)), msg=msg_model)
+AssertionError: '9866.23' != 'None'
+- 9866.23
++ None
+ : 
+SQL is
+ get "chenk_zhfx:home_page_user_interval_data", "88888,1,0,79799573" 
+ Interface is
+ http://10.20.18.174:9007/chasing/general/get_home_page_user_interval_data
+ params is
+ {"init_date": "20200426", "fund_account": "88888", "interval": "1", "asset_prop": "0", "fund_account_reversed": "88888"}
+Interface response is
+ {'error_info': 'user_token 不能为空', 'error_no': '1001'}
+    Hbase result is
+[TRowResult(row='88888,1,0,79799573', columns={'tag_base:asset_income': TCell(value='9866.23', timestamp=1591702452088), 'tag_base:asset_yield': TCell(value='-0.86', timestamp=1591702452088), 'tag_base:begin_asset': TCell(value='1213231.24', timestamp=1591702452088), 'tag_base:bond_income': TCell(value='72666.29', timestamp=1591702452088), 'tag_base:cfb_income': TCell(value='107336.5', timestamp=1591702452088), 'tag_base:draw_down': TCell(value='0.6778', timestamp=1591702452088), 'tag_base:financial_income': TCell(value='115815.67', timestamp=1591702452088), 'tag_base:fund_in': TCell(value='6024.94', timestamp=1591702452088), 'tag_base:fund_out': TCell(value='90984.79', timestamp=1591702452088), 'tag_base:income_loss_per': TCell(value='0.6119', timestamp=1591702452088), 'tag_base:income_risk_per': TCell(value='0.5575', timestamp=1591702452088), 'tag_base:last_asset': TCell(value='1118364.37', timestamp=1591702452088), 'tag_base:other_income': TCell(value='98917.03', timestamp=1591702452088), 'tag_base:sharpe': TCell(value='0.4085', timestamp=1591702452088), 'tag_base:stock_income': TCell(value='-109049.98', timestamp=1591702452088)})]
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
 </tr>
 
-<tr class='passClass'>
+<tr class='failClass'>
     <td>GetHomePageUserCurveData</td>
     <td>1</td>
-    <td>1</td>
     <td>0</td>
+    <td>1</td>
     <td>0</td>
     <td><a href="javascript:showClassDetail('c3',1)">Detail</a></td>
 </tr>
 
-<tr id='pt3.1' class='hiddenRow'>
-    <td class='none'><div class='testcase'>test_normal</div></td>
-    <td colspan='5' align='center'>pass</td>
+<tr id='ft3.1' class='none'>
+    <td class='failCase'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft3.1')" >
+        fail</a>
+
+    <div id='div_ft3.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft3.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft3.1: Traceback (most recent call last):
+  File "analysis_fortune.py", line 577, in checking
+    self.assertEqual(str(v), str(interface_result.get(column)[i].get(k)), msg=msg_model)
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "analysis_fortune.py", line 149, in test_normal
+    list_name=["monthDataList", "monthDataList", "homeCurveDataList", "homeCurveDataList"])
+  File "analysis_fortune.py", line 590, in checking
+    params.get("data"), column))
+AssertionError: 0 is not true : sql is
+ get "chenk_zhfx:home_page_user_month_data", "88888,79799574" 
+ interface is
+ http://10.20.18.174:9007/chasing/general/get_home_page_user_curve_data
+ params is {"init_date": "20200426", "fund_account": "88888", "interval": "1", "fund_account_reversed": "88888"}
+                            Current is checking column cant get.
+Traceback (most recent call last):
+  File "analysis_fortune.py", line 577, in checking
+    self.assertEqual(str(v), str(interface_result.get(column)[i].get(k)), msg=msg_model)
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "analysis_fortune.py", line 149, in test_normal
+    list_name=["monthDataList", "monthDataList", "homeCurveDataList", "homeCurveDataList"])
+  File "analysis_fortune.py", line 590, in checking
+    params.get("data"), column))
+AssertionError: 0 is not true : sql is
+ get "chenk_zhfx:home_page_user_month_data", "88888,79799574" 
+ interface is
+ http://10.20.18.174:9007/chasing/general/get_home_page_user_curve_data
+ params is {"init_date": "20200426", "fund_account": "88888", "interval": "1", "fund_account_reversed": "88888"}
+                            Current is checking column cant get.
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
 </tr>
 
-<tr class='passClass'>
+<tr class='failClass'>
     <td>GetCashPageUserCurveData</td>
     <td>1</td>
-    <td>1</td>
     <td>0</td>
+    <td>1</td>
     <td>0</td>
     <td><a href="javascript:showClassDetail('c4',1)">Detail</a></td>
 </tr>
 
-<tr id='pt4.1' class='hiddenRow'>
-    <td class='none'><div class='testcase'>test_normal</div></td>
-    <td colspan='5' align='center'>pass</td>
+<tr id='ft4.1' class='none'>
+    <td class='failCase'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft4.1')" >
+        fail</a>
+
+    <div id='div_ft4.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft4.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft4.1: Traceback (most recent call last):
+  File "analysis_fortune.py", line 577, in checking
+    self.assertEqual(str(v), str(interface_result.get(column)[i].get(k)), msg=msg_model)
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "analysis_fortune.py", line 212, in test_normal
+    list_name=["cashCurveDataList", "cashCurveDataList"])
+  File "analysis_fortune.py", line 590, in checking
+    params.get("data"), column))
+AssertionError: 0 is not true : sql is
+ get "chenk_zhfx:home_page_user_daily_data", "88888,79799574" 
+ interface is
+ http://10.20.18.174:9007/chasing/general/get_cash_page_user_curve_data
+ params is {"init_date": "20200426", "fund_account": "88888", "interval": "1", "fund_account_reversed": "88888"}
+                            Current is checking column cant get.
+Traceback (most recent call last):
+  File "analysis_fortune.py", line 577, in checking
+    self.assertEqual(str(v), str(interface_result.get(column)[i].get(k)), msg=msg_model)
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "analysis_fortune.py", line 212, in test_normal
+    list_name=["cashCurveDataList", "cashCurveDataList"])
+  File "analysis_fortune.py", line 590, in checking
+    params.get("data"), column))
+AssertionError: 0 is not true : sql is
+ get "chenk_zhfx:home_page_user_daily_data", "88888,79799574" 
+ interface is
+ http://10.20.18.174:9007/chasing/general/get_cash_page_user_curve_data
+ params is {"init_date": "20200426", "fund_account": "88888", "interval": "1", "fund_account_reversed": "88888"}
+                            Current is checking column cant get.
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
 </tr>
 
-<tr class='passClass'>
+<tr class='failClass'>
     <td>GetCfbPageUserCurveData</td>
     <td>1</td>
-    <td>1</td>
     <td>0</td>
+    <td>1</td>
     <td>0</td>
     <td><a href="javascript:showClassDetail('c5',1)">Detail</a></td>
 </tr>
 
-<tr id='pt5.1' class='hiddenRow'>
-    <td class='none'><div class='testcase'>test_normal</div></td>
-    <td colspan='5' align='center'>pass</td>
+<tr id='ft5.1' class='none'>
+    <td class='failCase'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft5.1')" >
+        fail</a>
+
+    <div id='div_ft5.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft5.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft5.1: Traceback (most recent call last):
+  File "analysis_fortune.py", line 577, in checking
+    self.assertEqual(str(v), str(interface_result.get(column)[i].get(k)), msg=msg_model)
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "analysis_fortune.py", line 259, in test_normal
+    list_name=["cfbCurveDataList", "cfbCurveDataList"])
+  File "analysis_fortune.py", line 590, in checking
+    params.get("data"), column))
+AssertionError: 0 is not true : sql is
+ get "chenk_zhfx:cfb_page_user_daily_data", "88888,79799574" 
+ interface is
+ http://10.20.18.174:9007/chasing/general/get_cfb_page_user_curve_data
+ params is {"init_date": "20200426", "fund_account": "88888", "interval": "1", "fund_account_reversed": "88888"}
+                            Current is checking column cant get.
+Traceback (most recent call last):
+  File "analysis_fortune.py", line 577, in checking
+    self.assertEqual(str(v), str(interface_result.get(column)[i].get(k)), msg=msg_model)
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "analysis_fortune.py", line 259, in test_normal
+    list_name=["cfbCurveDataList", "cfbCurveDataList"])
+  File "analysis_fortune.py", line 590, in checking
+    params.get("data"), column))
+AssertionError: 0 is not true : sql is
+ get "chenk_zhfx:cfb_page_user_daily_data", "88888,79799574" 
+ interface is
+ http://10.20.18.174:9007/chasing/general/get_cfb_page_user_curve_data
+ params is {"init_date": "20200426", "fund_account": "88888", "interval": "1", "fund_account_reversed": "88888"}
+                            Current is checking column cant get.
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
 </tr>
 
-<tr class='passClass'>
+<tr class='failClass'>
     <td>GetFinancialPageUserIntervalData</td>
     <td>1</td>
-    <td>1</td>
     <td>0</td>
+    <td>1</td>
     <td>0</td>
     <td><a href="javascript:showClassDetail('c6',1)">Detail</a></td>
 </tr>
 
-<tr id='pt6.1' class='hiddenRow'>
-    <td class='none'><div class='testcase'>test_normal</div></td>
-    <td colspan='5' align='center'>pass</td>
+<tr id='ft6.1' class='none'>
+    <td class='failCase'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft6.1')" >
+        fail</a>
+
+    <div id='div_ft6.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft6.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft6.1: Traceback (most recent call last):
+  File "analysis_fortune.py", line 390, in test_normal
+    list_name=["json_content", "financial_trade_data_list"], deal_column=["hold_days", int])
+  File "analysis_fortune.py", line 558, in checking
+    self.assertEqual(str(sql_result.get(column)), str(interface_result.get(column)), msg=msg_model)
+AssertionError: '35944.79' != 'None'
+- 35944.79
++ None
+ : 
+SQL is
+ get "chenk_zhfx:financial_page_user_interval_data", "88888,1,0,79799573" 
+ Interface is
+ http://10.20.18.174:9007/chasing/general/get_financial_page_user_interval_data
+ params is
+ {"init_date": "20200426", "fund_account": "88888", "interval": "1", "fund_account_reversed": "88888"}
+Interface response is
+ {'error_info': 'user_token 不能为null', 'error_no': '1001'}
+    Hbase result is
+[TRowResult(row='88888,1,0,79799573', columns={'tag_base:financial_buy_num': TCell(value='20', timestamp=1591758259744), 'tag_base:financial_hold_num': TCell(value='21', timestamp=1591758259744), 'tag_base:financial_income_balance': TCell(value='35944.79', timestamp=1591758259744), 'tag_base:financial_sell_num': TCell(value='78', timestamp=1591758259744), 'tag_base:financial_win_num': TCell(value='68', timestamp=1591758259744), 'tag_base:json_content': TCell(value="[{'prod_code': 'T12139', 'prod_name': '华润信托鑫华10号', 'cumu_income': 16773.77, 'hold_days': 55.42, 'end_date': '20200426', 'hold_status': 1}, {'prod_code': 'SJZ992', 'prod_name': '永安国富-永富18号1期', 'cumu_income': 64411.26, 'hold_days': 59.13, 'end_date': '20200426', 'hold_status': 0}, {'prod_code': 'SGK660', 'prod_name': '幻方量化专享1号1期', 'cumu_income': 121339.77, 'hold_days': 7.16, 'end_date': '20200426', 'hold_status': 1}, {'prod_code': 'C43350', 'prod_name': '聚丰3号', 'cumu_income': 50060.72, 'hold_days': 40.0, 'end_date': '20200426', 'hold_status': 1}, {'prod_code': 'C43394', 'prod_name': '月月福23号', 'cumu_income': 112636.71, 'hold_days': 14.68, 'end_date': '20200426', 'hold_status': 0}, {'prod_code': 'C43460', 'prod_name': '润富6号', 'cumu_income': 94258.41, 'hold_days': 89.56, 'end_date': '20200426', 'hold_status': 0}, {'prod_code': 'C43328', 'prod_name': '吉富1号', 'cumu_income': 64282.17, 'hold_days': 44.69, 'end_date': '20200426', 'hold_status': 0}, {'prod_code': 'SCF241', 'prod_name': '云溪金牛A', 'cumu_income': 56885.3, 'hold_days': 13.32, 'end_date': '20200426', 'hold_status': 1}, {'prod_code': 'SJU205', 'prod_name': '少数派132号', 'cumu_income': 34734.33, 'hold_days': 17.94, 'end_date': '20200426', 'hold_status': 0}, {'prod_code': 'SGK077', 'prod_name': '私享-星华1号', 'cumu_income': 77669.2, 'hold_days': 19.77, 'end_date': '20200426', 'hold_status': 1}]", timestamp=1591758259744), 'tag_base:most_loss_financial_code': TCell(value='SGK660', timestamp=1591758259744), 'tag_base:most_loss_financial_income': TCell(value='66794.1', timestamp=1591758259744), 'tag_base:most_loss_financial_name': TCell(value='幻方量化专享1号1期', timestamp=1591758259744), 'tag_base:most_profit_financial_code': TCell(value='T12139', timestamp=1591758259744), 'tag_base:most_profit_financial_income': TCell(value='63577.04', timestamp=1591758259744), 'tag_base:most_profit_financial_name': TCell(value='华润信托鑫华10号', timestamp=1591758259744)})]
+Traceback (most recent call last):
+  File "analysis_fortune.py", line 390, in test_normal
+    list_name=["json_content", "financial_trade_data_list"], deal_column=["hold_days", int])
+  File "analysis_fortune.py", line 558, in checking
+    self.assertEqual(str(sql_result.get(column)), str(interface_result.get(column)), msg=msg_model)
+AssertionError: '35944.79' != 'None'
+- 35944.79
++ None
+ : 
+SQL is
+ get "chenk_zhfx:financial_page_user_interval_data", "88888,1,0,79799573" 
+ Interface is
+ http://10.20.18.174:9007/chasing/general/get_financial_page_user_interval_data
+ params is
+ {"init_date": "20200426", "fund_account": "88888", "interval": "1", "fund_account_reversed": "88888"}
+Interface response is
+ {'error_info': 'user_token 不能为null', 'error_no': '1001'}
+    Hbase result is
+[TRowResult(row='88888,1,0,79799573', columns={'tag_base:financial_buy_num': TCell(value='20', timestamp=1591758259744), 'tag_base:financial_hold_num': TCell(value='21', timestamp=1591758259744), 'tag_base:financial_income_balance': TCell(value='35944.79', timestamp=1591758259744), 'tag_base:financial_sell_num': TCell(value='78', timestamp=1591758259744), 'tag_base:financial_win_num': TCell(value='68', timestamp=1591758259744), 'tag_base:json_content': TCell(value="[{'prod_code': 'T12139', 'prod_name': '华润信托鑫华10号', 'cumu_income': 16773.77, 'hold_days': 55.42, 'end_date': '20200426', 'hold_status': 1}, {'prod_code': 'SJZ992', 'prod_name': '永安国富-永富18号1期', 'cumu_income': 64411.26, 'hold_days': 59.13, 'end_date': '20200426', 'hold_status': 0}, {'prod_code': 'SGK660', 'prod_name': '幻方量化专享1号1期', 'cumu_income': 121339.77, 'hold_days': 7.16, 'end_date': '20200426', 'hold_status': 1}, {'prod_code': 'C43350', 'prod_name': '聚丰3号', 'cumu_income': 50060.72, 'hold_days': 40.0, 'end_date': '20200426', 'hold_status': 1}, {'prod_code': 'C43394', 'prod_name': '月月福23号', 'cumu_income': 112636.71, 'hold_days': 14.68, 'end_date': '20200426', 'hold_status': 0}, {'prod_code': 'C43460', 'prod_name': '润富6号', 'cumu_income': 94258.41, 'hold_days': 89.56, 'end_date': '20200426', 'hold_status': 0}, {'prod_code': 'C43328', 'prod_name': '吉富1号', 'cumu_income': 64282.17, 'hold_days': 44.69, 'end_date': '20200426', 'hold_status': 0}, {'prod_code': 'SCF241', 'prod_name': '云溪金牛A', 'cumu_income': 56885.3, 'hold_days': 13.32, 'end_date': '20200426', 'hold_status': 1}, {'prod_code': 'SJU205', 'prod_name': '少数派132号', 'cumu_income': 34734.33, 'hold_days': 17.94, 'end_date': '20200426', 'hold_status': 0}, {'prod_code': 'SGK077', 'prod_name': '私享-星华1号', 'cumu_income': 77669.2, 'hold_days': 19.77, 'end_date': '20200426', 'hold_status': 1}]", timestamp=1591758259744), 'tag_base:most_loss_financial_code': TCell(value='SGK660', timestamp=1591758259744), 'tag_base:most_loss_financial_income': TCell(value='66794.1', timestamp=1591758259744), 'tag_base:most_loss_financial_name': TCell(value='幻方量化专享1号1期', timestamp=1591758259744), 'tag_base:most_profit_financial_code': TCell(value='T12139', timestamp=1591758259744), 'tag_base:most_profit_financial_income': TCell(value='63577.04', timestamp=1591758259744), 'tag_base:most_profit_financial_name': TCell(value='华润信托鑫华10号', timestamp=1591758259744)})]
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
 </tr>
 
-<tr class='passClass'>
+<tr class='failClass'>
     <td>GetBondPageUserDailyData</td>
     <td>1</td>
-    <td>1</td>
     <td>0</td>
+    <td>1</td>
     <td>0</td>
     <td><a href="javascript:showClassDetail('c7',1)">Detail</a></td>
 </tr>
 
-<tr id='pt7.1' class='hiddenRow'>
-    <td class='none'><div class='testcase'>test_normal</div></td>
-    <td colspan='5' align='center'>pass</td>
+<tr id='ft7.1' class='none'>
+    <td class='failCase'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft7.1')" >
+        fail</a>
+
+    <div id='div_ft7.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft7.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft7.1: Traceback (most recent call last):
+  File "analysis_fortune.py", line 289, in test_normal
+    deal_column=["bond_nums", int])
+  File "analysis_fortune.py", line 558, in checking
+    self.assertEqual(str(sql_result.get(column)), str(interface_result.get(column)), msg=msg_model)
+AssertionError: '8735368.64' != 'None'
+- 8735368.64
++ None
+ : 
+SQL is
+ get "chenk_zhfx:bond_page_user_daily_data", "88888,79799573" 
+ Interface is
+ http://10.20.18.174:9007/chasing/general/get_bond_page_user_daily_data
+ params is
+ {"init_date": "20200426", "fund_account": "88888", "fund_account_reversed": "88888"}
+Interface response is
+ {'error_info': 'user_token 不能为null', 'error_no': '1001'}
+    Hbase result is
+[TRowResult(row='88888,79799573', columns={'tag_base:bond_asset': TCell(value='8735368.64', timestamp=1589333157026), 'tag_base:bond_daily_income': TCell(value='87649.37', timestamp=1589333157026), 'tag_base:init_date': TCell(value='20200426', timestamp=1589333157026), 'tag_base:json_content': TCell(value="[{'stock_code': '128068', 'stock_name': '国轩转债', 'exchange_type': '1', 'single_bond_day_income': 6355.02, 'bond_market_value': 96762.4, 'bond_nums': 89.0}, {'stock_code': '113555', 'stock_name': '振德转债', 'exchange_type': '0', 'single_bond_day_income': 56216.13, 'bond_market_value': 115471.84, 'bond_nums': 59.0}, {'stock_code': '113571', 'stock_name': '博特转债', 'exchange_type': '0', 'single_bond_day_income': 61562.85, 'bond_market_value': 105488.37, 'bond_nums': 80.0}, {'stock_code': '127015', 'stock_name': '希望转债', 'exchange_type': '1', 'single_bond_day_income': 33581.19, 'bond_market_value': 79586.64, 'bond_nums': 26.0}, {'stock_code': '128077', 'stock_name': '华夏转债', 'exchange_type': '1', 'single_bond_day_income': 22945.66, 'bond_market_value': 27665.27, 'bond_nums': 73.0}, {'stock_code': '123025', 'stock_name': '精测转债', 'exchange_type': '1', 'single_bond_day_income': 93873.3, 'bond_market_value': 56221.27, 'bond_nums': 81.0}, {'stock_code': '113509', 'stock_name': '新泉转债', 'exchange_type': '0', 'single_bond_day_income': 71668.77, 'bond_market_value': 101685.14, 'bond_nums': 79.0}, {'stock_code': '128092', 'stock_name': '唐人转债', 'exchange_type': '1', 'single_bond_day_income': 29533.99, 'bond_market_value': 48795.53, 'bond_nums': 69.0}, {'stock_code': '113028', 'stock_name': '环境转债', 'exchange_type': '0', 'single_bond_day_income': 121123.67, 'bond_market_value': 84048.55, 'bond_nums': 84.0}, {'stock_code': '128054', 'stock_name': '中宠转债', 'exchange_type': '1', 'single_bond_day_income': 70488.67, 'bond_market_value': 49671.9, 'bond_nums': 32.0}, {'stock_code': '113556', 'stock_name': '至纯转债', 'exchange_type': '0', 'single_bond_day_income': 21242.06, 'bond_market_value': 30024.0, 'bond_nums': 11.0}]", timestamp=1589333157026)})]
+Traceback (most recent call last):
+  File "analysis_fortune.py", line 289, in test_normal
+    deal_column=["bond_nums", int])
+  File "analysis_fortune.py", line 558, in checking
+    self.assertEqual(str(sql_result.get(column)), str(interface_result.get(column)), msg=msg_model)
+AssertionError: '8735368.64' != 'None'
+- 8735368.64
++ None
+ : 
+SQL is
+ get "chenk_zhfx:bond_page_user_daily_data", "88888,79799573" 
+ Interface is
+ http://10.20.18.174:9007/chasing/general/get_bond_page_user_daily_data
+ params is
+ {"init_date": "20200426", "fund_account": "88888", "fund_account_reversed": "88888"}
+Interface response is
+ {'error_info': 'user_token 不能为null', 'error_no': '1001'}
+    Hbase result is
+[TRowResult(row='88888,79799573', columns={'tag_base:bond_asset': TCell(value='8735368.64', timestamp=1589333157026), 'tag_base:bond_daily_income': TCell(value='87649.37', timestamp=1589333157026), 'tag_base:init_date': TCell(value='20200426', timestamp=1589333157026), 'tag_base:json_content': TCell(value="[{'stock_code': '128068', 'stock_name': '国轩转债', 'exchange_type': '1', 'single_bond_day_income': 6355.02, 'bond_market_value': 96762.4, 'bond_nums': 89.0}, {'stock_code': '113555', 'stock_name': '振德转债', 'exchange_type': '0', 'single_bond_day_income': 56216.13, 'bond_market_value': 115471.84, 'bond_nums': 59.0}, {'stock_code': '113571', 'stock_name': '博特转债', 'exchange_type': '0', 'single_bond_day_income': 61562.85, 'bond_market_value': 105488.37, 'bond_nums': 80.0}, {'stock_code': '127015', 'stock_name': '希望转债', 'exchange_type': '1', 'single_bond_day_income': 33581.19, 'bond_market_value': 79586.64, 'bond_nums': 26.0}, {'stock_code': '128077', 'stock_name': '华夏转债', 'exchange_type': '1', 'single_bond_day_income': 22945.66, 'bond_market_value': 27665.27, 'bond_nums': 73.0}, {'stock_code': '123025', 'stock_name': '精测转债', 'exchange_type': '1', 'single_bond_day_income': 93873.3, 'bond_market_value': 56221.27, 'bond_nums': 81.0}, {'stock_code': '113509', 'stock_name': '新泉转债', 'exchange_type': '0', 'single_bond_day_income': 71668.77, 'bond_market_value': 101685.14, 'bond_nums': 79.0}, {'stock_code': '128092', 'stock_name': '唐人转债', 'exchange_type': '1', 'single_bond_day_income': 29533.99, 'bond_market_value': 48795.53, 'bond_nums': 69.0}, {'stock_code': '113028', 'stock_name': '环境转债', 'exchange_type': '0', 'single_bond_day_income': 121123.67, 'bond_market_value': 84048.55, 'bond_nums': 84.0}, {'stock_code': '128054', 'stock_name': '中宠转债', 'exchange_type': '1', 'single_bond_day_income': 70488.67, 'bond_market_value': 49671.9, 'bond_nums': 32.0}, {'stock_code': '113556', 'stock_name': '至纯转债', 'exchange_type': '0', 'single_bond_day_income': 21242.06, 'bond_market_value': 30024.0, 'bond_nums': 11.0}]", timestamp=1589333157026)})]
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
 </tr>
 
-<tr class='passClass'>
+<tr class='failClass'>
     <td>GetBondPageUserIntervalData</td>
     <td>1</td>
-    <td>1</td>
     <td>0</td>
+    <td>1</td>
     <td>0</td>
     <td><a href="javascript:showClassDetail('c8',1)">Detail</a></td>
 </tr>
 
-<tr id='pt8.1' class='hiddenRow'>
-    <td class='none'><div class='testcase'>test_normal</div></td>
-    <td colspan='5' align='center'>pass</td>
+<tr id='ft8.1' class='none'>
+    <td class='failCase'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft8.1')" >
+        fail</a>
+
+    <div id='div_ft8.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft8.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft8.1: Traceback (most recent call last):
+  File "analysis_fortune.py", line 323, in test_normal
+    deal_column=["hold_days", int])
+  File "analysis_fortune.py", line 558, in checking
+    self.assertEqual(str(sql_result.get(column)), str(interface_result.get(column)), msg=msg_model)
+AssertionError: '4038.78' != 'None'
+- 4038.78
++ None
+ : 
+SQL is
+ get "chenk_zhfx:bond_page_user_interval_data", "88888,1,0,79799573" 
+ Interface is
+ http://10.20.18.174:9007/chasing/general/get_bond_page_user_interval_data
+ params is
+ {"fund_account": "88888", "init_date": "20200426", "page_size": "100", "interval": "1", "asset_prop": "0", "cal_init_date": "20200426", "stock_code": "002415", "exchange_type": "2", "fund_account_reversed": "88888"}
+Interface response is
+ {'error_info': 'user_token 不能为空', 'error_no': '1001'}
+    Hbase result is
+[TRowResult(row='88888,1,0,79799573', columns={'tag_base:bond_borrow_times': TCell(value='57', timestamp=1591758535411), 'tag_base:bond_business_balance': TCell(value='3042792.71', timestamp=1591758535411), 'tag_base:bond_buy_times': TCell(value='59', timestamp=1591758535411), 'tag_base:bond_hold_num': TCell(value='20', timestamp=1591758535411), 'tag_base:bond_income': TCell(value='4038.78', timestamp=1591758535411), 'tag_base:bond_lend_times': TCell(value='81', timestamp=1591758535411), 'tag_base:bond_new_times': TCell(value='9', timestamp=1591758535411), 'tag_base:bond_sell_times': TCell(value='33', timestamp=1591758535411), 'tag_base:bond_win_num': TCell(value='43', timestamp=1591758535411), 'tag_base:bond_win_rate': TCell(value='0.7131', timestamp=1591758535411), 'tag_base:json_content': TCell(value="[{'stock_code': '128068', 'stock_name': '国轩转债', 'exchange_type': '1', 'cumu_income': 74767.38, 'hold_days': 54.54, 'bond_market_value': 47606.74, 'end_date': '20200426'}, {'stock_code': '113555', 'stock_name': '振德转债', 'exchange_type': '0', 'cumu_income': 95448.23, 'hold_days': 25.76, 'bond_market_value': 63373.11, 'end_date': '20200426'}, {'stock_code': '113571', 'stock_name': '博特转债', 'exchange_type': '0', 'cumu_income': 16828.42, 'hold_days': 52.7, 'bond_market_value': 2912.52, 'end_date': '20200426'}, {'stock_code': '127015', 'stock_name': '希望转债', 'exchange_type': '1', 'cumu_income': 58420.96, 'hold_days': 94.33, 'bond_market_value': 102769.97, 'end_date': '20200426'}, {'stock_code': '128077', 'stock_name': '华夏转债', 'exchange_type': '1', 'cumu_income': 115384.13, 'hold_days': 93.53, 'bond_market_value': 1980.76, 'end_date': '20200426'}, {'stock_code': '123025', 'stock_name': '精测转债', 'exchange_type': '1', 'cumu_income': 106605.26, 'hold_days': 70.2, 'bond_market_value': 88598.51, 'end_date': '20200426'}, {'stock_code': '113509', 'stock_name': '新泉转债', 'exchange_type': '0', 'cumu_income': 105360.26, 'hold_days': 56.7, 'bond_market_value': 38701.24, 'end_date': '20200426'}, {'stock_code': '128092', 'stock_name': '唐人转债', 'exchange_type': '1', 'cumu_income': 20443.8, 'hold_days': 89.8, 'bond_market_value': 9865.02, 'end_date': '20200426'}, {'stock_code': '113028', 'stock_name': '环境转债', 'exchange_type': '0', 'cumu_income': 96705.18, 'hold_days': 69.91, 'bond_market_value': 34668.19, 'end_date': '20200426'}, {'stock_code': '128054', 'stock_name': '中宠转债', 'exchange_type': '1', 'cumu_income': 38279.31, 'hold_days': 50.86, 'bond_market_value': 119651.64, 'end_date': '20200426'}, {'stock_code': '113556', 'stock_name': '至纯转债', 'exchange_type': '0', 'cumu_income': 95713.66, 'hold_days': 18.12, 'bond_market_value': 111267.8, 'end_date': '20200426'}]", timestamp=1591758535411), 'tag_base:most_loss_bond_code': TCell(value='113028', timestamp=1591758535411), 'tag_base:most_loss_bond_income': TCell(value='-68695.45', timestamp=1591758535411), 'tag_base:most_loss_bond_name': TCell(value='环境转债', timestamp=1591758535411), 'tag_base:most_profit_bond_code': TCell(value='128068', timestamp=1591758535411), 'tag_base:most_profit_bond_income': TCell(value='11572.85', timestamp=1591758535411), 'tag_base:most_profit_bond_name': TCell(value='国轩转债', timestamp=1591758535411)})]
+Traceback (most recent call last):
+  File "analysis_fortune.py", line 323, in test_normal
+    deal_column=["hold_days", int])
+  File "analysis_fortune.py", line 558, in checking
+    self.assertEqual(str(sql_result.get(column)), str(interface_result.get(column)), msg=msg_model)
+AssertionError: '4038.78' != 'None'
+- 4038.78
++ None
+ : 
+SQL is
+ get "chenk_zhfx:bond_page_user_interval_data", "88888,1,0,79799573" 
+ Interface is
+ http://10.20.18.174:9007/chasing/general/get_bond_page_user_interval_data
+ params is
+ {"fund_account": "88888", "init_date": "20200426", "page_size": "100", "interval": "1", "asset_prop": "0", "cal_init_date": "20200426", "stock_code": "002415", "exchange_type": "2", "fund_account_reversed": "88888"}
+Interface response is
+ {'error_info': 'user_token 不能为空', 'error_no': '1001'}
+    Hbase result is
+[TRowResult(row='88888,1,0,79799573', columns={'tag_base:bond_borrow_times': TCell(value='57', timestamp=1591758535411), 'tag_base:bond_business_balance': TCell(value='3042792.71', timestamp=1591758535411), 'tag_base:bond_buy_times': TCell(value='59', timestamp=1591758535411), 'tag_base:bond_hold_num': TCell(value='20', timestamp=1591758535411), 'tag_base:bond_income': TCell(value='4038.78', timestamp=1591758535411), 'tag_base:bond_lend_times': TCell(value='81', timestamp=1591758535411), 'tag_base:bond_new_times': TCell(value='9', timestamp=1591758535411), 'tag_base:bond_sell_times': TCell(value='33', timestamp=1591758535411), 'tag_base:bond_win_num': TCell(value='43', timestamp=1591758535411), 'tag_base:bond_win_rate': TCell(value='0.7131', timestamp=1591758535411), 'tag_base:json_content': TCell(value="[{'stock_code': '128068', 'stock_name': '国轩转债', 'exchange_type': '1', 'cumu_income': 74767.38, 'hold_days': 54.54, 'bond_market_value': 47606.74, 'end_date': '20200426'}, {'stock_code': '113555', 'stock_name': '振德转债', 'exchange_type': '0', 'cumu_income': 95448.23, 'hold_days': 25.76, 'bond_market_value': 63373.11, 'end_date': '20200426'}, {'stock_code': '113571', 'stock_name': '博特转债', 'exchange_type': '0', 'cumu_income': 16828.42, 'hold_days': 52.7, 'bond_market_value': 2912.52, 'end_date': '20200426'}, {'stock_code': '127015', 'stock_name': '希望转债', 'exchange_type': '1', 'cumu_income': 58420.96, 'hold_days': 94.33, 'bond_market_value': 102769.97, 'end_date': '20200426'}, {'stock_code': '128077', 'stock_name': '华夏转债', 'exchange_type': '1', 'cumu_income': 115384.13, 'hold_days': 93.53, 'bond_market_value': 1980.76, 'end_date': '20200426'}, {'stock_code': '123025', 'stock_name': '精测转债', 'exchange_type': '1', 'cumu_income': 106605.26, 'hold_days': 70.2, 'bond_market_value': 88598.51, 'end_date': '20200426'}, {'stock_code': '113509', 'stock_name': '新泉转债', 'exchange_type': '0', 'cumu_income': 105360.26, 'hold_days': 56.7, 'bond_market_value': 38701.24, 'end_date': '20200426'}, {'stock_code': '128092', 'stock_name': '唐人转债', 'exchange_type': '1', 'cumu_income': 20443.8, 'hold_days': 89.8, 'bond_market_value': 9865.02, 'end_date': '20200426'}, {'stock_code': '113028', 'stock_name': '环境转债', 'exchange_type': '0', 'cumu_income': 96705.18, 'hold_days': 69.91, 'bond_market_value': 34668.19, 'end_date': '20200426'}, {'stock_code': '128054', 'stock_name': '中宠转债', 'exchange_type': '1', 'cumu_income': 38279.31, 'hold_days': 50.86, 'bond_market_value': 119651.64, 'end_date': '20200426'}, {'stock_code': '113556', 'stock_name': '至纯转债', 'exchange_type': '0', 'cumu_income': 95713.66, 'hold_days': 18.12, 'bond_market_value': 111267.8, 'end_date': '20200426'}]", timestamp=1591758535411), 'tag_base:most_loss_bond_code': TCell(value='113028', timestamp=1591758535411), 'tag_base:most_loss_bond_income': TCell(value='-68695.45', timestamp=1591758535411), 'tag_base:most_loss_bond_name': TCell(value='环境转债', timestamp=1591758535411), 'tag_base:most_profit_bond_code': TCell(value='128068', timestamp=1591758535411), 'tag_base:most_profit_bond_income': TCell(value='11572.85', timestamp=1591758535411), 'tag_base:most_profit_bond_name': TCell(value='国轩转债', timestamp=1591758535411)})]
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
 </tr>
 
-<tr class='passClass'>
+<tr class='failClass'>
     <td>GetFinancialPageUserDailyData</td>
     <td>1</td>
-    <td>1</td>
     <td>0</td>
+    <td>1</td>
     <td>0</td>
     <td><a href="javascript:showClassDetail('c9',1)">Detail</a></td>
 </tr>
 
-<tr id='pt9.1' class='hiddenRow'>
-    <td class='none'><div class='testcase'>test_normal</div></td>
-    <td colspan='5' align='center'>pass</td>
+<tr id='ft9.1' class='none'>
+    <td class='failCase'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft9.1')" >
+        fail</a>
+
+    <div id='div_ft9.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft9.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft9.1: Traceback (most recent call last):
+  File "analysis_fortune.py", line 355, in test_normal
+    table_columns=GetFinancialPageUserDailyData.COLUMNS)
+  File "analysis_fortune.py", line 558, in checking
+    self.assertEqual(str(sql_result.get(column)), str(interface_result.get(column)), msg=msg_model)
+AssertionError: '20200426' != 'None'
+- 20200426
++ None
+ : 
+SQL is
+ get "chenk_zhfx:financial_page_user_daily_data", "88888,79799573" 
+ Interface is
+ http://10.20.18.174:9007/chasing/general/get_financial_page_user_daily_data
+ params is
+ {"init_date": "20200426", "fund_account": "88888", "fund_account_reversed": "88888"}
+Interface response is
+ {'error_info': 'user_token 不能为null', 'error_no': '1001'}
+    Hbase result is
+[TRowResult(row='88888,79799573', columns={'tag_base:financial_asset': TCell(value='246603.36', timestamp=1588842237239), 'tag_base:financial_daily_income': TCell(value='97911.27', timestamp=1588842237239), 'tag_base:financial_hold_data': TCell(value="[{'prod_code': 'T12139', 'prod_name': '华润信托鑫华10号', 'financial_market_value': 1035478.84, 'single_financial_day_income': 23929.74, 'end_date': '20200426'}, {'prod_code': 'SJZ992', 'prod_name': '永安国富-永富18号1期', 'financial_market_value': 1019601.76, 'single_financial_day_income': 18370.01, 'end_date': '20200426'}, {'prod_code': 'SGK660', 'prod_name': '幻方量化专享1号1期', 'financial_market_value': 1118927.47, 'single_financial_day_income': 93670.55, 'end_date': '20200426'}, {'prod_code': 'C43350', 'prod_name': '聚丰3号', 'financial_market_value': 1100469.42, 'single_financial_day_income': 113138.89, 'end_date': '20200426'}, {'prod_code': 'C43394', 'prod_name': '月月福23号', 'financial_market_value': 1062125.92, 'single_financial_day_income': 31193.54, 'end_date': '20200426'}, {'prod_code': 'C43460', 'prod_name': '润富6号', 'financial_market_value': 1088247.62, 'single_financial_day_income': 14909.03, 'end_date': '20200426'}, {'prod_code': 'C43328', 'prod_name': '吉富1号', 'financial_market_value': 1103197.92, 'single_financial_day_income': 50174.41, 'end_date': '20200426'}, {'prod_code': 'SCF241', 'prod_name': '云溪金牛A', 'financial_market_value': 1053767.51, 'single_financial_day_income': 31773.33, 'end_date': '20200426'}, {'prod_code': 'SJU205', 'prod_name': '少数派132号', 'financial_market_value': 1090630.05, 'single_financial_day_income': 4491.68, 'end_date': '20200426'}, {'prod_code': 'SGK077', 'prod_name': '私享-星华1号', 'financial_market_value': 1041176.88, 'single_financial_day_income': 102086.57, 'end_date': '20200426'}]", timestamp=1588842237239), 'tag_base:init_date': TCell(value='20200426', timestamp=1588842237239)})]
+Traceback (most recent call last):
+  File "analysis_fortune.py", line 355, in test_normal
+    table_columns=GetFinancialPageUserDailyData.COLUMNS)
+  File "analysis_fortune.py", line 558, in checking
+    self.assertEqual(str(sql_result.get(column)), str(interface_result.get(column)), msg=msg_model)
+AssertionError: '20200426' != 'None'
+- 20200426
++ None
+ : 
+SQL is
+ get "chenk_zhfx:financial_page_user_daily_data", "88888,79799573" 
+ Interface is
+ http://10.20.18.174:9007/chasing/general/get_financial_page_user_daily_data
+ params is
+ {"init_date": "20200426", "fund_account": "88888", "fund_account_reversed": "88888"}
+Interface response is
+ {'error_info': 'user_token 不能为null', 'error_no': '1001'}
+    Hbase result is
+[TRowResult(row='88888,79799573', columns={'tag_base:financial_asset': TCell(value='246603.36', timestamp=1588842237239), 'tag_base:financial_daily_income': TCell(value='97911.27', timestamp=1588842237239), 'tag_base:financial_hold_data': TCell(value="[{'prod_code': 'T12139', 'prod_name': '华润信托鑫华10号', 'financial_market_value': 1035478.84, 'single_financial_day_income': 23929.74, 'end_date': '20200426'}, {'prod_code': 'SJZ992', 'prod_name': '永安国富-永富18号1期', 'financial_market_value': 1019601.76, 'single_financial_day_income': 18370.01, 'end_date': '20200426'}, {'prod_code': 'SGK660', 'prod_name': '幻方量化专享1号1期', 'financial_market_value': 1118927.47, 'single_financial_day_income': 93670.55, 'end_date': '20200426'}, {'prod_code': 'C43350', 'prod_name': '聚丰3号', 'financial_market_value': 1100469.42, 'single_financial_day_income': 113138.89, 'end_date': '20200426'}, {'prod_code': 'C43394', 'prod_name': '月月福23号', 'financial_market_value': 1062125.92, 'single_financial_day_income': 31193.54, 'end_date': '20200426'}, {'prod_code': 'C43460', 'prod_name': '润富6号', 'financial_market_value': 1088247.62, 'single_financial_day_income': 14909.03, 'end_date': '20200426'}, {'prod_code': 'C43328', 'prod_name': '吉富1号', 'financial_market_value': 1103197.92, 'single_financial_day_income': 50174.41, 'end_date': '20200426'}, {'prod_code': 'SCF241', 'prod_name': '云溪金牛A', 'financial_market_value': 1053767.51, 'single_financial_day_income': 31773.33, 'end_date': '20200426'}, {'prod_code': 'SJU205', 'prod_name': '少数派132号', 'financial_market_value': 1090630.05, 'single_financial_day_income': 4491.68, 'end_date': '20200426'}, {'prod_code': 'SGK077', 'prod_name': '私享-星华1号', 'financial_market_value': 1041176.88, 'single_financial_day_income': 102086.57, 'end_date': '20200426'}]", timestamp=1588842237239), 'tag_base:init_date': TCell(value='20200426', timestamp=1588842237239)})]
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
 </tr>
 
-<tr class='passClass'>
+<tr class='failClass'>
     <td>GetStockPageUserDailyData</td>
     <td>1</td>
-    <td>1</td>
     <td>0</td>
+    <td>1</td>
     <td>0</td>
     <td><a href="javascript:showClassDetail('c10',1)">Detail</a></td>
 </tr>
 
-<tr id='pt10.1' class='hiddenRow'>
-    <td class='none'><div class='testcase'>test_normal</div></td>
-    <td colspan='5' align='center'>pass</td>
+<tr id='ft10.1' class='none'>
+    <td class='failCase'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft10.1')" >
+        fail</a>
+
+    <div id='div_ft10.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft10.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft10.1: Traceback (most recent call last):
+  File "analysis_fortune.py", line 424, in test_normal
+    deal_column=["hold_amount", int])
+  File "analysis_fortune.py", line 558, in checking
+    self.assertEqual(str(sql_result.get(column)), str(interface_result.get(column)), msg=msg_model)
+AssertionError: '20200426' != 'None'
+- 20200426
++ None
+ : 
+SQL is
+ get "chenk_zhfx:stock_page_user_daily_data", "88888,79799573" 
+ Interface is
+ http://10.20.18.174:9007/chasing/general/get_stock_page_user_daily_data
+ params is
+ {"init_date": "20200426", "fund_account": "88888", "fund_account_reversed": "88888"}
+Interface response is
+ {'error_info': 'user_token 不能为null', 'error_no': '1001'}
+    Hbase result is
+[TRowResult(row='88888,79799573', columns={'tag_base:infund_asset': TCell(value='69462.65', timestamp=1588833908654), 'tag_base:init_date': TCell(value='20200426', timestamp=1588833908654), 'tag_base:stock_asset': TCell(value='2847107.76', timestamp=1588833908654), 'tag_base:stock_daily_income': TCell(value='10695.96', timestamp=1588833908654), 'tag_base:stock_daily_income_ratio': TCell(value='-0.3253', timestamp=1588833908654), 'tag_base:stock_day_position': TCell(value='0.627', timestamp=1588833908654), 'tag_base:stock_hk_asset': TCell(value='76614.54', timestamp=1588833908654), 'tag_base:stock_hold_data': TCell(value="[{'stock_code': '002460', 'stock_name': '赣锋锂业', 'exchange_type': '1', 'stock_market_value': 1118668.72, 'single_stock_day_income': 9802.42, 'single_stock_day_income_ratio': 0.9639, 'hold_amount': 21198.0, 'cost_price': 69.5828, 'asset_price': 13.4786}, {'stock_code': '600388', 'stock_name': '龙净环保', 'exchange_type': '0', 'stock_market_value': 1110894.29, 'single_stock_day_income': 6707.18, 'single_stock_day_income_ratio': -0.7973, 'hold_amount': 74910.0, 'cost_price': 71.2629, 'asset_price': 40.1872}, {'stock_code': '601318', 'stock_name': '中国平安', 'exchange_type': '0', 'stock_market_value': 1094744.42, 'single_stock_day_income': 7481.86, 'single_stock_day_income_ratio': 0.6957, 'hold_amount': 67168.0, 'cost_price': 10.5638, 'asset_price': 61.0095}, {'stock_code': '002142', 'stock_name': '宁波银行', 'exchange_type': '1', 'stock_market_value': 1065597.96, 'single_stock_day_income': 328.28, 'single_stock_day_income_ratio': -0.7437, 'hold_amount': 73213.0, 'cost_price': 18.4905, 'asset_price': 51.3901}, {'stock_code': '300498', 'stock_name': '温氏股份', 'exchange_type': '1', 'stock_market_value': 1102350.1, 'single_stock_day_income': 7650.18, 'single_stock_day_income_ratio': 0.5406, 'hold_amount': 111106.0, 'cost_price': 5.2402, 'asset_price': 59.7477}, {'stock_code': '002415', 'stock_name': '海康威视', 'exchange_type': '1', 'stock_market_value': 1029126.31, 'single_stock_day_income': 1273.48, 'single_stock_day_income_ratio': 0.8775, 'hold_amount': 44869.0, 'cost_price': 8.6222, 'asset_price': 75.7152}, {'stock_code': '002475', 'stock_name': '立讯精密', 'exchange_type': '1', 'stock_market_value': 1023947.47, 'single_stock_day_income': 9810.58, 'single_stock_day_income_ratio': -0.8381, 'hold_amount': 103983.0, 'cost_price': 43.4351, 'asset_price': 44.701}, {'stock_code': '601628', 'stock_name': '中国人寿', 'exchange_type': '0', 'stock_market_value': 1087691.41, 'single_stock_day_income': 4899.31, 'single_stock_day_income_ratio': -0.477, 'hold_amount': 120284.0, 'cost_price': 39.5657, 'asset_price': 55.7318}, {'stock_code': '601328', 'stock_name': '交通银行', 'exchange_type': '0', 'stock_market_value': 1113917.13, 'single_stock_day_income': 8713.03, 'single_stock_day_income_ratio': -0.7801, 'hold_amount': 9820.0, 'cost_price': 94.3227, 'asset_price': 87.2146}, {'stock_code': '601668', 'stock_name': '中国建筑', 'exchange_type': '0', 'stock_market_value': 1087321.18, 'single_stock_day_income': 9782.94, 'single_stock_day_income_ratio': 0.0714, 'hold_amount': 37236.0, 'cost_price': 49.887, 'asset_price': 85.9956}, {'stock_code': '603288', 'stock_name': '海天味业', 'exchange_type': '0', 'stock_market_value': 1094391.42, 'single_stock_day_income': 973.83, 'single_stock_day_income_ratio': -0.2259, 'hold_amount': 114909.0, 'cost_price': 95.5682, 'asset_price': 24.7088}, {'stock_code': '300033', 'stock_name': '同花顺', 'exchange_type': '1', 'stock_market_value': 1113619.81, 'single_stock_day_income': 1242.03, 'single_stock_day_income_ratio': 0.9112, 'hold_amount': 36238.0, 'cost_price': 38.1629, 'asset_price': 20.3803}]", timestamp=1588833908654), 'tag_base:stock_hs_asset': TCell(value='43397.78', timestamp=1588833908654)})]
+Traceback (most recent call last):
+  File "analysis_fortune.py", line 424, in test_normal
+    deal_column=["hold_amount", int])
+  File "analysis_fortune.py", line 558, in checking
+    self.assertEqual(str(sql_result.get(column)), str(interface_result.get(column)), msg=msg_model)
+AssertionError: '20200426' != 'None'
+- 20200426
++ None
+ : 
+SQL is
+ get "chenk_zhfx:stock_page_user_daily_data", "88888,79799573" 
+ Interface is
+ http://10.20.18.174:9007/chasing/general/get_stock_page_user_daily_data
+ params is
+ {"init_date": "20200426", "fund_account": "88888", "fund_account_reversed": "88888"}
+Interface response is
+ {'error_info': 'user_token 不能为null', 'error_no': '1001'}
+    Hbase result is
+[TRowResult(row='88888,79799573', columns={'tag_base:infund_asset': TCell(value='69462.65', timestamp=1588833908654), 'tag_base:init_date': TCell(value='20200426', timestamp=1588833908654), 'tag_base:stock_asset': TCell(value='2847107.76', timestamp=1588833908654), 'tag_base:stock_daily_income': TCell(value='10695.96', timestamp=1588833908654), 'tag_base:stock_daily_income_ratio': TCell(value='-0.3253', timestamp=1588833908654), 'tag_base:stock_day_position': TCell(value='0.627', timestamp=1588833908654), 'tag_base:stock_hk_asset': TCell(value='76614.54', timestamp=1588833908654), 'tag_base:stock_hold_data': TCell(value="[{'stock_code': '002460', 'stock_name': '赣锋锂业', 'exchange_type': '1', 'stock_market_value': 1118668.72, 'single_stock_day_income': 9802.42, 'single_stock_day_income_ratio': 0.9639, 'hold_amount': 21198.0, 'cost_price': 69.5828, 'asset_price': 13.4786}, {'stock_code': '600388', 'stock_name': '龙净环保', 'exchange_type': '0', 'stock_market_value': 1110894.29, 'single_stock_day_income': 6707.18, 'single_stock_day_income_ratio': -0.7973, 'hold_amount': 74910.0, 'cost_price': 71.2629, 'asset_price': 40.1872}, {'stock_code': '601318', 'stock_name': '中国平安', 'exchange_type': '0', 'stock_market_value': 1094744.42, 'single_stock_day_income': 7481.86, 'single_stock_day_income_ratio': 0.6957, 'hold_amount': 67168.0, 'cost_price': 10.5638, 'asset_price': 61.0095}, {'stock_code': '002142', 'stock_name': '宁波银行', 'exchange_type': '1', 'stock_market_value': 1065597.96, 'single_stock_day_income': 328.28, 'single_stock_day_income_ratio': -0.7437, 'hold_amount': 73213.0, 'cost_price': 18.4905, 'asset_price': 51.3901}, {'stock_code': '300498', 'stock_name': '温氏股份', 'exchange_type': '1', 'stock_market_value': 1102350.1, 'single_stock_day_income': 7650.18, 'single_stock_day_income_ratio': 0.5406, 'hold_amount': 111106.0, 'cost_price': 5.2402, 'asset_price': 59.7477}, {'stock_code': '002415', 'stock_name': '海康威视', 'exchange_type': '1', 'stock_market_value': 1029126.31, 'single_stock_day_income': 1273.48, 'single_stock_day_income_ratio': 0.8775, 'hold_amount': 44869.0, 'cost_price': 8.6222, 'asset_price': 75.7152}, {'stock_code': '002475', 'stock_name': '立讯精密', 'exchange_type': '1', 'stock_market_value': 1023947.47, 'single_stock_day_income': 9810.58, 'single_stock_day_income_ratio': -0.8381, 'hold_amount': 103983.0, 'cost_price': 43.4351, 'asset_price': 44.701}, {'stock_code': '601628', 'stock_name': '中国人寿', 'exchange_type': '0', 'stock_market_value': 1087691.41, 'single_stock_day_income': 4899.31, 'single_stock_day_income_ratio': -0.477, 'hold_amount': 120284.0, 'cost_price': 39.5657, 'asset_price': 55.7318}, {'stock_code': '601328', 'stock_name': '交通银行', 'exchange_type': '0', 'stock_market_value': 1113917.13, 'single_stock_day_income': 8713.03, 'single_stock_day_income_ratio': -0.7801, 'hold_amount': 9820.0, 'cost_price': 94.3227, 'asset_price': 87.2146}, {'stock_code': '601668', 'stock_name': '中国建筑', 'exchange_type': '0', 'stock_market_value': 1087321.18, 'single_stock_day_income': 9782.94, 'single_stock_day_income_ratio': 0.0714, 'hold_amount': 37236.0, 'cost_price': 49.887, 'asset_price': 85.9956}, {'stock_code': '603288', 'stock_name': '海天味业', 'exchange_type': '0', 'stock_market_value': 1094391.42, 'single_stock_day_income': 973.83, 'single_stock_day_income_ratio': -0.2259, 'hold_amount': 114909.0, 'cost_price': 95.5682, 'asset_price': 24.7088}, {'stock_code': '300033', 'stock_name': '同花顺', 'exchange_type': '1', 'stock_market_value': 1113619.81, 'single_stock_day_income': 1242.03, 'single_stock_day_income_ratio': 0.9112, 'hold_amount': 36238.0, 'cost_price': 38.1629, 'asset_price': 20.3803}]", timestamp=1588833908654), 'tag_base:stock_hs_asset': TCell(value='43397.78', timestamp=1588833908654)})]
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
 </tr>
 
-<tr class='passClass'>
+<tr class='errorClass'>
     <td>GetStockPageUserIntervalData</td>
     <td>1</td>
+    <td>0</td>
+    <td>0</td>
     <td>1</td>
-    <td>0</td>
-    <td>0</td>
     <td><a href="javascript:showClassDetail('c11',1)">Detail</a></td>
 </tr>
 
-<tr id='pt11.1' class='hiddenRow'>
-    <td class='none'><div class='testcase'>test_normal</div></td>
-    <td colspan='5' align='center'>pass</td>
+<tr id='ft11.1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft11.1')" >
+        error</a>
+
+    <div id='div_ft11.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft11.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft11.1: Traceback (most recent call last):
+  File "analysis_fortune.py", line 460, in test_normal
+    special_column=["stock_trade_times"])
+  File "analysis_fortune.py", line 552, in checking
+    list_name=params.get("list_name"))
+  File "D:\scripts\git\unittests\utils\business\business.py", line 124, in deal
+    if isinstance(eval(column_value), list):
+  File "&lt;string&gt;", line 1
+    000001
+         ^
+SyntaxError: invalid token
+Traceback (most recent call last):
+  File "analysis_fortune.py", line 460, in test_normal
+    special_column=["stock_trade_times"])
+  File "analysis_fortune.py", line 552, in checking
+    list_name=params.get("list_name"))
+  File "D:\scripts\git\unittests\utils\business\business.py", line 124, in deal
+    if isinstance(eval(column_value), list):
+  File "&lt;string&gt;", line 1
+    000001
+         ^
+SyntaxError: invalid token
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
 </tr>
 
-<tr class='passClass'>
+<tr class='errorClass'>
     <td>GetStockDetailPageData</td>
     <td>1</td>
+    <td>0</td>
+    <td>0</td>
     <td>1</td>
-    <td>0</td>
-    <td>0</td>
     <td><a href="javascript:showClassDetail('c12',1)">Detail</a></td>
 </tr>
 
-<tr id='pt12.1' class='hiddenRow'>
-    <td class='none'><div class='testcase'>test_normal</div></td>
-    <td colspan='5' align='center'>pass</td>
+<tr id='ft12.1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft12.1')" >
+        error</a>
+
+    <div id='div_ft12.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft12.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft12.1: Traceback (most recent call last):
+  File "analysis_fortune.py", line 491, in test_normal
+    list_name=["json_content", "stock_data_list"], deal_column=["business_amount", int])
+  File "analysis_fortune.py", line 570, in checking
+    for k, v in info.items():
+AttributeError: 'str' object has no attribute 'items'
+Traceback (most recent call last):
+  File "analysis_fortune.py", line 491, in test_normal
+    list_name=["json_content", "stock_data_list"], deal_column=["business_amount", int])
+  File "analysis_fortune.py", line 570, in checking
+    for k, v in info.items():
+AttributeError: 'str' object has no attribute 'items'
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
 </tr>
 
-<tr class='passClass'>
+<tr class='failClass'>
     <td>GetNewStockPageUserIntervalData</td>
     <td>1</td>
-    <td>1</td>
     <td>0</td>
+    <td>1</td>
     <td>0</td>
     <td><a href="javascript:showClassDetail('c13',1)">Detail</a></td>
 </tr>
 
-<tr id='pt13.1' class='hiddenRow'>
-    <td class='none'><div class='testcase'>test_normal</div></td>
-    <td colspan='5' align='center'>pass</td>
+<tr id='ft13.1' class='none'>
+    <td class='failCase'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft13.1')" >
+        fail</a>
+
+    <div id='div_ft13.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft13.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft13.1: Traceback (most recent call last):
+  File "analysis_fortune.py", line 577, in checking
+    self.assertEqual(str(v), str(interface_result.get(column)[i].get(k)), msg=msg_model)
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "analysis_fortune.py", line 523, in test_normal
+    deal_column=["business_amount", int])
+  File "analysis_fortune.py", line 590, in checking
+    params.get("data"), column))
+AssertionError: 0 is not true : sql is
+ get "chenk_zhfx:new_stock_page_data", "88888,1,0,79799573" 
+ interface is
+ http://10.20.18.174:9007/chasing/general/get_new_stock_page_user_interval_data
+ params is {"fund_account": "88888", "init_date": "20200426", "page_size": "100", "interval": "1", "asset_prop": "0", "cal_init_date": "20200426", "stock_code": "002415", "exchange_type": "2", "fund_account_reversed": "88888"}
+                            Current is checking column cant get.
+Traceback (most recent call last):
+  File "analysis_fortune.py", line 577, in checking
+    self.assertEqual(str(v), str(interface_result.get(column)[i].get(k)), msg=msg_model)
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "analysis_fortune.py", line 523, in test_normal
+    deal_column=["business_amount", int])
+  File "analysis_fortune.py", line 590, in checking
+    params.get("data"), column))
+AssertionError: 0 is not true : sql is
+ get "chenk_zhfx:new_stock_page_data", "88888,1,0,79799573" 
+ interface is
+ http://10.20.18.174:9007/chasing/general/get_new_stock_page_user_interval_data
+ params is {"fund_account": "88888", "init_date": "20200426", "page_size": "100", "interval": "1", "asset_prop": "0", "cal_init_date": "20200426", "stock_code": "002415", "exchange_type": "2", "fund_account_reversed": "88888"}
+                            Current is checking column cant get.
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
 </tr>
 
 <tr id='total_row'>
     <td>Total</td>
     <td>13</td>
-    <td>13</td>
     <td>0</td>
-    <td>0</td>
+    <td>11</td>
+    <td>2</td>
     <td>&nbsp;</td>
 </tr>
 </table>

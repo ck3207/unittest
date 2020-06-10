@@ -1,5 +1,6 @@
 import random
 import datetime
+import sys
 
 
 class CaifuAnalysis:
@@ -22,7 +23,7 @@ class CaifuAnalysis:
         self.init_date_special_deal_num = 99999999
         self.start_init_date = "20190502"
         self.init_date_num = 365
-        self.interval_types = ["1", "2", "3", "4"]
+        self.interval_types = ["1", "2", "9"]
         self.f = ""
         
     def market_cumulative_data(self):        
@@ -48,11 +49,13 @@ class CaifuAnalysis:
             start_init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
                                datetime.timedelta(days=init_date_num)).strftime('%Y%m%d')
 
-            sql += sql_model.format(start_init_date, start_init_date, self.get_random_num(300, 2, 0, base_price),
+            sql += sql_model.format(str(self.init_date_special_deal_num-int(start_init_date)),
+                                    start_init_date, self.get_random_num(300, 2, 0, base_price),
                                     self.get_random_num(1, 4, 0), self.get_random_num(300, 2, 0, base_price),
                                     self.get_random_num(1, 4, 0), self.get_random_num(300, 2, 0, base_price),
                                     self.get_random_num(1, 4, 0), self.get_random_num(300, 2, 0, base_price),
                                     self.get_random_num(1, 4, 0))
+        self.f.write("use wt_hbase_chenk;\n")
         self.f.write(sql[:-1]+";\n\n")
         return
         
@@ -97,6 +100,7 @@ class CaifuAnalysis:
                                             self.get_random_num(1234567, 2, 1), self.get_random_num(1, 4, 1),
                                             self.get_random_num(1, 4, 1), self.get_random_num(1, 4, 1),
                                             self.get_random_num(1, 4, 1))
+        self.f.write("use wt_hbase_chenk;\n")
         self.f.write(sql[:-1]+";\n\n")
         return
 
@@ -323,7 +327,7 @@ class CaifuAnalysis:
     def new_stock_page_data(self):
         sql = "insert into new_stock_page_data values"
         sql_model = """('{0}',"{1}","{2}"),\n"""
-        for init_date_delay in range(0, self.init_date_num, 20):
+        for init_date_delay in range(0, self.init_date_num, 10):
             init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
                           datetime.timedelta(days=init_date_delay)).strftime('%Y%m%d')
             for fund_account_num in range(self.fund_account):
@@ -345,7 +349,7 @@ class CaifuAnalysis:
     def stock_detail_page_data(self):
         sql = "insert into stock_detail_page_data values"
         sql_model = """('{0}',"{1}"),\n"""
-        yield_init_date = self.yield_init_date(start=0, end=self.init_date_num, step=10)
+        yield_init_date = self.yield_init_date(start=0, end=self.init_date_num, step=2)
 
         while True:
             try:
@@ -388,9 +392,9 @@ class CaifuAnalysis:
         base_num = 1000000
         if kwargs.get("stock_page_user_daily_data") or kwargs.get("stock_page_user_single_stock_interval_data") :
             for stock_name, stock_code in CaifuAnalysis.STOCK_INFO.items():
-                exchange_type = "1"
+                exchange_type = "2"
                 if stock_code.startswith("6"):
-                    exchange_type = "0"
+                    exchange_type = "1"
                 if kwargs.get("stock_page_user_daily_data"):
                     element = {"stock_code": stock_code, "stock_name": stock_name, "exchange_type": exchange_type,
                                "stock_market_value": base_num + self.get_random_num(123456, 2, 1),
@@ -400,16 +404,17 @@ class CaifuAnalysis:
                                "cost_price": self.get_random_num(100, 4, 1),
                                "asset_price": self.get_random_num(100, 4, 1)}
                 elif kwargs.get("stock_page_user_single_stock_interval_data"):
-                    element = {"stock_code": stock_code, "stock_name": stock_name, "exchange_type": exchange_type,
-                               "income": self.get_random_num(123456, 2, 1),
+                    element = {"stock_code": stock_code, "stock_name": stock_name,
+                               "income": self.get_random_num(123456, 2, 0),
                                "hold_days": self.get_random_num(100, 2, 1),
-                               "hold_status": random.choice([0, 1])}
+                               "hold_status": random.choice([0, 1]),
+                               "exchange_type": exchange_type}
                 stock_hold_data.append(element)
         elif kwargs.get("stock_page_user_interval_trade_distribution"):
             for distribute_type, distribute_names in distribute_info.items():
                 value_sum = 0
                 for i, distribute_name in enumerate(distribute_names):
-                    if i == len(distribute_names):
+                    if i == len(distribute_names) - 1:
                         value = 1 - value_sum
                     else:
                         value = (1-value_sum) * self.get_random_num(1, 4, 1)
@@ -459,6 +464,7 @@ class CaifuAnalysis:
                                "business_amount": self.get_random_num(1000, 2, 1),
                                "first_up_rate": self.get_random_num(10, 4, 1),
                                "total_up_rate": self.get_random_num(20, 4, 1)}
+                    stock_hold_data.append(element)
             elif kwargs.get("bond_content"):
                 for stock_name, stock_code in CaifuAnalysis.BOND_INFO.items():
                     element = {"stock_name": stock_name, "stock_code": stock_code,
@@ -466,17 +472,18 @@ class CaifuAnalysis:
                                "business_amount": self.get_random_num(1000, 2, 1),
                                "first_up_rate": self.get_random_num(10, 4, 1),
                                "total_up_rate": self.get_random_num(20, 4, 1)}
-            stock_hold_data.append(element)
+                    stock_hold_data.append(element)
         elif kwargs.get("stock_detail_page_data"):
             business_name = random.choice(list(CaifuAnalysis.BUSINESS_FLAG.keys()))
             element = {"init_date": kwargs.get("init_date"),
-                       "business_time": "{0}:{1}:{1}".format(random.randint(9, 11), random.randint(0, 60)),
+                       "business_time": "{2}{0}{1}{1}".format(random.randint(10, 11), random.randint(10, 60),
+                                                                kwargs.get("init_date")),
                        "serial_no": 10000 + random.randint(1000, 9999),
                        "business_flag": CaifuAnalysis.BUSINESS_FLAG.get(business_name),
                        "business_amount": self.get_random_num(123000, 2, 1),
                        "business_price": self.get_random_num(100, 4, 1),
                        "business_name": business_name,
-                       "business_balance": self.get_random_num(123456, 2, 0)}
+                       "business_balance": self.get_random_num(123456, 2, 1)}
             stock_hold_data.append(element)
 
         return "{}".format(stock_hold_data)
@@ -499,13 +506,13 @@ if __name__ == "__main__":
     # caifu_analysis.cash_page_user_daily_data()
     # caifu_analysis.stock_page_user_daily_data()
     # caifu_analysis.stock_page_user_interval_data()
-    # caifu_analysis.stock_page_user_single_stock_interval_data() # not inserted successful
+    # caifu_analysis.stock_page_user_single_stock_interval_data()
     # caifu_analysis.stock_page_user_interval_trade_distribution()
     # caifu_analysis.financial_page_user_daily_data()
     # caifu_analysis.financial_page_user_interval_data()
     # caifu_analysis.bond_page_user_daily_data()
     # caifu_analysis.bond_page_user_interval_data()
-    caifu_analysis.cfb_page_user_daily_data()
-    # caifu_analysis.new_stock_page_data()
+    # caifu_analysis.cfb_page_user_daily_data()
+    caifu_analysis.new_stock_page_data()
     # caifu_analysis.stock_detail_page_data()
     caifu_analysis.close_file()

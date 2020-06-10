@@ -127,6 +127,8 @@ class HbaseResultDeal:
                         data = column_value
                 except NameError:
                     data = column_value
+                except SyntaxError:
+                    data = column_value
                 if isinstance(data, tuple):
                     data = list(data)
                 real_column = column.split(":")[1]
