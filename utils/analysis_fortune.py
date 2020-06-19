@@ -470,13 +470,27 @@ class GetStockDetailPageData(unittest.TestCase):
         url = self.url_prefix + GetStockDetailPageData.INTERFACE_NAME
         data = str(self.data.copy()).replace("'", '"')
         interface_result = interfaces.request(url=url, data=data, is_get_method=False)
-        row_key = ",".join([self.data.get("fund_account_reversed"), init_date_to_cal_date(self.info.get("init_date")),
-                            self.info.get("stock_code"), self.info.get("exchange_type")])
+        hbase_result_list = []
+        hbase_result_dict = {}
+        init_date_base = special_date.get_init_date(self.info.get("init_date"), self.info.get("interval"))
+        init_date_base = special_date.get_date(init_date=init_date_base, delay=1)
+        for i in range(0, 365, 1):
+            init_date = special_date.get_date(init_date=init_date_base, delay=i)
+            row_key = ",".join([self.data.get("fund_account_reversed"), init_date_to_cal_date(init_date),
+                                self.info.get("stock_code"), self.info.get("exchange_type")])
 
-        hbase_result_origin = hbase_client.getRow(tableName=GetStockDetailPageData.TABLE_NAME, row=row_key)
+            hbase_result_origin = hbase_client.getRow(tableName=GetStockDetailPageData.TABLE_NAME, row=row_key)
+            hbase_result_to_dict = hbase_result_deal.hbase_result_to_dict(hbase_result=hbase_result_origin,
+                                                                          func={"json_content": eval},
+                                                                          json_content="json_content")
+            if len(hbase_result_to_dict) > 0:
+                hbase_result_list.insert(0, hbase_result_to_dict.get("json_content")[0])
+            if init_date == self.info.get("init_date"):
+                break
+        hbase_result_dict.setdefault("stock_data_list", hbase_result_list)
         hbase_command = """get "{0}", "{1}" """.format(GetStockDetailPageData.TABLE_NAME, row_key)
 
-        checking(self=self, class_name=GetStockDetailPageData, sql_result=hbase_result_origin,
+        checking(self=self, class_name=GetStockDetailPageData, sql_result=hbase_result_dict,
                  interface_result=interface_result, is_hbase_result=True, is_json_content=True,
                  sql=hbase_command, url=url, data=data, table_columns=GetStockDetailPageData.COLUMNS,
                  list_name=["json_content", "stock_data_list"], deal_column=["business_amount", int])

@@ -157,11 +157,14 @@ class HbaseResultDeal:
                     hbase_dict.setdefault(list_name[list_name.index(column.split(":")[1])+1], json_content_list)
         return hbase_dict
 
-    def hbase_result_to_dict(self, hbase_result, func={}, **columns):
+    def hbase_result_to_dict(self, hbase_result, func={}, *column, **columns):
         """hbase 获取的数据 hbase data，转化成一个字典项"""
         if not hbase_result:
             return {}
         hbase_dict = {}
+        if len(column) > 0:
+            for each in column:
+                columns.setdefault(each, each)
         for column, value in columns.items():
             # 处理hbase 获取出来的column
             if ":" in column:

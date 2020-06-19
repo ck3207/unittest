@@ -15,7 +15,8 @@ class CaifuAnalysis:
     BOND_INFO = {"国轩转债": "128068", "振德转债": "113555", "博特转债": "113571", "希望转债": "127015",
                  "华夏转债": "128077", "精测转债": "123025", "新泉转债": "113509", "唐人转债": "128092",
                  "环境转债": "113028", "中宠转债": "128054", "至纯转债": "113556"}
-    BUSINESS_FLAG = {"证券卖出":"4001", "证券买入": "4002", "红股入账": "4016", "股息入账": "4015"}
+    # BUSINESS_FLAG = {"卖出":"4001", "买入": "4002", "分红": "4016", "股息入账": "4015"}
+    BUSINESS_FLAG = {"卖出":"4001", "买入": "4002", "分红": "4016"}
 
     def __init__(self):
         self.start_fund_account = 88888
@@ -23,7 +24,7 @@ class CaifuAnalysis:
         self.init_date_special_deal_num = 99999999
         self.start_init_date = "20190502"
         self.init_date_num = 365
-        self.interval_types = ["1", "2", "9"]
+        self.interval_types = ["1", "3", "9"]
         self.f = ""
         
     def market_cumulative_data(self):        
@@ -61,7 +62,7 @@ class CaifuAnalysis:
         
     def home_page_user_daily_data(self):
         sql = "insert into home_page_user_daily_data values"
-        sql_model = "('{0}','{1}',{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12}),"
+        sql_model = "('{0}','{1}',{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13}),"
         base_price = 3000
         for init_date_num in range(self.init_date_num):
             start_init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
@@ -75,7 +76,9 @@ class CaifuAnalysis:
                                         self.get_random_num(123456, 2, 1), self.get_random_num(1, 4, 0),
                                         self.get_random_num(123456, 2, 1), self.get_random_num(123456, 2, 1),
                                         self.get_random_num(123456, 2, 1), self.get_random_num(123456, 2, 1),
-                                        self.get_random_num(123456, 2, 1), self.get_random_num(123456, 2, 1))
+                                        self.get_random_num(123456, 2, 1), self.get_random_num(123456, 2, 1),
+                                        self.get_random_num(123456, 2, 1))
+        self.f.write("use wt_hbase_chenk;\n")
         self.f.write(sql[:-1]+";\n\n")
         return
 
@@ -130,6 +133,7 @@ class CaifuAnalysis:
                 sql += sql_model.format(",".join([fund_account, str(self.init_date_special_deal_num-int(init_date))]),
                                         init_date, self.get_random_num(123456, 2, 1), self.get_random_num(123456, 2, 1),
                                         self.get_random_num(123456, 2, 1))
+        self.f.write("use wt_hbase_chenk;\n")
         self.f.write(sql[:-1]+";\n\n")
         return
 
@@ -309,7 +313,7 @@ class CaifuAnalysis:
 
     def cfb_page_user_daily_data(self):
         sql = "insert into cfb_page_user_daily_data values"
-        sql_model = """('{0}','{1}',{2},{3}),\n"""
+        sql_model = """('{0}','{1}',{2},{3},{4}),\n"""
         for init_date_delay in range(self.init_date_num):
             init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
                           datetime.timedelta(days=init_date_delay)).strftime('%Y%m%d')
@@ -318,7 +322,7 @@ class CaifuAnalysis:
 
                 sql += sql_model.format(",".join([fund_account, str(self.init_date_special_deal_num-int(init_date))]),
                                         init_date, self.get_random_num(12345678, 2, 1),
-                                        self.get_random_num(123456, 2, 1))
+                                        self.get_random_num(123456, 2, 1), self.get_random_num(123456, 2, 1))
 
         self.f.write("use wt_hbase_chenk;\n")
         self.f.write(sql[:-2]+";\n\n")
@@ -327,7 +331,7 @@ class CaifuAnalysis:
     def new_stock_page_data(self):
         sql = "insert into new_stock_page_data values"
         sql_model = """('{0}',"{1}","{2}"),\n"""
-        for init_date_delay in range(0, self.init_date_num, 10):
+        for init_date_delay in range(0, self.init_date_num, 5):
             init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
                           datetime.timedelta(days=init_date_delay)).strftime('%Y%m%d')
             for fund_account_num in range(self.fund_account):
@@ -513,6 +517,6 @@ if __name__ == "__main__":
     # caifu_analysis.bond_page_user_daily_data()
     # caifu_analysis.bond_page_user_interval_data()
     # caifu_analysis.cfb_page_user_daily_data()
-    caifu_analysis.new_stock_page_data()
-    # caifu_analysis.stock_detail_page_data()
+    # caifu_analysis.new_stock_page_data()
+    caifu_analysis.stock_detail_page_data()
     caifu_analysis.close_file()

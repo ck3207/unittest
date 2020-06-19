@@ -189,9 +189,9 @@ function showOutput(id, name) {
 
 <div class='heading'>
 <h1>测试报告</h1>
-<p class='attribute'><strong>Start Time:</strong> 2020-06-10 20:03:05</p>
-<p class='attribute'><strong>Duration:</strong> 0:00:00.730000</p>
-<p class='attribute'><strong>Status:</strong> Pass 12 Error 1</p>
+<p class='attribute'><strong>Start Time:</strong> 2020-06-15 19:56:13</p>
+<p class='attribute'><strong>Duration:</strong> 0:00:01.640000</p>
+<p class='attribute'><strong>Status:</strong> Pass 13</p>
 
 <p class='description'>单元测试报告：</p>
 </div>
@@ -375,49 +375,18 @@ function showOutput(id, name) {
     <td colspan='5' align='center'>pass</td>
 </tr>
 
-<tr class='errorClass'>
+<tr class='passClass'>
     <td>GetStockDetailPageData</td>
     <td>1</td>
-    <td>0</td>
-    <td>0</td>
     <td>1</td>
+    <td>0</td>
+    <td>0</td>
     <td><a href="javascript:showClassDetail('c12',1)">Detail</a></td>
 </tr>
 
-<tr id='ft12.1' class='none'>
-    <td class='errorCase'><div class='testcase'>test_normal</div></td>
-    <td colspan='5' align='center'>
-
-    <!--css div popup start-->
-    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft12.1')" >
-        error</a>
-
-    <div id='div_ft12.1' class="popup_window">
-        <div style='text-align: right; color:red;cursor:pointer'>
-        <a onfocus='this.blur();' onclick="document.getElementById('div_ft12.1').style.display = 'none' " >
-           [x]</a>
-        </div>
-        <pre>
-        
-ft12.1: Traceback (most recent call last):
-  File "analysis_fortune.py", line 482, in test_normal
-    list_name=["json_content", "stock_data_list"], deal_column=["business_amount", int])
-  File "analysis_fortune.py", line 561, in checking
-    for k, v in info.items():
-AttributeError: 'str' object has no attribute 'items'
-Traceback (most recent call last):
-  File "analysis_fortune.py", line 482, in test_normal
-    list_name=["json_content", "stock_data_list"], deal_column=["business_amount", int])
-  File "analysis_fortune.py", line 561, in checking
-    for k, v in info.items():
-AttributeError: 'str' object has no attribute 'items'
-
-
-        </pre>
-    </div>
-    <!--css div popup end-->
-
-    </td>
+<tr id='pt12.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>pass</td>
 </tr>
 
 <tr class='passClass'>
@@ -437,9 +406,9 @@ AttributeError: 'str' object has no attribute 'items'
 <tr id='total_row'>
     <td>Total</td>
     <td>13</td>
-    <td>12</td>
+    <td>13</td>
     <td>0</td>
-    <td>1</td>
+    <td>0</td>
     <td>&nbsp;</td>
 </tr>
 </table>

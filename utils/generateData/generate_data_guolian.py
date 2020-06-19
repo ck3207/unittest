@@ -119,15 +119,16 @@ class GuoLianAnalysis:
         _table_name = sys._getframe().f_code.co_name
         sql = "insert into {0} values".format(_table_name)
         sql_model = "({0}),\n".format(sqls_info.get(_table_name))
-        for init_date_num in range(0, self.init_date_num, 10):
+        for init_date_num in range(0, self.init_date_num, 1):
             start_init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
                                datetime.timedelta(days=init_date_num)).strftime('%Y%m%d')
+            elements = []
             for interval_type in self.interval_types:
                 for stock_name, stock_code in GuoLianAnalysis.FINANCIAL_INFO.items():
-                    sql += sql_model.format(",".join([interval_type,
-                                                      str(self.init_date_special_deal_num-int(start_init_date))]),
-                                            {"prod_no": stock_name, "prod_code": stock_code,
-                                             "yield": str(self.get_random_num(1, 4, 0))})
+                    element = {"prod_no": stock_name, "prod_code": stock_code, "yield": str(self.get_random_num(1, 4, 0))}
+                    elements.append(element)
+                sql += sql_model.format(",".join([interval_type,
+                                                  str(self.init_date_special_deal_num-int(start_init_date))]), elements)
         self.f.write("use wt_hbase_chenk_gl;\n")
         self.f.write(sql[:-2]+";\n\n")
         return
@@ -449,7 +450,7 @@ if __name__ == "__main__":
     guolian_analysis.write_to_file("guolian_analysis.sql")
     # guolian_analysis.user_daily_asset()
     # guolian_analysis.user_daily_data()
-    guolian_analysis.his_deliver()
+    # guolian_analysis.his_deliver()
     # guolian_analysis.credit_user_daily_data()
     # guolian_analysis.basic_data()
     # guolian_analysis.credit_basic_data()
@@ -457,7 +458,7 @@ if __name__ == "__main__":
     # guolian_analysis.home_page_data()
     # guolian_analysis.interval_trade_distribution()
     # guolian_analysis.trade_statistics()
-    # guolian_analysis.interval_stock()nihaowoshinigegellllll
+    guolian_analysis.interval_stock()
     # guolian_analysis.interval_fund_rank()
     # guolian_analysis.cal_record()
 

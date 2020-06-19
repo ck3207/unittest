@@ -73,5 +73,12 @@ class Order:
         cls.conn.close()
 
 if __name__ == "__main__":
-    order = Order()
-    order.setUpClass()
+    # order = Order()
+    # order.setUpClass()
+    a = ['fund_out', 'fund_in', 'begin_asset', 'last_asset', 'net_inflow', 'asset_income', 'asset_yield',
+         'stock_income', 'wit_income', 'fund_income', 'other_income', 'draw_back', 'fund_rank', 'bond_income',
+         'otc_income', 'other_assets_income', 'begin_date', 'end_date', 'bshare_income', 'net_inflow']
+    b = ""
+    for each in a:
+        b += "{0}='{0}', ".format(each)
+    print(b)
