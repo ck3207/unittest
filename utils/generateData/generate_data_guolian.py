@@ -105,10 +105,14 @@ class GuoLianAnalysis:
             start_init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
                                datetime.timedelta(days=init_date_num)).strftime('%Y%m%d')
             for fund_account_num in range(self.fund_account):
+                if fund_account_num % 2 == 0:
+                    trade_type = "0"
+                else:
+                    trade_type = "1"
                 fund_account = "".join(reversed(str(self.start_fund_account + fund_account_num)))
                 for interval_type in self.interval_types:
                     stock_content = self.__get_stock_code_info_list(interval_stock=1)
-                    sql += sql_model.format(",".join([fund_account, interval_type, asset_prop,
+                    sql += sql_model.format(",".join([fund_account, interval_type, trade_type,
                                                       str(self.init_date_special_deal_num-int(start_init_date))]),
                                             stock_content)
         self.f.write("use wt_hbase_chenk_gl;\n")
