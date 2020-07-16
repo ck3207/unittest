@@ -19,8 +19,8 @@ class CaifuAnalysis:
     BUSINESS_FLAG = {"卖出":"4001", "买入": "4002", "分红": "4016"}
 
     def __init__(self):
-        self.start_fund_account = 88888
-        self.fund_account = 20
+        self.start_fund_account = 200030004007
+        self.fund_account = 1
         self.init_date_special_deal_num = 99999999
         self.start_init_date = "20190502"
         self.init_date_num = 365
@@ -192,7 +192,7 @@ class CaifuAnalysis:
     def stock_page_user_single_stock_interval_data(self):
         sql = "insert into stock_page_user_single_stock_interval_data values"
         sql_model = """('{0}',"{1}"),\n"""
-        for init_date_delay in range(self.init_date_num):
+        for init_date_delay in range(100, self.init_date_num, 1):
             init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
                           datetime.timedelta(days=init_date_delay)).strftime('%Y%m%d')
             for fund_account_num in range(self.fund_account):
@@ -397,8 +397,10 @@ class CaifuAnalysis:
         if kwargs.get("stock_page_user_daily_data") or kwargs.get("stock_page_user_single_stock_interval_data") :
             for stock_name, stock_code in CaifuAnalysis.STOCK_INFO.items():
                 exchange_type = "2"
+                market_suffix = ".SZ"
                 if stock_code.startswith("6"):
                     exchange_type = "1"
+                    market_suffix = ".SS"
                 if kwargs.get("stock_page_user_daily_data"):
                     element = {"stock_code": stock_code, "stock_name": stock_name, "exchange_type": exchange_type,
                                "stock_market_value": base_num + self.get_random_num(123456, 2, 1),
@@ -412,7 +414,7 @@ class CaifuAnalysis:
                                "income": self.get_random_num(123456, 2, 0),
                                "hold_days": self.get_random_num(100, 2, 1),
                                "hold_status": random.choice([0, 1]),
-                               "exchange_type": exchange_type}
+                               "exchange_type": exchange_type, "market_suffix": market_suffix}
                 stock_hold_data.append(element)
         elif kwargs.get("stock_page_user_interval_trade_distribution"):
             for distribute_type, distribute_names in distribute_info.items():
@@ -503,20 +505,20 @@ if __name__ == "__main__":
     caifu_analysis = CaifuAnalysis()
     caifu_analysis.write_to_file("caifu_analysis.sql")
     # caifu_analysis.market_cumulative_data()
-    # caifu_analysis.daily_basic_data()
-    # caifu_analysis.home_page_user_daily_data()
-    # caifu_analysis.home_page_user_interval_data()
-    # caifu_analysis.home_page_user_month_data()
-    # caifu_analysis.cash_page_user_daily_data()
-    # caifu_analysis.stock_page_user_daily_data()
-    # caifu_analysis.stock_page_user_interval_data()
-    # caifu_analysis.stock_page_user_single_stock_interval_data()
-    # caifu_analysis.stock_page_user_interval_trade_distribution()
-    # caifu_analysis.financial_page_user_daily_data()
-    # caifu_analysis.financial_page_user_interval_data()
-    # caifu_analysis.bond_page_user_daily_data()
-    # caifu_analysis.bond_page_user_interval_data()
-    # caifu_analysis.cfb_page_user_daily_data()
-    # caifu_analysis.new_stock_page_data()
+    caifu_analysis.daily_basic_data()
+    caifu_analysis.home_page_user_daily_data()
+    caifu_analysis.home_page_user_interval_data()
+    caifu_analysis.home_page_user_month_data()
+    caifu_analysis.cash_page_user_daily_data()
+    caifu_analysis.stock_page_user_daily_data()
+    caifu_analysis.stock_page_user_interval_data()
+    caifu_analysis.stock_page_user_single_stock_interval_data()
+    caifu_analysis.stock_page_user_interval_trade_distribution()
+    caifu_analysis.financial_page_user_daily_data()
+    caifu_analysis.financial_page_user_interval_data()
+    caifu_analysis.bond_page_user_daily_data()
+    caifu_analysis.bond_page_user_interval_data()
+    caifu_analysis.cfb_page_user_daily_data()
+    caifu_analysis.new_stock_page_data()
     caifu_analysis.stock_detail_page_data()
     caifu_analysis.close_file()

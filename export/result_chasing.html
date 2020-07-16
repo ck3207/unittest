@@ -189,9 +189,9 @@ function showOutput(id, name) {
 
 <div class='heading'>
 <h1>测试报告</h1>
-<p class='attribute'><strong>Start Time:</strong> 2020-06-15 19:56:13</p>
-<p class='attribute'><strong>Duration:</strong> 0:00:01.640000</p>
-<p class='attribute'><strong>Status:</strong> Pass 13</p>
+<p class='attribute'><strong>Start Time:</strong> 2020-07-08 13:35:48</p>
+<p class='attribute'><strong>Duration:</strong> 0:00:01.237000</p>
+<p class='attribute'><strong>Status:</strong> Pass 12 Failure 1</p>
 
 <p class='description'>单元测试报告：</p>
 </div>
@@ -277,18 +277,73 @@ function showOutput(id, name) {
     <td colspan='5' align='center'>pass</td>
 </tr>
 
-<tr class='passClass'>
+<tr class='failClass'>
     <td>GetCfbPageUserCurveData</td>
     <td>1</td>
-    <td>1</td>
     <td>0</td>
+    <td>1</td>
     <td>0</td>
     <td><a href="javascript:showClassDetail('c5',1)">Detail</a></td>
 </tr>
 
-<tr id='pt5.1' class='hiddenRow'>
-    <td class='none'><div class='testcase'>test_normal</div></td>
-    <td colspan='5' align='center'>pass</td>
+<tr id='ft5.1' class='none'>
+    <td class='failCase'><div class='testcase'>test_normal</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft5.1')" >
+        fail</a>
+
+    <div id='div_ft5.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft5.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft5.1: Traceback (most recent call last):
+  File "analysis_fortune.py", line 582, in checking
+    self.assertEqual(str(v), str(interface_result.get(column)[i].get(k)), msg=msg_model)
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "analysis_fortune.py", line 255, in test_normal
+    list_name=["cfbCurveDataList", "cfbCurveDataList"])
+  File "analysis_fortune.py", line 595, in checking
+    params.get("data"), column))
+AssertionError: 0 is not true : sql is
+ get "chenk_zhfx:cfb_page_user_daily_data", "88888,79799574" 
+ interface is
+ http://10.20.18.174:9007/chasing/general/get_cfb_page_user_curve_data
+ params is {"fund_account": "88888", "user_token": "88888", "init_date": "20200426", "page_size": "100", "interval": "1", "asset_prop": "0", "cal_init_date": "20200426", "stock_code": "002415", "exchange_type": "2", "fund_account_reversed": "88888"}
+                            Current is checking column cant get.
+Traceback (most recent call last):
+  File "analysis_fortune.py", line 582, in checking
+    self.assertEqual(str(v), str(interface_result.get(column)[i].get(k)), msg=msg_model)
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "analysis_fortune.py", line 255, in test_normal
+    list_name=["cfbCurveDataList", "cfbCurveDataList"])
+  File "analysis_fortune.py", line 595, in checking
+    params.get("data"), column))
+AssertionError: 0 is not true : sql is
+ get "chenk_zhfx:cfb_page_user_daily_data", "88888,79799574" 
+ interface is
+ http://10.20.18.174:9007/chasing/general/get_cfb_page_user_curve_data
+ params is {"fund_account": "88888", "user_token": "88888", "init_date": "20200426", "page_size": "100", "interval": "1", "asset_prop": "0", "cal_init_date": "20200426", "stock_code": "002415", "exchange_type": "2", "fund_account_reversed": "88888"}
+                            Current is checking column cant get.
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
 </tr>
 
 <tr class='passClass'>
@@ -406,8 +461,8 @@ function showOutput(id, name) {
 <tr id='total_row'>
     <td>Total</td>
     <td>13</td>
-    <td>13</td>
-    <td>0</td>
+    <td>12</td>
+    <td>1</td>
     <td>0</td>
     <td>&nbsp;</td>
 </tr>

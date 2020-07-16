@@ -72,6 +72,7 @@ class Order:
         cls.cur.close()
         cls.conn.close()
 
+
 if __name__ == "__main__":
     # order = Order()
     # order.setUpClass()
@@ -82,3 +83,5 @@ if __name__ == "__main__":
     for each in a:
         b += "{0}='{0}', ".format(each)
     print(b)
+
+

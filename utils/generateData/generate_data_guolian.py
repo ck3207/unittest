@@ -19,8 +19,8 @@ class GuoLianAnalysis:
     BUSINESS_FLAG = {"证券卖出":"4001", "证券买入": "4002", "红股入账": "4016", "股息入账": "4015"}
 
     def __init__(self):
-        self.start_fund_account = 88888
-        self.fund_account = 20
+        self.start_fund_account = 777700
+        self.fund_account = 1
         self.init_date_special_deal_num = 99999999
         self.start_init_date = "20190502"
         self.init_date_num = 365
@@ -452,18 +452,18 @@ class GuoLianAnalysis:
 if __name__ == "__main__":
     guolian_analysis = GuoLianAnalysis()
     guolian_analysis.write_to_file("guolian_analysis.sql")
-    # guolian_analysis.user_daily_asset()
-    # guolian_analysis.user_daily_data()
-    # guolian_analysis.his_deliver()
-    # guolian_analysis.credit_user_daily_data()
-    # guolian_analysis.basic_data()
-    # guolian_analysis.credit_basic_data()
-    # guolian_analysis.daily_basic_data()
-    # guolian_analysis.home_page_data()
-    # guolian_analysis.interval_trade_distribution()
-    # guolian_analysis.trade_statistics()
+    guolian_analysis.user_daily_asset()
+    guolian_analysis.user_daily_data()
+    guolian_analysis.his_deliver()
+    guolian_analysis.credit_user_daily_data()
+    guolian_analysis.basic_data()
+    guolian_analysis.credit_basic_data()
+    guolian_analysis.daily_basic_data()
+    guolian_analysis.home_page_data()
+    guolian_analysis.interval_trade_distribution()
+    guolian_analysis.trade_statistics()
     guolian_analysis.interval_stock()
-    # guolian_analysis.interval_fund_rank()
+    guolian_analysis.interval_fund_rank()
     # guolian_analysis.cal_record()
 
     guolian_analysis.close_file()
