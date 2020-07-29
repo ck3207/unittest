@@ -7,7 +7,8 @@ class CaifuAnalysis:
     STOCK_INFO = {"赣锋锂业": "002460", "龙净环保": "600388", "中国平安": "601318",
                   "宁波银行": "002142", "温氏股份": "300498", "海康威视": "002415",
                   "立讯精密": "002475", "中国人寿": "601628", "交通银行": "601328",
-                  "中国建筑": "601668", "海天味业": "603288", "同花顺": "300033"}
+                  "中国建筑": "601668", "海天味业": "603288", "同花顺": "300033",
+                  "财富宝": "000719"}
     FINANCIAL_INFO = {"华润信托鑫华10号": "T12139", "永安国富-永富18号1期": "SJZ992",
                       "幻方量化专享1号1期": "SGK660", "聚丰3号": "C43350",
                       "月月福23号": "C43394", "润富6号": "C43460", "吉富1号": "C43328",
@@ -19,12 +20,12 @@ class CaifuAnalysis:
     BUSINESS_FLAG = {"卖出":"4001", "买入": "4002", "分红": "4016"}
 
     def __init__(self):
-        self.start_fund_account = 200030004007
-        self.fund_account = 1
+        self.start_fund_account = 88888
+        self.fund_account = 20
         self.init_date_special_deal_num = 99999999
         self.start_init_date = "20190502"
         self.init_date_num = 365
-        self.interval_types = ["1", "3", "9"]
+        self.interval_types = ["1", ]
         self.f = ""
         
     def market_cumulative_data(self):        
@@ -137,11 +138,59 @@ class CaifuAnalysis:
         self.f.write(sql[:-1]+";\n\n")
         return
 
+    def fund_price_data(self):
+        sql = "insert into fund_price_data values"
+        sql_model = """('{0}',"{1}"),\n"""
+
+        for init_date_delay in range(self.init_date_num):
+            init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
+                          datetime.timedelta(days=init_date_delay)).strftime('%Y%m%d')
+
+            for stock_name, stock_code in CaifuAnalysis.STOCK_INFO.items():
+                stock_hold_data = []
+                element = {"init_date": init_date,
+                           "per_myriad_income": self.get_random_num(123456, 2, 0),
+                           "seven_income_ratio": self.get_random_num(1, 4, 0),
+                           "product_no": stock_code}
+                stock_hold_data.append(element)
+                sql += sql_model.format(stock_code, """{}""".format(stock_hold_data))
+
+        self.f.write("use wt_hbase_chenk;\n")
+        self.f.write(sql[:-2]+";\n\n")
+        return
+
+    def stock_detail_page_price_data(self):
+        sql = "insert into stock_detail_page_price_data values"
+        sql_model = """('{0}',"{1}"),\n"""
+
+        for init_date_delay in range(self.init_date_num):
+            init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
+                          datetime.timedelta(days=init_date_delay)).strftime('%Y%m%d')
+
+            for stock_name, stock_code in CaifuAnalysis.STOCK_INFO.items():
+                exchange_type = "1"
+                if stock_code.startswith("0"):
+                    exchange_type = "2"
+                stock_hold_data = []
+                element = {"init_date": init_date,
+                           "min_time": init_date,
+                           "open_px": self.get_random_num(10, 2, 0, 100),
+                           "high_px": self.get_random_num(10, 2, 1, 110),
+                           "low_px": self.get_random_num(-10, 2, 1, 90),
+                           "close_px": self.get_random_num(10, 2, 0, 100)}
+                stock_hold_data.append(element)
+                sql += sql_model.format(",".join([stock_code, exchange_type]),
+                                        "{}".format(stock_hold_data))
+
+        self.f.write("use wt_hbase_chenk;\n")
+        self.f.write(sql[:-2]+";\n\n")
+        return
+
     def stock_page_user_daily_data(self):
         sql = "insert into stock_page_user_daily_data values"
         sql_model = """('{0}','{1}',{2},{3},{4},{5},{6},{7},{8},"{9}"),\n"""
         base_num = 1000000
-        for init_date_delay in range(self.init_date_num):
+        for init_date_delay in range(0, self.init_date_num, 1):
             init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
                           datetime.timedelta(days=init_date_delay)).strftime('%Y%m%d')
             for fund_account_num in range(self.fund_account):
@@ -288,7 +337,7 @@ class CaifuAnalysis:
     def bond_page_user_interval_data(self):
         sql = "insert into bond_page_user_interval_data values"
         sql_model = """('{0}',{1},{2},{3},{4},{5},'{6}','{7}',{8},'{9}','{10}',{11},{12},{13},{14},{15},{16},"{17}"),\n"""
-        for init_date_delay in range(0, self.init_date_num, 10):
+        for init_date_delay in range(0, self.init_date_num, 1):
             init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
                           datetime.timedelta(days=init_date_delay)).strftime('%Y%m%d')
             for fund_account_num in range(self.fund_account):
@@ -331,7 +380,7 @@ class CaifuAnalysis:
     def new_stock_page_data(self):
         sql = "insert into new_stock_page_data values"
         sql_model = """('{0}',"{1}","{2}"),\n"""
-        for init_date_delay in range(0, self.init_date_num, 5):
+        for init_date_delay in range(0, self.init_date_num, 1):
             init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
                           datetime.timedelta(days=init_date_delay)).strftime('%Y%m%d')
             for fund_account_num in range(self.fund_account):
@@ -379,7 +428,7 @@ class CaifuAnalysis:
             return "base_num or decimal_num is not valid"
         if is_gt_0 == 1:
             is_gt = 1
-        return round(base_num * random.uniform(0, 1) * is_gt, decimal_num)
+        return round(base_num * random.uniform(0, 1) * is_gt + add_num, decimal_num)
     
     def write_to_file(self, filename):
         self.f = open(filename, mode="w", encoding="utf-8")
@@ -505,20 +554,22 @@ if __name__ == "__main__":
     caifu_analysis = CaifuAnalysis()
     caifu_analysis.write_to_file("caifu_analysis.sql")
     # caifu_analysis.market_cumulative_data()
-    caifu_analysis.daily_basic_data()
-    caifu_analysis.home_page_user_daily_data()
-    caifu_analysis.home_page_user_interval_data()
-    caifu_analysis.home_page_user_month_data()
-    caifu_analysis.cash_page_user_daily_data()
-    caifu_analysis.stock_page_user_daily_data()
-    caifu_analysis.stock_page_user_interval_data()
-    caifu_analysis.stock_page_user_single_stock_interval_data()
-    caifu_analysis.stock_page_user_interval_trade_distribution()
-    caifu_analysis.financial_page_user_daily_data()
-    caifu_analysis.financial_page_user_interval_data()
-    caifu_analysis.bond_page_user_daily_data()
-    caifu_analysis.bond_page_user_interval_data()
-    caifu_analysis.cfb_page_user_daily_data()
-    caifu_analysis.new_stock_page_data()
-    caifu_analysis.stock_detail_page_data()
+    # caifu_analysis.daily_basic_data()
+    # caifu_analysis.home_page_user_daily_data()
+    # caifu_analysis.home_page_user_interval_data()
+    # caifu_analysis.home_page_user_month_data()
+    # caifu_analysis.cash_page_user_daily_data()
+    # caifu_analysis.fund_price_data()
+    caifu_analysis.stock_detail_page_price_data()
+    # caifu_analysis.stock_page_user_daily_data()
+    # caifu_analysis.stock_page_user_interval_data()
+    # caifu_analysis.stock_page_user_single_stock_interval_data()
+    # caifu_analysis.stock_page_user_interval_trade_distribution()
+    # caifu_analysis.financial_page_user_daily_data()
+    # caifu_analysis.financial_page_user_interval_data()
+    # caifu_analysis.bond_page_user_daily_data()
+    # caifu_analysis.bond_page_user_interval_data()
+    # caifu_analysis.cfb_page_user_daily_data()
+    # caifu_analysis.new_stock_page_data()
+    # caifu_analysis.stock_detail_page_data()
     caifu_analysis.close_file()
