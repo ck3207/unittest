@@ -77,6 +77,7 @@ class DealDataFile:
 
 
 deal_data_file = DealDataFile("../files/hbase_create_2.sql")
+deal_data_file = DealDataFile("../files/hbase_big_create_gy.sql")
 deal_data_file._open_file()
 for table_name, columns in deal_data_file.get_tables_info().items():
     sql = deal_data_file.stitching_sql(table_name=table_name)

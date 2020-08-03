@@ -163,15 +163,14 @@ class CaifuAnalysis:
         sql = "insert into stock_detail_page_price_data values"
         sql_model = """('{0}',"{1}"),\n"""
 
-        for init_date_delay in range(self.init_date_num):
-            init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
-                          datetime.timedelta(days=init_date_delay)).strftime('%Y%m%d')
-
-            for stock_name, stock_code in CaifuAnalysis.STOCK_INFO.items():
+        for stock_name, stock_code in CaifuAnalysis.STOCK_INFO.items():
+            stock_hold_data = []
+            for init_date_delay in range(self.init_date_num):
+                init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
+                             datetime.timedelta(days=init_date_delay)).strftime('%Y%m%d')
                 exchange_type = "1"
                 if stock_code.startswith("0"):
                     exchange_type = "2"
-                stock_hold_data = []
                 element = {"init_date": init_date,
                            "min_time": init_date,
                            "open_px": self.get_random_num(10, 2, 0, 100),
@@ -179,8 +178,8 @@ class CaifuAnalysis:
                            "low_px": self.get_random_num(-10, 2, 1, 90),
                            "close_px": self.get_random_num(10, 2, 0, 100)}
                 stock_hold_data.append(element)
-                sql += sql_model.format(",".join([stock_code, exchange_type]),
-                                        "{}".format(stock_hold_data))
+            sql += sql_model.format(",".join([stock_code, exchange_type]),
+                                    "{}".format(stock_hold_data))
 
         self.f.write("use wt_hbase_chenk;\n")
         self.f.write(sql[:-2]+";\n\n")
