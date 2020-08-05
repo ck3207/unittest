@@ -161,21 +161,19 @@ class GuoYuanAnalysis:
         self.f.write(sql[:-2]+";\n\n")
         return
 
-    def user_daily_asset(self):
+    def user_month_data(self):
         _table_name = sys._getframe().f_code.co_name
         sql = "insert into {0} values".format(_table_name)
-        print(sqls_info.get(_table_name))
         sql_model = """({0}),\n""".format(sqls_info.get(_table_name))
-        for init_date_delay in range(self.init_date_num):
+        for init_date_delay in range(0, self.init_date_num, 30):
             init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
                           datetime.timedelta(days=init_date_delay)).strftime('%Y%m%d')
             for fund_account_num in range(self.fund_account):
                 fund_account = "".join(reversed(str(self.start_fund_account + fund_account_num)))
-                sql += sql_model.format(",".join([fund_account, str(self.init_date_special_deal_num-int(init_date))]),
-                                        init_date, self.get_random_num(12345678, 2, 1),
-                                        self.get_random_num(123456, 2, 1), self.get_random_num(12345678, 2, 1),
-                                        self.get_random_num(12345678, 2, 1), self.get_random_num(12345678, 2, 1),
-                                        self.get_random_num(12345678, 2, 1))
+                sql += sql_model.format(",".join([fund_account, str(init_date)[:6]]),
+                                        str(init_date)[:6], self.get_random_num(12345678, 2, 1),
+                                        self.get_random_num(123456, 2, 0), self.get_random_num(1, 4, 0),
+                                        self.get_random_num(12345678, 2, 0), self.get_random_num(1, 4, 0, 0.01))
 
         self.f.write("use wt_hbase_gy_test;\n")
         self.f.write(sql[:-2]+";\n\n")
@@ -200,6 +198,39 @@ class GuoYuanAnalysis:
                                         self.get_random_num(123456, 2, 1), self.get_random_num(1234, 2, 0),
                                         self.get_random_num(123456, 2, 1), self.get_random_num(1234, 2, 0),
                                         self.get_random_num(1, 4, 0), self.get_random_num(1, 4, 0))
+
+        self.f.write("use wt_hbase_gy_test;\n")
+        self.f.write(sql[:-2]+";\n\n")
+        return
+
+    def market_daily_data(self):
+        _table_name = sys._getframe().f_code.co_name
+        sql = "insert into {0} values".format(_table_name)
+        sql_model = """({0}),\n""".format(sqls_info.get(_table_name))
+        for init_date_delay in range(self.init_date_num):
+            init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
+                          datetime.timedelta(days=init_date_delay)).strftime('%Y%m%d')
+            sql += sql_model.format(str(self.init_date_special_deal_num-int(init_date)),
+                                        init_date, self.get_random_num(1, 4, 0), self.get_random_num(1, 4, 0),
+                                        self.get_random_num(1, 4, 0), self.get_random_num(1, 4, 0),
+                                        self.get_random_num(1, 4, 0), self.get_random_num(1, 4, 0))
+
+        self.f.write("use wt_hbase_gy_test;\n")
+        self.f.write(sql[:-2]+";\n\n")
+        return
+
+    def market_cumulative_data(self):
+        _table_name = sys._getframe().f_code.co_name
+        sql = "insert into {0} values".format(_table_name)
+        sql_model = """({0}),\n""".format(sqls_info.get(_table_name))
+        for init_date_delay in range(self.init_date_num):
+            init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
+                          datetime.timedelta(days=init_date_delay)).strftime('%Y%m%d')
+
+            sql += sql_model.format(str(self.init_date_special_deal_num-int(init_date)),
+                                    init_date, self.get_random_num(1, 4, 0, 1), self.get_random_num(1, 4, 0, 1),
+                                    self.get_random_num(1, 4, 0, 1), self.get_random_num(1, 4, 0, 1),
+                                    self.get_random_num(1, 4, 0, 1), self.get_random_num(1, 4, 0, 1))
 
         self.f.write("use wt_hbase_gy_test;\n")
         self.f.write(sql[:-2]+";\n\n")
@@ -234,19 +265,22 @@ class GuoYuanAnalysis:
         for init_date_delay in range(self.init_date_num):
             init_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
                           datetime.timedelta(days=init_date_delay)).strftime('%Y%m%d')
-            for fund_account_num in range(self.fund_account):
-                fund_account = "".join(reversed(str(self.start_fund_account + fund_account_num)))
-                sql += sql_model.format(",".join([fund_account, str(self.init_date_special_deal_num-int(init_date))]),
-                                        init_date, self.get_random_num(1234567, 2, 1),
-                                        self.get_random_num(123456, 2, 1), self.get_random_num(12345, 2, 0),
-                                        self.get_random_num(1, 4, 0), self.get_random_num(1, 4, 1, 1),
-                                        self.get_random_num(1, 4, 0))
+            for interval_type in self.interval_types:
+
+                for fund_account_num in range(self.fund_account):
+                    fund_account = "".join(reversed(str(self.start_fund_account + fund_account_num)))
+                    sql += sql_model.format(",".join([fund_account, interval_type, asset_prop,
+                                                      str(self.init_date_special_deal_num-int(init_date))]),
+                                            init_date, self.get_random_num(1234567, 2, 1),
+                                            self.get_random_num(123456, 2, 1), self.get_random_num(12345, 2, 0),
+                                            self.get_random_num(1, 4, 0), self.get_random_num(1, 4, 1, 1),
+                                            self.get_random_num(1, 4, 0))
 
         self.f.write("use wt_hbase_gy_test;\n")
         self.f.write(sql[:-2]+";\n\n")
         return
 
-    def home_page_data(self):
+    def user_interval_data(self):
         _table_name = sys._getframe().f_code.co_name
         sql = "insert into {0} values".format(_table_name)
         sql_model = """({0}),\n""".format(sqls_info.get(_table_name))
@@ -262,48 +296,25 @@ class GuoYuanAnalysis:
                 for interval_type in self.interval_types:
                     begin_date = (datetime.datetime.strptime(self.start_init_date, '%Y%m%d') +
                           datetime.timedelta(days=-init_date_delay*30-30)).strftime('%Y%m%d')
-                    profits = {}
-                    for i in range(6):
-                        stock_name = random.choice(list(GuoYuanAnalysis.STOCK_INFO.keys()))
-                        stock_code = GuoYuanAnalysis.STOCK_INFO.get(stock_name)
-                        exchange_type = "2"
-                        if stock_code.startswith("6"):
-                            exchange_type = "1"
-                        if i < 3:
-                            is_gt_0 = 1
-                        else:
-                            is_gt_0 = -1
-                        profits.setdefault(i, {"stock_name": stock_name, "stock_code": stock_code,
-                                               "income": str(self.get_random_num(123456, 2, 1) * is_gt_0),
-                                               "income_rate": str(self.get_random_num(1, 4, 1) * is_gt_0),
-                                               "trade_type": str(random.choice([0, 1])),
-                                               })
 
                     sql += sql_model.format(",".join([fund_account, interval_type, asset_prop,
                                                       str(self.init_date_special_deal_num-int(init_date))]),
+                                            init_date, self.get_random_num(123456, 2, 0),
+                                            self.get_random_num(1, 4, 0), self.get_random_num(1, 4, 1),
                                             self.get_random_num(123456, 2, 0), self.get_random_num(123456, 2, 0),
-                                            self.get_random_num(123456, 2, 0), self.get_random_num(123456, 2, 0),
-                                            self.get_random_num(123456, 2, 0), self.get_random_num(123456, 2, 0),
-                                            self.get_random_num(123456, 2, 0), self.get_random_num(123456, 2, 0),
-                                            self.get_random_num(1234, 2, 0), self.get_random_num(1, 4, 0),
-                                            self.get_random_num(1, 4, 0), self.get_random_num(123456, 2, 1),
-                                            self.get_random_num(123456, 2, 1), self.get_random_num(123456, 2, 1),
-                                            self.get_random_num(123456, 2, 0), self.get_random_num(123456, 2, 1),
+                                            self.get_random_num(123456, 2, 0), self.get_random_num(12345678, 2, 1),
+                                            begin_date, self.get_random_num(123456, 2, 1),
+                                            self.get_random_num(123456, 2, 1), init_date,
+                                            self.get_random_num(12345678, 2, 1),
+                                            self.get_random_num(3000, 2, 1), self.get_random_num(3000, 2, 1),
+                                            # 买卖次数
                                             self.get_random_num(1000, 2, 1), self.get_random_num(1000, 2, 1),
-                                            self.get_random_num(1, 4, 1), self.get_random_num(1, 4, 1),
-                                            self.get_random_num(100, 2, 1), self.get_random_num(100, 2, 1),
-                                            self.get_random_num(100, 2, 1), self.get_random_num(100, 2, 1),
-                                            begin_date, self.get_random_num(12345678, 2, 1),
-                                            self.get_random_num(123456, 2, 1), self.get_random_num(123456, 2, 1),
-                                            self.get_random_num(12345678, 2, 1), init_date,
-                                            self.get_random_num(1, 4, 0), self.get_random_num(100, 2, 1),
                                             self.get_random_num(100, 2, 1), self.get_random_num(1, 4, 1),
-                                            self.get_random_num(1, 4, 1), profits.get(0), profits.get(1),
-                                            profits.get(2), profits.get(3), profits.get(4), profits.get(5),
-                                            self.get_random_num(100, 2, 1), self.get_random_num(100, 2, 1),
-                                            self.get_random_num(100, 2, 1), self.get_random_num(100, 2, 1),
-                                            self.get_random_num(100, 2, 1), self.get_random_num(100, 2, 1),
-                                            self.get_random_num(1, 4, 1), random.choice([0, 1]))
+                                            self.get_random_num(123456, 2, 1), self.get_random_num(123456, 2, 1),
+                                            self.get_random_num(123456, 2, 1), self.get_random_num(100, 2, 1),
+                                            self.get_random_num(1, 4, 1), self.get_random_num(1, 4, 1),
+                                            self.get_random_num(1, 4, 1), self.get_random_num(1, 4, 1),
+                                            self.get_random_num(1, 4, 1), self.get_random_num(1, 4, 1))
 
         self.f.write("use wt_hbase_gy_test;\n")
         self.f.write(sql[:-2]+";\n\n")
@@ -382,11 +393,6 @@ class GuoYuanAnalysis:
                                "business_price": self.get_random_num(100, 4, 1),
                                "business_status": random.choice([1, 2, 3, 4]),  # 1建仓，2加仓，3减仓，4清仓
                                "business_balance": self.get_random_num(123456, 2, 0)}
-                elif kwargs.get("stock_page_user_single_stock_interval_data"):
-                    element = {"stock_code": stock_code, "stock_name": stock_name, "exchange_type": exchange_type,
-                               "income": self.get_random_num(123456, 2, 1),
-                               "hold_days": self.get_random_num(100, 2, 1),
-                               "hold_status": random.choice([0, 1])}
                 stock_hold_data.append(element)
         elif kwargs.get("his_deliver") and kwargs.get("deliver_content"):
             business_name = random.choice(list(GuoYuanAnalysis.BUSINESS_FLAG.keys()))
@@ -415,20 +421,6 @@ class GuoYuanAnalysis:
                     stock_hold_data.append(element)
                     if value_sum >= 1:
                         break
-        elif kwargs.get("financial_page_user_daily_data") or kwargs.get("financial_page_user_interval_data"):
-            for prod_name, prod_code in GuoYuanAnalysis.FINANCIAL_INFO.items():
-                if kwargs.get("financial_page_user_daily_data"):
-                    element = {"prod_code": prod_code, "prod_name": prod_name,
-                               "financial_market_value": base_num + self.get_random_num(123456, 2, 1),
-                               "single_financial_day_income": self.get_random_num(123456, 2, 1),
-                               "end_date": kwargs.get("init_date")}
-                elif kwargs.get("financial_page_user_interval_data"):
-                    element = {"prod_code": prod_code, "prod_name": prod_name,
-                               "cumu_income": self.get_random_num(123456, 2, 1),
-                               "hold_days": self.get_random_num(100, 2, 1),
-                               "end_date": kwargs.get("init_date"),
-                               "hold_status": random.choice([0, 1])}
-                stock_hold_data.append(element)
         elif kwargs.get("interval_stock"):
             for stock_name, stock_code in GuoYuanAnalysis.STOCK_INFO.items():
                 exchange_type = "2"
@@ -436,7 +428,8 @@ class GuoYuanAnalysis:
                     exchange_type = "1"
                 element = {"stock_code": stock_code, "stock_name": stock_name, "stock_type": random.choice(["0", "1"]),
                            "exchange_type": exchange_type,
-                           "income": self.get_random_num(123456, 2, 1),
+                           "hold_income": self.get_random_num(123456, 2, 0),
+                           "income_percent": self.get_random_num(1, 4, 0),
                            "hold_day": self.get_random_num(100, 2, 1),
                            "amount": self.get_random_num(100, 0, 1),
                            "hold_status": random.choice(["0", "1"]),
@@ -454,18 +447,13 @@ class GuoYuanAnalysis:
 if __name__ == "__main__":
     guolian_analysis = GuoYuanAnalysis()
     guolian_analysis.write_to_file("guoyuan_analysis.sql")
-    # guolian_analysis.user_daily_asset()
-    guolian_analysis.user_daily_data()
+    # guolian_analysis.user_daily_data()
+    # guolian_analysis.market_daily_data()
+    # guolian_analysis.market_cumulative_data()
+    # guolian_analysis.user_month_data()
+    # guolian_analysis.user_interval_data()
+    guolian_analysis.interval_stock()
     # guolian_analysis.his_deliver()
-    # guolian_analysis.credit_user_daily_data()
-    # guolian_analysis.basic_data()
-    # guolian_analysis.credit_basic_data()
-    # guolian_analysis.daily_basic_data()
-    # guolian_analysis.home_page_data()
     # guolian_analysis.interval_trade_distribution()
-    # guolian_analysis.trade_statistics()
-    # guolian_analysis.interval_stock()
-    # guolian_analysis.interval_fund_rank()
-    # guolian_analysis.cal_record()
 
     guolian_analysis.close_file()
