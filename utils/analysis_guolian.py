@@ -11,6 +11,7 @@ from HTMLTestRunner import HTMLTestRunner
 from get_configurations import get_configurations, hbase_client
 from business.interfaces import interfaces
 from business.business import cumulative_rate, get_month_account_yield, hbase_result_deal, special_date
+from business.sorting import sorting
 __author__ = "chenk"
 
 
@@ -1259,7 +1260,11 @@ class GetStockList(unittest.TestCase):
         # 处理hbase数据为接口返回的形式
         hbase_result = {}
         if len(hbase_result_dict) > 0:
-            hbase_result.setdefault("data_list", eval(hbase_result_dict.get("stock_content")))
+            stock_content = eval(hbase_result_dict.get("stock_content"))
+            data_list_after_sorting = sorting.sorting_data_list(data_list=stock_content,
+                                                                sorting_columns=["hold_status", "income"],
+                                                                is_reverse=True)
+            hbase_result.setdefault("data_list", data_list_after_sorting)
 
         hbase_command = """get "{0}", "{1}" """.format(GetStockList.TABLE_NAME, row_key)
         # self.assertTrue(0, msg="hbase: {0}\n; interface: {1}".format(hbase_result_dict, interface_result))
@@ -1302,7 +1307,11 @@ class CreditGetStockList(unittest.TestCase):
         # 处理hbase数据为接口返回的形式
         hbase_result = {}
         if len(hbase_result_dict) > 0:
-            hbase_result.setdefault("data_list", eval(hbase_result_dict.get("stock_content")))
+            stock_content = eval(hbase_result_dict.get("stock_content"))
+            data_list_after_sorting = sorting.sorting_data_list(data_list=stock_content,
+                                                                sorting_columns=["hold_status", "income"],
+                                                                is_reverse=True)
+            hbase_result.setdefault("data_list", data_list_after_sorting)
 
         hbase_command = """get "{0}", "{1}" """.format(CreditGetStockList.TABLE_NAME, row_key)
         # self.assertTrue(0, msg="hbase: {0}\n; interface: {1}".format(hbase_result_dict, interface_result))
